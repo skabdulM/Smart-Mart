@@ -7,14 +7,23 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque perspiciatis
-    labore blanditiis provident eveniet dolor praesentium modi similique
-    adipisci nulla sequi ut quaerat repellat numquam sapiente sunt dicta omnis,
-    rem velit? Voluptatum expedita, animi et reiciendis nulla cupiditate enim,
-    nam voluptatibus, doloribus saepe quisquam veritatis nisi! Quibusdam quos,
-    quod hic delectus, minus, iusto reprehenderit qui rerum autem dignissimos
-    aliquam dolorum sed. Doloribus totam corrupti reiciendis recusandae modi
-    quisquam.
-  </p>
+  <ion-card class="ion-card">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <qrcode
+        [qrdata]="generateQr"
+        [width]="256"
+        [errorCorrectionLevel]="'Q'"
+        colorLight=#00ffff
+        elementType="canvas"
+        ></qrcode>
+        <!-- colorDark=#3f51b5ff -->
+        wadwad
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <div>
+   
+  </div>
+  <ion-button (click)="Qrwithid()"> Generate Product </ion-button>
 </ion-content>
