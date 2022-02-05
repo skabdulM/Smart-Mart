@@ -24,11 +24,13 @@ const routes: Routes = [
         (m) => m.ProductsPageModule
       ),
   },
+
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
   },
 ];
 
