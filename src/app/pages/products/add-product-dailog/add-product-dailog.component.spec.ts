@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DailogBoxComponent } from './dailog-box.component';
+import { AddProductDailogComponent } from './add-product-dailog.component';
 
-describe('DailogBoxComponent', () => {
-  let component: DailogBoxComponent;
-  let fixture: ComponentFixture<DailogBoxComponent>;
+describe('AddProductDailogComponent', () => {
+  let component: AddProductDailogComponent;
+  let fixture: ComponentFixture<AddProductDailogComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DailogBoxComponent ],
+      declarations: [ AddProductDailogComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DailogBoxComponent);
+    fixture = TestBed.createComponent(AddProductDailogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

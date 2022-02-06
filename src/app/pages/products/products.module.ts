@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-// import {MatDialogModule} from '@angular/material/dialog';
-
 import { ProductsPageRoutingModule } from './products-routing.module';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { ProductsPage } from './products.page';
 import { QRCodeModule } from 'angularx-qrcode';
-
+import { AddProductDailogComponent } from './add-product-dailog/add-product-dailog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,8 +14,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     IonicModule,
     ProductsPageRoutingModule,
     QRCodeModule,
-    // MatDialogModule
+    MatDialogModule,
+    // AddProductDailogComponent
   ],
-  declarations: [ProductsPage]
+  declarations: [ProductsPage,AddProductDailogComponent],
 })
 export class ProductsPageModule {}

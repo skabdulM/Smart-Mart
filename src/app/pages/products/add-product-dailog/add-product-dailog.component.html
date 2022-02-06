@@ -1,0 +1,12 @@
+<div class="qrcode">
+  <qrcode
+    [qrdata]="generateQr"
+    [width]="256"
+    [elementType]="'img'"
+    [errorCorrectionLevel]="'Q'"
+    cssClass="center"
+    ></qrcode>
+  </div>
+<!-- colorLight="#00ffff" -->
+
+<ion-button (click)="Qrwithid()"> Generate Product </ion-button>

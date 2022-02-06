@@ -1,0 +1,10 @@
+::ng-deep mat-dialog-container {
+  border-radius: 15px !important;
+  background-color: #d7aefb !important;
+}
+.input {
+  width: 100%;
+}
+.mat-hint {
+  font-size: 12px;
+}

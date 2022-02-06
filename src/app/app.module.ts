@@ -10,9 +10,10 @@ import { getAnalytics } from 'firebase/analytics';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [AppComponent, NavBarComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule,],
 
   providers: [],
   bootstrap: [AppComponent],
