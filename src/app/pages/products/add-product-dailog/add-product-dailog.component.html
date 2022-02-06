@@ -1,3 +1,46 @@
+<ion-item>
+  <ion-label position="floating">Product Name</ion-label>
+  <ion-input
+    inputmode="text"
+    placeholder="Product Name"
+    minlength="5"
+    maxlength="25"
+    clearInput
+    spellcheck="true"
+    required="true"
+  ></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label position="stacked">Description</ion-label>
+  <ion-textarea
+    inputmode="text"
+    rows="6"
+    cols="20"
+    placeholder="Enter any notes here..."
+    spellcheck="true"
+    required="true"
+    wrap="hard"
+  >
+  </ion-textarea>
+</ion-item>
+
+<label class="image-upload-container btn btn-bwm">
+  <span>Select Image</span>
+  <input
+    #imageInput
+    type="file"
+    accept="image/*"
+    (change)="processFile(imageInput)"
+  />
+</label>
+
+<div *ngIf="selectedFile" class="imgc">
+  <div
+    class="img"
+    [ngStyle]="{ 'background-image': 'url(' + selectedFile.src + ')' }"
+  ></div>
+</div>
+
 <div class="qrcode">
   <qrcode
     [qrdata]="generateQr"
@@ -5,8 +48,10 @@
     [elementType]="'img'"
     [errorCorrectionLevel]="'Q'"
     cssClass="center"
-    ></qrcode>
-  </div>
+  >
+  </qrcode>
+  {{ generateQr }}
+</div>
 <!-- colorLight="#00ffff" -->
 
 <ion-button (click)="Qrwithid()"> Generate Product </ion-button>

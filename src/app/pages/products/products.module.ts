@@ -7,6 +7,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ProductsPage } from './products.page';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AddProductDailogComponent } from './add-product-dailog/add-product-dailog.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +19,9 @@ import { AddProductDailogComponent } from './add-product-dailog/add-product-dail
     ProductsPageRoutingModule,
     QRCodeModule,
     MatDialogModule,
+    MatInputModule,
+    MatIconModule,
+    MatFormFieldModule
     // AddProductDailogComponent
   ],
   declarations: [ProductsPage,AddProductDailogComponent],

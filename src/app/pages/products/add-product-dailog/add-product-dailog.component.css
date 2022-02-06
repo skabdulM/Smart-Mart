@@ -2,9 +2,32 @@
   border-radius: 15px !important;
   background-color: #d7aefb !important;
 }
-.input {
-  width: 100%;
+.btn-bwm{
+  background-color: red;
+  border-color: palegoldenrod;
+  color: aliceblue;
+  padding: 5px 10px;
+  border-radius: 5px;
+  /* font-size: 20px; */
+  /* &:hover,&:focus,&:active{
+  border-color: blue;
+
+  } */
 }
-.mat-hint {
-  font-size: 12px;
+input{
+  display: none;
+}
+.image-upload-container{
+  cursor: pointer;
+
+}
+.imgc{
+  background-color: #f7f7f7;
+  position: relative;
+}
+.img{
+  background:center center no-repeat;
+  background-size: contain;
+  height: 114px;
+  width: 114px;
 }
