@@ -7,7 +7,74 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-button (click)="openDialog()">
-    Generate Product
-  </ion-button>
+  <ion-grid class="ion-text-center">
+    <!-- <ion-row class="ion-margin">
+      <ion-col>
+        <ion-title>
+          <ion-text color="default">
+            This afhaiujhfiuahwoihno
+          </ion-text>
+        </ion-title>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row class="header-row">
+      <ion-col>
+        <ion-text>Sr No</ion-text>
+      </ion-col>
+
+      <ion-col>
+        <ion-text>Product Name</ion-text>
+      </ion-col>
+
+      <ion-col>
+        <ion-text>Product Description</ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-text>Product Image</ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-text>Product QRcode</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let product of products let i=index;">
+      <ion-col>
+        <ion-text>{{i+1}}</ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-text>{{product.productName}}</ion-text>
+      </ion-col>
+
+      <ion-col>
+        <ion-text class="ion-wrap">{{product.productDescription}}</ion-text>
+      </ion-col>
+
+      <ion-col>
+        <div class="imgc">
+          <div
+            class="img"
+            [ngStyle]="{ 'background-image': 'url(' + product.productImage + ')' }"
+          ></div>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <qrcode
+          [qrdata]="product.productId"
+          [width]="256"
+          [elementType]="'img'"
+          [errorCorrectionLevel]="'Q'"
+          cssClass="center"
+        ></qrcode>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <div *ngFor="let product of products">
+
+    <img src=> 
+  </div> -->
+  <ion-button (click)="openDialog()"> Generate Product </ion-button>
+  <!-- <img src={{products[0].productImage}}/> -->
+  <!-- {{product.productImage}} -->
 </ion-content>

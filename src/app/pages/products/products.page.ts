@@ -9,7 +9,7 @@ import { AddProductDailogComponent } from './add-product-dailog/add-product-dail
 })
 export class ProductsPage implements OnInit {
   constructor(public dialog: MatDialog) {}
-
+  products: any = [];
   ngOnInit() {}
 
   openDialog() {
@@ -17,19 +17,18 @@ export class ProductsPage implements OnInit {
       width: '650px',
       // data: note,
     });
-    // dialogRef.afterClosed().subscribe({
-    //   next: (result) => {
-    //     if (result.redirect === 'delete') {
-    //       this.noteService.deleteNote(result).subscribe(() => this.fetchNote());
-    //       this.openSnackBar('Note Deleted !!', '');
-    //     }else if(result.redirect === 'close'){
-
-    //     }
-    //     else {
-    //       this.noteService.updateNote(result).subscribe(() => this.fetchNote());
-    //       this.openSnackBar('Note Updated !!', 'Ok');
-    //     }
-    //   },
-    // });
+    dialogRef.afterClosed().subscribe((addProduct) => {
+      if (addProduct.redirect === 'close') {
+        console.log(addProduct.redirect);
+      } else {
+        const product = {
+          productId: addProduct.productId,
+          productName: addProduct.productName,
+          productDescription: addProduct.productDescription,
+          productImage: addProduct.productImage,
+        };
+        this.products.push(product);
+      }
+    });
   }
 }
