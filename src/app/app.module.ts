@@ -8,16 +8,31 @@ import { environment } from '../environments/environment';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getStorage } from 'firebase/storage';
-import { getFirestore } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  Firestore,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [AppComponent, NavBarComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule,],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+  ],
 
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-const app = initializeApp(environment.firebaseConfig);
-const analytics = getAnalytics(app);

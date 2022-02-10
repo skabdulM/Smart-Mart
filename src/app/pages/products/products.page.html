@@ -31,10 +31,16 @@
         <ion-text>Product Description</ion-text>
       </ion-col>
       <ion-col>
+        <ion-text>Product price</ion-text>
+      </ion-col>
+      <ion-col>
         <ion-text>Product Image</ion-text>
       </ion-col>
       <ion-col>
         <ion-text>Product QRcode</ion-text>
+      </ion-col>
+      <ion-col>
+        <ion-text>Delete Product</ion-text>
       </ion-col>
     </ion-row>
 
@@ -51,6 +57,9 @@
       </ion-col>
 
       <ion-col>
+        <ion-text class="ion-wrap">{{product.productPrice}}</ion-text>
+      </ion-col>
+      <ion-col>
         <div class="imgc">
           <div
             class="img"
@@ -61,20 +70,42 @@
 
       <ion-col>
         <qrcode
-          [qrdata]="product.productId"
+          [qrdata]="product.id"
           [width]="256"
           [elementType]="'img'"
           [errorCorrectionLevel]="'Q'"
           cssClass="center"
         ></qrcode>
       </ion-col>
+
+      <ion-col> <ion-icon name="trash-sharp" (click)="deleteProduct(product.id)"></ion-icon> </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <div *ngFor="let product of products">
 
-    <img src=> 
-  </div> -->
+  <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let product">{{product.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="productDescription">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let product">{{product.productDescription}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="productPrice">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let product">{{product.productPrice}}</td>
+    </ng-container> -->
+
+  <!-- <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef>Symbol</th>
+      <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+    </ng-container> -->
+
+  <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table> -->
+
   <ion-button (click)="openDialog()"> Generate Product </ion-button>
-  <!-- <img src={{products[0].productImage}}/> -->
-  <!-- {{product.productImage}} -->
 </ion-content>

@@ -11,6 +11,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { ProdutsTableComponent } from './produts-table/produts-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -23,9 +28,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     MatIconModule,
-    MatFormFieldModule
-    // AddProductDailogComponent
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSnackBarModule,
   ],
-  declarations: [ProductsPage,AddProductDailogComponent],
+  declarations: [
+    ProductsPage,
+    AddProductDailogComponent,
+    ProdutsTableComponent,
+  ],
 })
 export class ProductsPageModule {}

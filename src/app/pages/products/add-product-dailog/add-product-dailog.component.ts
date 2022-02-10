@@ -2,6 +2,7 @@ import { Component, ElementRef, getNgModuleById, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { v4 as uuidv4 } from 'uuid';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -11,9 +12,7 @@ class ImageSnippet {
   templateUrl: './add-product-dailog.component.html',
   styleUrls: ['./add-product-dailog.component.css'],
 })
-
 export class AddProductDailogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<AddProductDailogComponent> // private imageService: ImageService
   ) {
@@ -28,6 +27,7 @@ export class AddProductDailogComponent implements OnInit {
   myForm: FormGroup = new FormGroup({
     productName: new FormControl('', [Validators.required]),
     productDescription: new FormControl('', [Validators.required]),
+    productAmount: new FormControl('', [Validators.required]),
     productImage: new FormControl('', [Validators.required]),
   });
 
@@ -38,7 +38,7 @@ export class AddProductDailogComponent implements OnInit {
   qrId() {
     this.generateId = uuidv4();
   }
-  
+
   // qrImg() {
   //   const img = document.querySelector('img') as HTMLImageElement;
   //   this.qrIMG = img;
@@ -54,6 +54,7 @@ export class AddProductDailogComponent implements OnInit {
       addProduct.productDescription =
         this.myForm.controls['productDescription'].value;
       addProduct.productImage = this.selectedFile.src;
+      addProduct.productAmount = this.myForm.controls['productAmount'].value;
       this.dialogRef.close(addProduct);
     } else {
       let addProduct: any = {};
@@ -69,5 +70,11 @@ export class AddProductDailogComponent implements OnInit {
       this.selectedFile = new ImageSnippet(event.target.result, file);
     });
     reader.readAsDataURL(file);
+  }
+
+  dailogClose() {
+    let addProduct: any = {};
+    addProduct.redirect = 'close';
+    this.dialogRef.close(addProduct);
   }
 }
