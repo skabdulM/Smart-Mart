@@ -1,8 +1,6 @@
-import { Component, ElementRef, getNgModuleById, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { v4 as uuidv4 } from 'uuid';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -19,7 +17,7 @@ export class AddProductDailogComponent implements OnInit {
     dialogRef.disableClose = true;
   }
 
-  generateId: string = '';
+  // generateId: string = '';
   selectedFile!: ImageSnippet;
   // hideRequired = 'true';
   // qrIMG: any = '';
@@ -31,13 +29,11 @@ export class AddProductDailogComponent implements OnInit {
     productImage: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit() {
-    this.qrId();
-  }
+  ngOnInit() {}
 
-  qrId() {
-    this.generateId = uuidv4();
-  }
+  // qrId() {
+  //   this.generateId = uuidv4();
+  // }
 
   // qrImg() {
   //   const img = document.querySelector('img') as HTMLImageElement;
@@ -49,7 +45,7 @@ export class AddProductDailogComponent implements OnInit {
     if (this.myForm.valid) {
       let addProduct: any = {};
       addProduct.redirect = 'save';
-      addProduct.productId = this.generateId;
+      // addProduct.productId = this.generateId;
       addProduct.productName = this.myForm.controls['productName'].value;
       addProduct.productDescription =
         this.myForm.controls['productDescription'].value;

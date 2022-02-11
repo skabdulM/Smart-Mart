@@ -2,32 +2,55 @@
   border-radius: 15px !important;
   background-color: #d7aefb !important;
 }
-.btn-bwm{
+ng-container {
+  --ion-background-color: transparent !important;
+}
+
+ion-list {
+  --ion-background-color: transparent !important;
+  --ion-border-color: transparent !important;
+}
+ion-item {
+  padding-bottom: 5px;
+}
+.try {
+  --ion-border-color: transparent !important;
+}
+/* .btn-bwm {
   background-color: skyblue;
   border-color: palegoldenrod;
   color: aliceblue;
   padding: 5px 10px;
   border-radius: 5px;
-  /* font-size: 20px; */
-  /* &:hover,&:focus,&:active{
+  /* font-size: 20px; 
+  &:hover,&:focus,&:active{
   border-color: blue;
-
-  } */
+  } 
+} */
+ion-text {
+  background-color: skyblue;
+  border-color: palegoldenrod;
+  color: rgb(0, 0, 0);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
 }
-input{
+
+.imageInput {
   display: none;
 }
-.image-upload-container{
+/* .image-upload-container{
   cursor: pointer;
 
-}
-.imgc{
-  background-color: #f7f7f7;
+} */
+.imgc {
+  background-color: transparent;
   position: relative;
 }
-.img{
-  background:center center no-repeat;
+.img {
+  background: center center no-repeat;
   background-size: contain;
-  height: 114px;
-  width: 114px;
+  height: 150px;
+  width: 100%;
 }

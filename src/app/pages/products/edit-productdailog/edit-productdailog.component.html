@@ -1,4 +1,4 @@
-<form [formGroup]="myForm">
+<form [formGroup]="editProduct">
   <ion-item color="transparent">
     <ion-label position="stacked">Product Name</ion-label>
     <ion-input
@@ -29,9 +29,6 @@
   </ion-item>
   <ion-item color="transparent">
     <ion-label position="stacked">Product Price</ion-label>
-    <!-- minlength="2" -->
-    <!-- min="0" oninput="this.value = 
- !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" -->
     <ion-input
       placeholder="Product Price in rupees"
       type="number"
@@ -60,12 +57,17 @@
   <div *ngIf="selectedFile" class="imgc">
     <div
       class="img"
-      [ngStyle]="{ 'background-image': 'url(' + selectedFile.src + ')' }"
+      [ngStyle]="{ 'background-image': 'url(' + selectedFile + ')' }"
+    ></div>
+  </div>
+  <div *ngIf="updatedImage" class="imgc">
+    <div
+      class="img"
+      [ngStyle]="{ 'background-image': 'url(' + updatedImage.src + ')' }"
     ></div>
   </div>
 </form>
-
-<ion-button [disabled]="myForm.invalid" type="submit" (click)="addProduct()">
+<!-- <ion-button [disabled]="myForm.invalid" type="submit" (click)="addProduct()">
   Generate Product
-</ion-button>
-<ion-button (click)="dailogClose()">Close</ion-button>
+</ion-button> -->
+<!-- <ion-button (click)="dailogClose()">Close</ion-button> -->

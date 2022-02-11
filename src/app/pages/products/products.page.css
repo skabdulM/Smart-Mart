@@ -1,25 +1,11 @@
-.img{
-    background:center center no-repeat;
-    background-size: contain;
-    height: 114px;
-    width: 100%;
-  }
-  .imgc{
-    background-color: #f7f7f7;
-    position: relative;
-  }  
-  .header-row {
-    background: #7163AA;
-    color: #fff;
-    font-size: 18px;
-  }
-  
-  ion-col {
-    border: 1px solid #67c7f7;
-  }
-  .ion-wrap{
-    word-wrap: normal;
-  }
-  table {
-    width: 100%;
-  }
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* ion-button {
+  height: 40px;
+  padding-top: 5px;
+  padding-left: 120px;
+  padding-right: 120px;
+} */

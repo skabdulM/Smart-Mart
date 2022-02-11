@@ -12,10 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
-import { ProdutsTableComponent } from './produts-table/produts-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProductsTableComponent } from './products-table/products-table.component';
+import { EditProductdailogComponent } from './edit-productdailog/edit-productdailog.component';
 
 @NgModule({
   imports: [
@@ -36,8 +37,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   declarations: [
     ProductsPage,
+    ProductsTableComponent,
     AddProductDailogComponent,
-    ProdutsTableComponent,
+    EditProductdailogComponent,
   ],
 })
 export class ProductsPageModule {}
