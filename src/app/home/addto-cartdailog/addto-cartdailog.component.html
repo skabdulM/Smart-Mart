@@ -1,3 +1,39 @@
-<p>
-  addto-cartdailog works!
-</p>
+<ion-list>
+  <ion-item>
+    <ion-label position="stacked">Product Name</ion-label>
+    <ion-input
+      [readonly]="true"
+      spellcheck="true"
+      [value]="this.productInfo.productName"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Description</ion-label>
+    <ion-textarea
+      [readonly]="true"
+      rows="6"
+      cols="20"
+      spellcheck="true"
+      wrap="hard"
+      [value]="this.productInfo.productDescription"
+    >
+    </ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Product Price</ion-label>
+    <ion-input
+      [readonly]="true"
+      [value]="this.productInfo.productPrice"
+    ></ion-input>
+  </ion-item>
+  <div *ngIf="this.productInfo.productImage" class="imgc">
+    <div
+      class="img"
+      [ngStyle]="{
+        'background-image': 'url(' + this.productInfo.productImage + ')'
+      }"
+    ></div>
+  </div>
+</ion-list>
+<ion-button (click)="addtocart()">Add to Cart</ion-button>
+<ion-button (click)="dailogClose()">Close</ion-button>

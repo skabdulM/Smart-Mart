@@ -33,7 +33,7 @@ export class AppComponent {
 
   ngOnInit() {
     onAuthStateChanged(this.auth, (user) => {
-      if (user) {
+      if (user !== null) {
         this.userId = user.uid;
         this.retriveUser();
       } else {
@@ -46,7 +46,7 @@ export class AppComponent {
     onAuthStateChanged(this.auth, (user) => {
       if (user?.uid == this.userId) {
         this.addUser();
-        console.log('user added');
+        // console.log('user added');
       } else {
         this.loginGmail()
       }

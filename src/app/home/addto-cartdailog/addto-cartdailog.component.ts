@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Products } from 'src/app/products';
 
 @Component({
   selector: 'app-addto-cartdailog',
@@ -7,9 +8,29 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./addto-cartdailog.component.css'],
 })
 export class AddtoCartdailogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<AddtoCartdailogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public productInfo: Products,
+    public dialogRef: MatDialogRef<AddtoCartdailogComponent>
+  ) {
     // dialogRef.disableClose = true;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  addtocart() {
+    let addProduct: any = {};
+    addProduct.redirect = 'addtocart';
+    addProduct.productName = this.productInfo.productName;
+    addProduct.productDescription = this.productInfo.productDescription;
+    addProduct.productImage = this.productInfo.productImage;
+    addProduct.productAmount = this.productInfo.productPrice;
+    this.dialogRef.close(addProduct);
+  }
+
+  dailogClose() {
+    let addProduct: any = {};
+    addProduct.redirect = 'close';
+    this.dialogRef.close(addProduct);
+  }
 }

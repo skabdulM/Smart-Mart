@@ -2,8 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
-import { getAuth } from 'firebase/auth';
-import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithRedirect,
+} from 'firebase/auth';
+import {
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  onSnapshot,
+  setDoc,
+} from 'firebase/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
 
@@ -17,38 +29,78 @@ export class HomePage implements OnInit {
   addtoCart: FormGroup = new FormGroup({
     productId: new FormControl('', [Validators.required]),
   });
-
-  qrData: any;
-  product: any = {};
-  qrResultString: string = '';
+  // qrData: any;
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
+  provider = new GoogleAuthProvider();
+  product: any = {};
+  userId: string = '';
+  qrResultString: string = '';
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.retriveUser();
+  }
+
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
   }
 
+  retriveUser() {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user !== null) {
+        this.userId = user.uid;
+        console.log('user added');
+      } else {
+        this.loginGmail();
+      }
+    });
+  }
+
+  loginGmail() {
+    signInWithRedirect(this.auth, this.provider);
+  }
+
   getProduct() {
-    const id = this.addtoCart.controls['productId'].value;
+    const id = this.qrResultString;
     const docRef = doc(this.db, 'products', id);
     onSnapshot(docRef, (doc) => {
       this.product = {};
-      this.product = doc.data();
-      console.log(this.product);
-      this.addtoCart.controls['productId'].setValue('');
+      (this.product = doc.data()), doc.id;
+      this.addToCart();
     });
   }
 
   addToCart() {
     const dialogRef = this.dialog.open(AddtoCartdailogComponent, {
       width: '650px',
-      // data: product,
+      data: this.product,
+    });
+    dialogRef.afterClosed().subscribe((addProduct) => {
+      if (addProduct.redirect === 'addtocart') {
+        const db = getFirestore();
+        // const id = this.addtoCart.controls['productId'].value;
+        const docRef = doc(
+          db,
+          'users',
+          this.userId,
+          'cartItems',
+          this.qrResultString
+        );
+        setDoc(docRef, {
+          productName: addProduct.productName,
+          productDescription: addProduct.productDescription,
+          productPrice: addProduct.productAmount,
+          productImage: addProduct.productImage,
+        }).then(() => {
+          this.addtoCart.controls['productId'].setValue('');
+        });
+      } else {
+      }
     });
   }
 
-  productIdinput() {
-    this.qrData = this.product.id;
-  }
+  // productIdinput() {
+  //   this.qrData = this.product.id;
+  // }
 }

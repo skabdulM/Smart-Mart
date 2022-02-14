@@ -26,7 +26,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
   styleUrls: ['./user.page.css'],
 })
 export class UserPage implements OnInit {
-
   constructor() {}
 
   userPage: FormGroup = new FormGroup({
@@ -41,7 +40,7 @@ export class UserPage implements OnInit {
   userInfo: any = {};
   userId: string = '';
   userEmail: any = '';
-  
+
   ngOnInit() {
     this.userCheck();
   }
@@ -64,7 +63,6 @@ export class UserPage implements OnInit {
       snapshot.docs.forEach((doc) => {
         this.userInfo = { ...doc.data() };
         this.setValues();
-        console.log(this.userInfo);
       });
     });
   }
