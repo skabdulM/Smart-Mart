@@ -1,11 +1,9 @@
 table.mat-table {
   display: table;
-  /* width: 0%; */
   margin-left: 3%;
   margin-right: 3%;
 }
 th {
-  /* margin-left: 20px; */
   background-color: rgb(139, 199, 255);
   text-align: center;
   color: white;
@@ -16,14 +14,12 @@ td {
   text-align: left;
   background-color: aqua;
   max-width: 0px;
-  /* word-wrap: normal; */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 .mat-column-srNo {
   width: 4%;
-  /* padding-right: 5px; */
 }
 
 .mat-column-productName {
@@ -33,21 +29,15 @@ td {
 .mat-column-productDescription {
   width: 30%;
   padding-left: 5px;
-  /* padding-left: 20px; */
-  /* text-align: center; */
 }
 .mat-column-productImage {
   width: 30%;
   padding-left: 5px;
-  /* padding-left: 20px; */
-  /* text-align: center; */
 }
 
 .mat-column-productPrice {
   width: 5%;
   text-align: center;
-  /* padding-left: 20px; */
-  /* text-align: center; */
 }
 .mat-column-editProduct {
   width: 5%;

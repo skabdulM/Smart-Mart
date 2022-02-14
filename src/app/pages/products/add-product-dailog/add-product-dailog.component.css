@@ -1,21 +1,32 @@
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+/* @import "./theme/fonts.scss"; */
 ::ng-deep mat-dialog-container {
   border-radius: 15px !important;
-  background-color: #d7aefb !important;
+  /* background-color: #d7aefb !important; */
 }
+
 ng-container {
   --ion-background-color: transparent !important;
 }
-
+/* 
 ion-list {
   --ion-background-color: transparent !important;
   --ion-border-color: transparent !important;
-}
-ion-item {
-  padding-bottom: 5px;
-}
-.try {
-  --ion-border-color: transparent !important;
-}
+} */
+
 /* .btn-bwm {
   background-color: skyblue;
   border-color: palegoldenrod;
@@ -27,6 +38,7 @@ ion-item {
   border-color: blue;
   } 
 } */
+
 ion-text {
   background-color: skyblue;
   border-color: palegoldenrod;
@@ -54,3 +66,4 @@ ion-text {
   height: 150px;
   width: 100%;
 }
+

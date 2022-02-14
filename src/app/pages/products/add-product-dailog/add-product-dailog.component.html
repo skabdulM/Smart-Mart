@@ -1,6 +1,6 @@
 <form [formGroup]="myForm">
-  <ion-item color="transparent">
-    <ion-label position="stacked">Product Name</ion-label>
+  <ion-item>
+    <ion-label position="floating" class="productLable">Product Name</ion-label>
     <ion-input
       inputmode="text"
       placeholder="Product Name"
@@ -12,27 +12,24 @@
       formControlName="productName"
     ></ion-input>
   </ion-item>
-
-  <ion-item color="transparent">
-    <ion-label position="stacked">Description</ion-label>
+  <ion-item>
+    <ion-label position="floating" class="productLable">Description</ion-label>
     <ion-textarea
+      placeholder="Enter Product Description here..."
       required="true"
       inputmode="text"
       rows="6"
       cols="20"
-      placeholder="Enter Product Description here..."
       spellcheck="true"
       wrap="hard"
       formControlName="productDescription"
     >
     </ion-textarea>
   </ion-item>
-  <ion-item color="transparent">
-    <ion-label position="stacked">Product Price</ion-label>
-    <!-- minlength="2" -->
-    <!-- min="0" oninput="this.value = 
- !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" -->
+  <ion-item class="ion-padding-bottom">
+    <ion-label position="floating">Product Price</ion-label>
     <ion-input
+      class="input"
       placeholder="Product Price in rupees"
       type="number"
       onKeyPress="if(this.value.length==4) return false;"
@@ -42,9 +39,10 @@
       formControlName="productAmount"
     ></ion-input>
   </ion-item>
+
   <ng-container>
     <label>
-      <ion-text class="lable">Select Image</ion-text>
+      <ion-text>Select Image</ion-text>
       <input
         class="imageInput"
         #imageInput
@@ -64,8 +62,12 @@
     ></div>
   </div>
 </form>
-
-<ion-button [disabled]="myForm.invalid" type="submit" (click)="addProduct()">
-  Generate Product
+<ion-button
+  class="ion-margin-top"
+  [disabled]="myForm.invalid"
+  type="submit"
+  (click)="addProduct()"
+>
+  Add Product
 </ion-button>
-<ion-button (click)="dailogClose()">Close</ion-button>
+<ion-button class="ion-margin-top" (click)="dailogClose()">Close</ion-button>

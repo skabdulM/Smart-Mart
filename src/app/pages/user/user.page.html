@@ -7,12 +7,49 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-label class="lable">Name:</ion-label>
-  <ion-input required class="userform"></ion-input>
-  <ion-label class="lable">Phone Number:</ion-label>
-  <ion-input class="userform"></ion-input>
-  <ion-label class="lable">E-mail id:</ion-label>
-  <ion-input class="userform"></ion-input>
-  <ion-label class="lable">Address:</ion-label>
-  <ion-input class="userform"></ion-input>
+  <form [formGroup]="userPage">
+    <ion-item>
+      <ion-label position="floating">Name:</ion-label>
+      <ion-input
+        inputmode="text"
+        placeholder="Enter Name"
+        minlength="5"
+        maxlength="25"
+        clearInput
+        spellcheck="true"
+        required="true"
+        formControlName="userName"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Phone Number:</ion-label>
+      <ion-input
+        type="number"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        placeholder="Enter Phone Number"
+        clearInput
+        formControlName="userPhoneNo"
+        required="true"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Address:</ion-label>
+      <ion-textarea
+        inputmode="text"
+        placeholder="Enter Address"
+        wrap="hard"
+        minlength="10"
+        maxlength="200"
+        spellcheck="true"
+        required="true"
+        formControlName="userAddress"
+      ></ion-textarea>
+    </ion-item>
+    <ion-button
+      [disabled]="!(userPage.valid && userPage.dirty)"
+      (click)="setuserInfo()"
+      >Save</ion-button
+    >
+  </form>
 </ion-content>

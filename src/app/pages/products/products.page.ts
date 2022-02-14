@@ -29,7 +29,6 @@ export class ProductsPage implements OnInit {
         const db = getFirestore();
         const docRef = collection(db, 'products');
         addDoc(docRef, {
-          // productId: addProduct.productId,
           productName: addProduct.productName,
           productDescription: addProduct.productDescription,
           productPrice: addProduct.productAmount,

@@ -1,55 +1,50 @@
 <form [formGroup]="editProduct">
-  <ion-item color="transparent">
-    <ion-label position="stacked">Product Name</ion-label>
-    <ion-input
-      inputmode="text"
-      placeholder="Product Name"
-      minlength="5"
-      maxlength="25"
-      clearInput
-      spellcheck="true"
-      required="true"
-      formControlName="productName"
-    ></ion-input>
-  </ion-item>
+  <ion-label position="stacked">Product Name</ion-label>
+  <ion-input
+    inputmode="text"
+    placeholder="Product Name"
+    minlength="5"
+    maxlength="25"
+    clearInput
+    spellcheck="true"
+    required="true"
+    formControlName="productName"
+  ></ion-input>
 
-  <ion-item color="transparent">
-    <ion-label position="stacked">Description</ion-label>
-    <ion-textarea
-      required="true"
-      inputmode="text"
-      rows="6"
-      cols="20"
-      placeholder="Enter Product Description here..."
-      spellcheck="true"
-      wrap="hard"
-      formControlName="productDescription"
-    >
-    </ion-textarea>
-  </ion-item>
-  <ion-item color="transparent">
-    <ion-label position="stacked">Product Price</ion-label>
-    <ion-input
-      placeholder="Product Price in rupees"
-      type="number"
-      onKeyPress="if(this.value.length==4) return false;"
-      onkeyup="if(this.value<0){this.value= this.value * -1}"
-      max="4"
-      required="true"
-      formControlName="productAmount"
-    ></ion-input>
-  </ion-item>
+  <ion-label position="stacked">Description</ion-label>
+  <ion-textarea
+    required="true"
+    inputmode="text"
+    rows="6"
+    cols="20"
+    placeholder="Enter Product Description here..."
+    spellcheck="true"
+    wrap="hard"
+    formControlName="productDescription"
+  >
+  </ion-textarea>
+  <!-- <ion-item color="transparent"> -->
+  <ion-label position="stacked">Product Price</ion-label>
+  <ion-input
+    placeholder="Product Price in rupees"
+    type="number"
+    onKeyPress="if(this.value.length==4) return false;"
+    onkeyup="if(this.value<0){this.value= this.value * -1}"
+    max="4"
+    required="true"
+    formControlName="productAmount"
+  ></ion-input>
+  <!-- </ion-item> -->
+
   <ng-container>
     <label>
       <ion-text class="lable">Select Image</ion-text>
       <input
         class="imageInput"
         #imageInput
-        required="true"
         type="file"
         accept="image/*"
         (change)="processFile(imageInput)"
-        formControlName="productImage"
       />
     </label>
   </ng-container>
@@ -60,14 +55,12 @@
       [ngStyle]="{ 'background-image': 'url(' + selectedFile + ')' }"
     ></div>
   </div>
-  <div *ngIf="updatedImage" class="imgc">
-    <div
-      class="img"
-      [ngStyle]="{ 'background-image': 'url(' + updatedImage.src + ')' }"
-    ></div>
-  </div>
 </form>
-<!-- <ion-button [disabled]="myForm.invalid" type="submit" (click)="addProduct()">
-  Generate Product
-</ion-button> -->
-<!-- <ion-button (click)="dailogClose()">Close</ion-button> -->
+<ion-button
+  [disabled]="!(editProduct.valid && editProduct.dirty)"
+  type="submit"
+  (click)="updateProduct()"
+>
+  Update Product
+</ion-button>
+<ion-button (click)="dailogClose()">Close</ion-button>

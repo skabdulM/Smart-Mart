@@ -15,7 +15,7 @@ export class EditProductdailogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public productInfo: Products,
     public dialogRef: MatDialogRef<EditProductdailogComponent>
   ) {
-    // dialogRef.disableClose = true;
+    dialogRef.disableClose = true;
   }
   selectedFile: any;
   updatedImage!: ImageSnippet;
@@ -24,12 +24,9 @@ export class EditProductdailogComponent implements OnInit {
     productName: new FormControl('', [Validators.required]),
     productDescription: new FormControl('', [Validators.required]),
     productAmount: new FormControl('', [Validators.required]),
-    productImage: new FormControl('', [Validators.required]),
   });
   ngOnInit() {
     this.product = this.productInfo;
-    console.log(this.product);
-
     this.setValues();
   }
 
@@ -42,8 +39,6 @@ export class EditProductdailogComponent implements OnInit {
       this.product.productPrice
     );
     this.selectedFile = this.product.productImage;
-    // this.selectedFile.setValue(this.product.productImage)
-    // this.editProduct.controls['productId'].setValue(this.product.productId);
   }
 
   processFile(imageInput: any) {
@@ -51,10 +46,31 @@ export class EditProductdailogComponent implements OnInit {
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = null;
-      this.updatedImage = new ImageSnippet(event.target.result, file);
+      this.selectedFile = event.target.result;
     });
     reader.readAsDataURL(file);
   }
 
-  updateNote() {}
+  updateProduct() {
+    if (this.editProduct.valid) {
+      let addProduct: any = {};
+      addProduct.redirect = 'update';
+      addProduct.productId = this.productInfo.id;
+      addProduct.productName = this.editProduct.controls['productName'].value;
+      addProduct.productDescription =
+        this.editProduct.controls['productDescription'].value;
+      addProduct.productImage = this.selectedFile;
+      addProduct.productAmount =
+        this.editProduct.controls['productAmount'].value;
+      this.dialogRef.close(addProduct);
+    } else {
+      this.dailogClose();
+    }
+  }
+
+  dailogClose() {
+    let addProduct: any = {};
+    addProduct.redirect = 'close';
+    this.dialogRef.close(addProduct);
+  }
 }

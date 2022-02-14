@@ -9,11 +9,13 @@ import {
   onSnapshot,
   query,
   orderBy,
+  updateDoc,
 } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditProductdailogComponent } from '../edit-productdailog/edit-productdailog.component';
 import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
@@ -29,8 +31,6 @@ export class ProductsTableComponent implements OnInit {
     'productName',
     'productDescription',
     'productPrice',
-    // 'productImage',
-    // 'productId',
     'editProduct',
     'deleteProduct',
   ];
@@ -46,10 +46,7 @@ export class ProductsTableComponent implements OnInit {
       this.products = [];
       snapshot.docs.forEach((doc) => {
         this.products.push({ ...doc.data(), id: doc.id });
-        // this.dataSource.push({ ...doc.data(), id: doc.id });
       });
-      console.log(this.products);
-      // console.log(this.dataSource);
     });
   }
 
@@ -58,7 +55,23 @@ export class ProductsTableComponent implements OnInit {
       width: '650px',
       data: product,
     });
+    dialogRef.afterClosed().subscribe((addProduct) => {
+      if (addProduct.redirect === 'update') {
+        const docRef = doc(this.db, 'products', addProduct.productId);
+        updateDoc(docRef, {
+          productName: addProduct.productName,
+          productDescription: addProduct.productDescription,
+          productImage: addProduct.productImage,
+          productPrice: addProduct.productAmount,
+        }).then(() => {
+          this.openSnackBar('Updated!! 👏👏 ', 'Ok');
+        });
+      } else {
+        this.openSnackBar('Nothing changed', '🆗');
+      }
+    });
   }
+
   deleteProduct(id: string) {
     const docRef = doc(this.db, 'products', id);
     deleteDoc(docRef).then(() => {
