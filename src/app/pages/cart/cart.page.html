@@ -6,9 +6,32 @@
     </ion-button>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngFor="let p of products">
-  <div >
-    <label>{{p.productName}} </label>
-    <p>{{p.productDescription}}</p>
-  </div>
+<ion-content>
+  <form [formGroup]="myForm">
+    <ion-list>
+      <ion-item *ngFor="let p of products">
+        <ion-thumbnail slot="start">
+          <img [src]="p.productImage" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{p.productName}}</h2>
+          <p>{{p.productPrice*p.productQuantity}}</p>
+        </ion-label>
+        <mat-form-field class="select" slot="end" appearance="standard">
+          <mat-select
+            (selectionChange)="updateProductbyquantity($event,p.id)"
+            [(value)]="p.productQuantity"
+          >
+            <mat-option [value]="1">1</mat-option>
+            <mat-option [value]="2">2</mat-option>
+            <mat-option [value]="3">3</mat-option>
+            <mat-option [value]="4">4</mat-option>
+            <mat-option [value]="5">5</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ion-item>
+    </ion-list>
+    <ion-title>total Amount</ion-title>
+    <ion-label> </ion-label>
+  </form>
 </ion-content>

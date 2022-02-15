@@ -12,11 +12,10 @@ export class AddtoCartdailogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public productInfo: Products,
     public dialogRef: MatDialogRef<AddtoCartdailogComponent>
   ) {
-    // dialogRef.disableClose = true;
+    dialogRef.disableClose = true;
   }
-
-  ngOnInit() {
-  }
+  productQuantity = 1;
+  ngOnInit() {}
 
   addtocart() {
     let addProduct: any = {};
@@ -25,6 +24,7 @@ export class AddtoCartdailogComponent implements OnInit {
     addProduct.productDescription = this.productInfo.productDescription;
     addProduct.productImage = this.productInfo.productImage;
     addProduct.productAmount = this.productInfo.productPrice;
+    addProduct.productQuantity = this.productQuantity;
     this.dialogRef.close(addProduct);
   }
 

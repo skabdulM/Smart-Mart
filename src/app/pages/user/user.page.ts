@@ -28,26 +28,26 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 export class UserPage implements OnInit {
   constructor() {}
 
-  userPage: FormGroup = new FormGroup({
-    userName: new FormControl('', [Validators.required]),
-    userPhoneNo: new FormControl('', [Validators.required]),
-    userAddress: new FormControl('', [Validators.required]),
-  });
-
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
   userInfo: any = {};
   userId: string = '';
   userEmail: any = '';
+  userPage: FormGroup = new FormGroup({
+    userName: new FormControl('', [Validators.required]),
+    userPhoneNo: new FormControl('', [Validators.required]),
+    userAddress: new FormControl('', [Validators.required]),
+    userEmail: new FormControl(''),
+  });
 
   ngOnInit() {
-    this.userCheck();
+    this.retriveUser();
   }
 
-  userCheck() {
+  retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
-      if (user) {
+      if (user !== null) {
         this.userId = user.uid;
         this.userEmail = user.email;
         this.getUserValues();
@@ -62,6 +62,7 @@ export class UserPage implements OnInit {
       this.userInfo = {};
       snapshot.docs.forEach((doc) => {
         this.userInfo = { ...doc.data() };
+        this.userPage.reset();
         this.setValues();
       });
     });
@@ -71,6 +72,7 @@ export class UserPage implements OnInit {
     this.userPage.controls['userName'].setValue(this.userInfo.name);
     this.userPage.controls['userPhoneNo'].setValue(this.userInfo.phoneNo);
     this.userPage.controls['userAddress'].setValue(this.userInfo.address);
+    this.userPage.controls['userEmail'].setValue(this.userEmail);
   }
 
   setuserInfo() {
@@ -83,5 +85,6 @@ export class UserPage implements OnInit {
     }).catch(() => {
       console.log('retry');
     });
+    this.getUserValues();
   }
 }

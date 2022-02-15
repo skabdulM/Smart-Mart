@@ -9,6 +9,8 @@ import { ZXingScannerModule } from 'angular-weblineindia-qrcode-scanner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomePageRoutingModule } from './home-routing.module';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { HomePage } from './home.page';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
@@ -23,6 +25,8 @@ import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.co
     ZXingScannerModule,
     QRCodeModule,
     MatDialogModule,
+    MatSelectModule,
+    MatDividerModule
   ],
   declarations: [HomePage, AddtoCartdailogComponent],
 })

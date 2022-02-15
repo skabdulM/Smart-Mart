@@ -8,14 +8,7 @@ import {
   onAuthStateChanged,
   signInWithRedirect,
 } from 'firebase/auth';
-import {
-  addDoc,
-  collection,
-  doc,
-  getFirestore,
-  onSnapshot,
-  setDoc,
-} from 'firebase/firestore';
+import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
 
@@ -50,7 +43,7 @@ export class HomePage implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
-        console.log('user added');
+        // console.log('user added');
       } else {
         this.loginGmail();
       }
@@ -62,8 +55,7 @@ export class HomePage implements OnInit {
   }
 
   getProduct() {
-    const id = this.qrResultString;
-    const docRef = doc(this.db, 'products', id);
+    const docRef = doc(this.db, 'products', this.qrResultString);
     onSnapshot(docRef, (doc) => {
       this.product = {};
       (this.product = doc.data()), doc.id;
@@ -92,10 +84,13 @@ export class HomePage implements OnInit {
           productDescription: addProduct.productDescription,
           productPrice: addProduct.productAmount,
           productImage: addProduct.productImage,
+          productQuantity: addProduct.productQuantity,
         }).then(() => {
           this.addtoCart.controls['productId'].setValue('');
+          this.qrResultString = '';
         });
       } else {
+        this.qrResultString = '';
       }
     });
   }

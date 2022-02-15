@@ -1,66 +1,67 @@
 <form [formGroup]="myForm">
-  <ion-item>
-    <ion-label position="floating" class="productLable">Product Name</ion-label>
-    <ion-input
-      inputmode="text"
-      placeholder="Product Name"
-      minlength="5"
-      maxlength="25"
-      clearInput
-      spellcheck="true"
-      required="true"
-      formControlName="productName"
-    ></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating" class="productLable">Description</ion-label>
-    <ion-textarea
-      placeholder="Enter Product Description here..."
-      required="true"
-      inputmode="text"
-      rows="6"
-      cols="20"
-      spellcheck="true"
-      wrap="hard"
-      formControlName="productDescription"
-    >
-    </ion-textarea>
-  </ion-item>
-  <ion-item class="ion-padding-bottom">
-    <ion-label position="floating">Product Price</ion-label>
-    <ion-input
-      class="input"
-      placeholder="Product Price in rupees"
-      type="number"
-      onKeyPress="if(this.value.length==4) return false;"
-      onkeyup="if(this.value<0){this.value= this.value * -1}"
-      max="4"
-      required="true"
-      formControlName="productAmount"
-    ></ion-input>
-  </ion-item>
-
-  <ng-container>
-    <label>
-      <ion-text>Select Image</ion-text>
-      <input
-        class="imageInput"
-        #imageInput
+  <ion-list>
+    <ion-item fill="solid">
+      <ion-label position="floating">Product Name</ion-label>
+      <ion-input
+        inputmode="text"
+        placeholder="Product Name"
+        minlength="5"
+        maxlength="25"
+        clearInput
+        spellcheck="true"
         required="true"
-        type="file"
-        accept="image/*"
-        (change)="processFile(imageInput)"
-        formControlName="productImage"
-      />
-    </label>
-  </ng-container>
+        formControlName="productName"
+      ></ion-input>
+    </ion-item>
+    <ion-item fill="solid">
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea
+        placeholder="Enter Product Description here..."
+        required="true"
+        inputmode="text"
+        rows="5"
+        spellcheck="true"
+        wrap="hard"
+        formControlName="productDescription"
+      >
+      </ion-textarea>
+    </ion-item>
+    <ion-item fill="solid" class="ion-padding-bottom">
+      <ion-label position="floating">Product Price</ion-label>
+      <ion-input
+        class="input"
+        placeholder="Product Price in rupees"
+        type="number"
+        onKeyPress="if(this.value.length==4) return false;"
+        onkeyup="if(this.value<0){this.value= this.value * -1}"
+        max="4"
+        required="true"
+        formControlName="productAmount"
+      ></ion-input>
+    </ion-item>
 
-  <div *ngIf="selectedFile" class="imgc">
-    <div
-      class="img"
-      [ngStyle]="{ 'background-image': 'url(' + selectedFile.src + ')' }"
-    ></div>
-  </div>
+    <ng-container>
+      <label>
+        <ion-text>Select Image</ion-text>
+        <input
+          class="imageInput"
+          #imageInput
+          required="true"
+          type="file"
+          accept="image/*"
+          (change)="processFile(imageInput)"
+          formControlName="productImage"
+        />
+      </label>
+    </ng-container>
+
+    <div *ngIf="selectedFile" class="imgc">
+      <div
+        class="img"
+        [ngStyle]="{ 'background-image': 'url(' + selectedFile.src + ')' }"
+      ></div>
+    </div>
+  </ion-list>
 </form>
 <ion-button
   class="ion-margin-top"

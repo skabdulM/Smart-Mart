@@ -17,3 +17,6 @@ ng-container {
   height: 150px;
   width: 100%;
 }
+.select{
+  width: 40%;
+}

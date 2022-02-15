@@ -3,8 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { CartPageRoutingModule } from './cart-routing.module';
+import { MatSelectModule } from '@angular/material/select';
 
 import { CartPage } from './cart.page';
 
@@ -13,8 +16,11 @@ import { CartPage } from './cart.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    CartPageRoutingModule
+    CartPageRoutingModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatSelectModule,
   ],
-  declarations: [CartPage]
+  declarations: [CartPage],
 })
 export class CartPageModule {}

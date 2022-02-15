@@ -46,6 +46,10 @@
         formControlName="userAddress"
       ></ion-textarea>
     </ion-item>
+    <ion-item>
+      <ion-label position="floating">E-mail:</ion-label>
+      <ion-input readonly="true" formControlName="userEmail"> </ion-input>
+    </ion-item>
     <ion-button
       [disabled]="!(userPage.valid && userPage.dirty)"
       (click)="setuserInfo()"

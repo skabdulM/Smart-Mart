@@ -13,8 +13,12 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
+  updateDoc,
 } from 'firebase/firestore';
 import { Products } from 'src/app/products';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-cart',
@@ -27,13 +31,24 @@ export class CartPage implements OnInit {
   auth = getAuth(this.app);
   provider = new GoogleAuthProvider();
   db = getFirestore();
-  products: Products[] = [];
+  products: any = [];
   userId: string = '';
-
   ngOnInit() {
     this.retriveUser();
   }
+  myForm: FormGroup = new FormGroup({
+    pr: new FormControl('', [Validators.required]),
+  });
 
+  updateProductbyquantity(quantity: any, id: string) {
+    const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
+    updateDoc(docRef, {
+      productQuantity: quantity.value,
+    }).then(() => {
+      console.log('updated quantity');
+      console.log(document.querySelector("p")?.innerHTML);
+    });
+  }
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
@@ -51,13 +66,12 @@ export class CartPage implements OnInit {
 
   fetchProducts() {
     const docRef = collection(this.db, 'users', this.userId, 'cartItems');
-    // const OrderBy = query(docRef, orderBy('productName', 'asc'));
-    onSnapshot(docRef, (snapshot) => {
+    const OrderBy = query(docRef, orderBy('productName', 'asc'));
+    onSnapshot(OrderBy, (snapshot) => {
       this.products = [];
       snapshot.docs.forEach((doc) => {
         this.products.push({ ...doc.data(), id: doc.id });
       });
-      console.log(this.products);
     });
   }
 }
