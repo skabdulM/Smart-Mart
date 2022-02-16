@@ -8,9 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { CartPageRoutingModule } from './cart-routing.module';
 import { MatSelectModule } from '@angular/material/select';
-
 import { CartPage } from './cart.page';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +19,7 @@ import { CartPage } from './cart.page';
     ReactiveFormsModule,
     MatSelectModule,
   ],
-  declarations: [CartPage],
+  declarations: [CartPage,
+  ],
 })
 export class CartPageModule {}

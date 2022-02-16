@@ -7,31 +7,47 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="myForm">
-    <ion-list>
-      <ion-item *ngFor="let p of products">
-        <ion-thumbnail slot="start">
-          <img [src]="p.productImage" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{p.productName}}</h2>
-          <p>{{p.productPrice*p.productQuantity}}</p>
-        </ion-label>
-        <mat-form-field class="select" slot="end" appearance="standard">
-          <mat-select
-            (selectionChange)="updateProductbyquantity($event,p.id)"
-            [(value)]="p.productQuantity"
-          >
-            <mat-option [value]="1">1</mat-option>
-            <mat-option [value]="2">2</mat-option>
-            <mat-option [value]="3">3</mat-option>
-            <mat-option [value]="4">4</mat-option>
-            <mat-option [value]="5">5</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </ion-item>
-    </ion-list>
-    <ion-title>total Amount</ion-title>
-    <ion-label> </ion-label>
-  </form>
+  <ion-list>
+    <ion-item lines="full" *ngFor="let p of products">
+      <ion-thumbnail slot="start">
+        <img [src]="p.productImage" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{p.productName}}</h2>
+        <p>
+          {{p.productPrice*p.productQuantity | currency:"INR":'symbol':'2.0' }}
+        </p>
+      </ion-label>
+      <mat-form-field class="select" slot="end" appearance="standard">
+        <mat-select
+          (selectionChange)="updateProductbyquantity($event,p.id)"
+          [(value)]="p.productQuantity"
+        >
+          <mat-option [value]="1">1</mat-option>
+          <mat-option [value]="2">2</mat-option>
+          <mat-option [value]="3">3</mat-option>
+          <mat-option [value]="4">4</mat-option>
+          <mat-option [value]="5">5</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ion-icon
+        slot="end"
+        name="close-circle-sharp"
+        (click)="deleteProduct(p.id)"
+      ></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-item *ngIf="products.length!==0">
+    <strong> Total Amount:</strong>
+    <ion-label slot="end">
+      <strong> {{ getTotal() | currency:"INR":'symbol':'2.0' }} </strong>
+    </ion-label>
+  </ion-item>
+  <ion-button *ngIf="products.length!==0" routerLink="order-form"
+    >Order
+    <!-- (click)="orderProducts()" -->
+  </ion-button>
+  <ion-item *ngIf="products.length==0">
+    <ion-label>adadwadhnuaiwhfuih</ion-label>
+  </ion-item>
 </ion-content>

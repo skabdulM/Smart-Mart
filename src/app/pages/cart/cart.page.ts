@@ -7,7 +7,9 @@ import {
   signInWithRedirect,
 } from 'firebase/auth';
 import {
+  addDoc,
   collection,
+  deleteDoc,
   doc,
   getFirestore,
   onSnapshot,
@@ -16,8 +18,6 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { Products } from 'src/app/products';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
 @Component({
@@ -27,18 +27,17 @@ import { environment } from 'src/environments/environment';
 })
 export class CartPage implements OnInit {
   constructor() {}
+
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   provider = new GoogleAuthProvider();
   db = getFirestore();
   products: any = [];
   userId: string = '';
+
   ngOnInit() {
     this.retriveUser();
   }
-  myForm: FormGroup = new FormGroup({
-    pr: new FormControl('', [Validators.required]),
-  });
 
   updateProductbyquantity(quantity: any, id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
@@ -46,9 +45,9 @@ export class CartPage implements OnInit {
       productQuantity: quantity.value,
     }).then(() => {
       console.log('updated quantity');
-      console.log(document.querySelector("p")?.innerHTML);
     });
   }
+
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
@@ -71,6 +70,49 @@ export class CartPage implements OnInit {
       this.products = [];
       snapshot.docs.forEach((doc) => {
         this.products.push({ ...doc.data(), id: doc.id });
+      });
+    });
+  }
+
+  getTotal(): number {
+    return this.products.reduce(
+      (i: number, j: any) => i + j.productPrice * j.productQuantity,
+      0
+    );
+  }
+
+  deleteProduct(id: string) {
+    const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
+    deleteDoc(docRef).then(() => {
+      // this.openSnackBar('Product Deleted 😞😞 !!', 'Ok');
+    });
+  }
+
+  orderProducts() {
+    let orderProducts = this.products.map(function (product: any) {
+      return {
+        id: product.id,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        productPrice: product.productPrice,
+        productQuantity: product.productQuantity,
+      };
+    });
+    const docRef = collection(this.db, 'users', this.userId, 'Orders');
+    addDoc(docRef, {
+      orderedProducts: orderProducts,
+    }).then(() => {
+      this.clearCart();
+    });
+    console.log(orderProducts);
+  }
+
+  clearCart() {
+    const docRef = collection(this.db, 'users', this.userId, 'cartItems');
+    const OrderBy = query(docRef, orderBy('productName', 'asc'));
+    onSnapshot(OrderBy, (snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        this.deleteProduct(doc.id);
       });
     });
   }
