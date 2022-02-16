@@ -4,10 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { OrderFormPageRoutingModule } from './order-form-routing.module';
 import { OrderFormPage } from './order-form.page';
-// import { MatStep, MatStepper, MatStepperPrevious } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -18,7 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatStepperModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   declarations: [OrderFormPage],
 })

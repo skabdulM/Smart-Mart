@@ -18,7 +18,7 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user',
@@ -26,7 +26,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
   styleUrls: ['./user.page.css'],
 })
 export class UserPage implements OnInit {
-  constructor() {}
+  constructor(private snackBar: MatSnackBar) {}
 
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
@@ -52,6 +52,7 @@ export class UserPage implements OnInit {
         this.userEmail = user.email;
         this.getUserValues();
       } else {
+        console.log('somthing is fishy');
       }
     });
   }
@@ -82,9 +83,17 @@ export class UserPage implements OnInit {
       email: this.userEmail,
       phoneNo: this.userPage.controls['userPhoneNo'].value,
       address: this.userPage.controls['userAddress'].value,
-    }).catch(() => {
-      console.log('retry');
-    });
-    this.getUserValues();
+    })
+      .then(() => {
+        this.openSnackBar('User Details Updates ', 'Ok');
+      })
+      .catch(() => {
+        console.log('retry');
+      });
+    // this.getUserValues();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2500 });
   }
 }

@@ -11,6 +11,7 @@ import {
 import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,9 @@ import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.co
   styleUrls: ['./home.page.css'],
 })
 export class HomePage implements OnInit {
-  constructor(public dialog: MatDialog) {}
-  addtoCart: FormGroup = new FormGroup({
-    productId: new FormControl('', [Validators.required]),
-  });
-  // qrData: any;
+  
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
+
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
@@ -43,7 +42,6 @@ export class HomePage implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
-        // console.log('user added');
       } else {
         this.loginGmail();
       }
@@ -71,7 +69,6 @@ export class HomePage implements OnInit {
     dialogRef.afterClosed().subscribe((addProduct) => {
       if (addProduct.redirect === 'addtocart') {
         const db = getFirestore();
-        // const id = this.addtoCart.controls['productId'].value;
         const docRef = doc(
           db,
           'users',
@@ -86,7 +83,7 @@ export class HomePage implements OnInit {
           productImage: addProduct.productImage,
           productQuantity: addProduct.productQuantity,
         }).then(() => {
-          this.addtoCart.controls['productId'].setValue('');
+          this.openSnackBar('Added to Cart', '🛒');
           this.qrResultString = '';
         });
       } else {
@@ -95,7 +92,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  // productIdinput() {
-  //   this.qrData = this.product.id;
-  // }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2500 });
+  }
 }

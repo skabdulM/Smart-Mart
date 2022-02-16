@@ -18,7 +18,7 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-cart',
@@ -26,7 +26,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./cart.page.css'],
 })
 export class CartPage implements OnInit {
-  constructor() {}
+  constructor(private snackBar: MatSnackBar) {}
 
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
@@ -44,7 +44,7 @@ export class CartPage implements OnInit {
     updateDoc(docRef, {
       productQuantity: quantity.value,
     }).then(() => {
-      console.log('updated quantity');
+      this.openSnackBar('Quantity Updated', 'Ok');
     });
   }
 
@@ -84,36 +84,11 @@ export class CartPage implements OnInit {
   deleteProduct(id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     deleteDoc(docRef).then(() => {
-      // this.openSnackBar('Product Deleted 😞😞 !!', 'Ok');
+      this.openSnackBar('Product Deleted 😞😞 !!', '🙆‍♀️');
     });
   }
 
-  orderProducts() {
-    let orderProducts = this.products.map(function (product: any) {
-      return {
-        id: product.id,
-        productName: product.productName,
-        productDescription: product.productDescription,
-        productPrice: product.productPrice,
-        productQuantity: product.productQuantity,
-      };
-    });
-    const docRef = collection(this.db, 'users', this.userId, 'Orders');
-    addDoc(docRef, {
-      orderedProducts: orderProducts,
-    }).then(() => {
-      this.clearCart();
-    });
-    console.log(orderProducts);
-  }
-
-  clearCart() {
-    const docRef = collection(this.db, 'users', this.userId, 'cartItems');
-    const OrderBy = query(docRef, orderBy('productName', 'asc'));
-    onSnapshot(OrderBy, (snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        this.deleteProduct(doc.id);
-      });
-    });
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2500 });
   }
 }

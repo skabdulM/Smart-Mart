@@ -12,25 +12,19 @@
     [enable]="true"
     (scanSuccess)="onCodeResult($event)"
   ></zxing-scanner>
-  <form [formGroup]="addtoCart">
-    <ion-input
-      style="background-color: aqua"
-      formControlName="productId"
-    ></ion-input>
-  </form>
-  <qrcode
+  <!-- <qrcode
     *ngFor="let qrData"
     [qrdata]="qrData"
     [width]="100"
     [elementType]="'img'"
     [errorCorrectionLevel]="'Q'"
     cssClass="center"
-  ></qrcode>
+  ></qrcode> -->
   <section class="results" *ngIf="qrResultString">
     <div>
       <small>Result</small>
       <strong>{{ qrResultString }}</strong>
     </div>
   </section>
-  <ion-button (click)="getProduct()" type="submit">Submit Id </ion-button>
+  <ion-button (click)="getProduct()" type="submit">Get Product</ion-button>
 </ion-content>

@@ -8,10 +8,14 @@ import { environment } from 'src/environments/environment';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import {
+  addDoc,
   collection,
+  deleteDoc,
   doc,
   getFirestore,
   onSnapshot,
+  orderBy,
+  query,
   setDoc,
 } from 'firebase/firestore';
 
@@ -27,13 +31,10 @@ export class OrderFormPage implements OnInit {
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
   stepperOrientation: Observable<StepperOrientation>;
-  ngOnInit() {
-    this.retriveUser();
-  }
-
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
+  products: any = [];
   userInfo: any = {};
   userId: string = '';
   userEmail: any = '';
@@ -46,13 +47,19 @@ export class OrderFormPage implements OnInit {
     userAddress: new FormControl('', [Validators.required]),
   });
 
+  ngOnInit() {
+    this.retriveUser();
+  }
+
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
         this.userEmail = user.email;
         this.getUserValues();
+        this.fetchProducts();
       } else {
+        console.log('something is fishy');
       }
     });
   }
@@ -68,6 +75,7 @@ export class OrderFormPage implements OnInit {
       });
     });
   }
+
   setValues() {
     this.userDetails.controls['userName'].setValue(this.userInfo.name);
     this.userDetails.controls['userPhoneNo'].setValue(this.userInfo.phoneNo);
@@ -88,13 +96,47 @@ export class OrderFormPage implements OnInit {
     this.getUserValues();
   }
 
-  // firstFormGroup = this._formBuilder.group({
-  //   firstCtrl: ['', Validators.required],
-  // });
-  // secondFormGroup = this._formBuilder.group({
-  //   secondCtrl: ['', Validators.required],
-  // });
-  // thirdFormGroup = this._formBuilder.group({
-  //   thirdCtrl: ['', Validators.required],
-  // });
+  fetchProducts() {
+    const docRef = collection(this.db, 'users', this.userId, 'cartItems');
+    const OrderBy = query(docRef, orderBy('productName', 'asc'));
+    onSnapshot(OrderBy, (snapshot) => {
+      this.products = [];
+      snapshot.docs.forEach((doc) => {
+        this.products.push({ ...doc.data(), id: doc.id });
+      });
+    });
+  }
+
+  orderProducts() {
+    let orderProducts = this.products.map(function (product: any) {
+      return {
+        id: product.id,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        productPrice: product.productPrice,
+        productQuantity: product.productQuantity,
+      };
+    });
+    const docRef = collection(this.db, 'users', this.userId, 'Orders');
+    addDoc(docRef, {
+      orderedProducts: orderProducts,
+    }).then(() => {
+      this.clearCart();
+    });
+  }
+
+  clearCart() {
+    const docRef = collection(this.db, 'users', this.userId, 'cartItems');
+    const OrderBy = query(docRef, orderBy('productName', 'asc'));
+    onSnapshot(OrderBy, (snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        this.deleteProduct(doc.id);
+      });
+    });
+  }
+
+  deleteProduct(id: string) {
+    const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
+    deleteDoc(docRef).then(() => {});
+  }
 }

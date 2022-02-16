@@ -19,7 +19,7 @@
           <ion-label position="floating">Name:</ion-label>
           <ion-input
             inputmode="text"
-            placeholder="Enter Name"
+            placeholder="Enter Full Name...."
             minlength="5"
             maxlength="25"
             clearInput
@@ -44,7 +44,13 @@
           <ion-label position="floating">E-mail:</ion-label>
           <ion-input readonly="true" formControlName="userEmail"> </ion-input>
         </ion-item>
-        <button mat-button matStepperNext [disabled]="!(userDetails.valid)">
+        <button
+          style="margin-top: 10px"
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          [disabled]="!(userDetails.valid)"
+        >
           Save
         </button>
       </form>
@@ -65,9 +71,18 @@
             formControlName="userAddress"
           ></ion-textarea>
         </ion-item>
-        <button mat-button matStepperPrevious>Back</button>
         <button
-          mat-button
+          style="margin-top: 10px; margin-right: 10px"
+          mat-raised-button
+          color="primary"
+          matStepperPrevious
+        >
+          Back
+        </button>
+        <button
+          style="margin-top: 10px"
+          mat-raised-button
+          color="primary"
           matStepperNext
           [disabled]="!(userDetails.valid &&  addressForm.valid)"
           (click)="setuserInfo()"
@@ -81,7 +96,16 @@
       <ng-template matStepLabel>Done</ng-template>
       <p>You are now done.</p>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
+        <button
+          style="margin-top: 10px"
+          mat-raised-button
+          color="primary"
+          matStepperPrevious
+          routerLink="orders"
+          (click)="orderProducts()"
+        >
+          Order
+        </button>
       </div>
     </mat-step>
   </mat-stepper>

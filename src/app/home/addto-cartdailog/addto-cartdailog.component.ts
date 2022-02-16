@@ -14,8 +14,11 @@ export class AddtoCartdailogComponent implements OnInit {
   ) {
     dialogRef.disableClose = true;
   }
-  productQuantity = 1;
-  ngOnInit() {}
+  productPrice:any=this.productInfo.productPrice;
+  productQuantity:number = 1;
+  ngOnInit() {
+
+  }
 
   addtocart() {
     let addProduct: any = {};

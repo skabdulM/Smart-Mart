@@ -1,13 +1,17 @@
 ::ng-deep mat-dialog-container {
   border-radius: 15px !important;
-  /* background-color: #d7aefb !important; */
+  background-color: #dbc4f0 !important;
 }
 
 ng-container {
   --ion-background-color: transparent !important;
 }
+ion-list {
+  --ion-background-color: transparent !important;
+  --ion-border-color: transparent !important;
+}
 
-.imgc {
+/* .imgc {
   background-color: transparent;
   position: relative;
 }
@@ -16,7 +20,7 @@ ng-container {
   background-size: contain;
   height: 150px;
   width: 100%;
-}
+} */
 .select{
   width: 40%;
 }

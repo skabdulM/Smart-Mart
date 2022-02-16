@@ -1,13 +1,7 @@
 <ion-list>
-  <div *ngIf="this.productInfo.productImage" class="imgc">
-    <div
-      class="img"
-      [ngStyle]="{
-        'background-image': 'url(' + this.productInfo.productImage + ')'
-      }"
-    ></div>
-  </div>
-  <mat-divider></mat-divider>
+  <ion-item>
+    <ion-img [src]="this.productInfo.productImage"></ion-img>
+  </ion-item>
   <ion-item>
     <ion-label position="stacked">Product Name</ion-label>
     <ion-input
@@ -16,24 +10,19 @@
       [value]="this.productInfo.productName"
     ></ion-input>
   </ion-item>
-  <!-- <ion-item>
-    <ion-label position="stacked">Description</ion-label>
-    <ion-textarea
-      [readonly]="true"
-      rows="6"
-      cols="20"
-      spellcheck="true"
-      wrap="hard"
-      [value]="this.productInfo.productDescription"
-    >
-    </ion-textarea>
-  </ion-item> -->
   <ion-item>
-    <ion-label position="stacked">Product Price</ion-label>
-    <ion-input
+    <ion-label>
+      Product Price:
+      <p>
+        <strong>
+          {{ productPrice * productQuantity | currency: "INR":"symbol":"2.0" }}
+        </strong>
+      </p>
+    </ion-label>
+    <!-- <ion-input
       [readonly]="true"
       [value]="this.productInfo.productPrice"
-    ></ion-input>
+    ></ion-input> -->
     <mat-form-field class="select" slot="end" appearance="standard">
       <mat-label>Select Quantity</mat-label>
       <mat-select [(value)]="productQuantity">
