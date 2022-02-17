@@ -35,8 +35,8 @@ export class UserPage implements OnInit {
   userId: string = '';
   userEmail: any = '';
   userPage: FormGroup = new FormGroup({
-    userName: new FormControl('', [Validators.required]),
-    userPhoneNo: new FormControl('', [Validators.required]),
+    userName: new FormControl('', [Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
+    userPhoneNo: new FormControl('', [Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]),
     userAddress: new FormControl('', [Validators.required]),
     userEmail: new FormControl(''),
   });

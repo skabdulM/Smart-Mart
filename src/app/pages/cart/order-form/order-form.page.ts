@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
@@ -17,7 +17,10 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
 } from 'firebase/firestore';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order-form',
@@ -25,7 +28,11 @@ import {
   styleUrls: ['./order-form.page.css'],
 })
 export class OrderFormPage implements OnInit {
-  constructor(breakpointObserver: BreakpointObserver) {
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
+  constructor(
+    breakpointObserver: BreakpointObserver,
+    private snackBar: MatSnackBar
+  ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
@@ -42,10 +49,9 @@ export class OrderFormPage implements OnInit {
     userName: new FormControl('', [Validators.required]),
     userPhoneNo: new FormControl('', [Validators.required]),
     userEmail: new FormControl(''),
-  });
-  addressForm: FormGroup = new FormGroup({
     userAddress: new FormControl('', [Validators.required]),
   });
+  paymentDetails: FormGroup = new FormGroup({});
 
   ngOnInit() {
     this.retriveUser();
@@ -80,7 +86,7 @@ export class OrderFormPage implements OnInit {
     this.userDetails.controls['userName'].setValue(this.userInfo.name);
     this.userDetails.controls['userPhoneNo'].setValue(this.userInfo.phoneNo);
     this.userDetails.controls['userEmail'].setValue(this.userEmail);
-    this.addressForm.controls['userAddress'].setValue(this.userInfo.address);
+    this.userDetails.controls['userAddress'].setValue(this.userInfo.address);
   }
 
   setuserInfo() {
@@ -89,7 +95,7 @@ export class OrderFormPage implements OnInit {
       name: this.userDetails.controls['userName'].value,
       email: this.userEmail,
       phoneNo: this.userDetails.controls['userPhoneNo'].value,
-      address: this.addressForm.controls['userAddress'].value,
+      address: this.userDetails.controls['userAddress'].value,
     }).catch(() => {
       console.log('retry');
     });
@@ -121,7 +127,16 @@ export class OrderFormPage implements OnInit {
     addDoc(docRef, {
       orderedProducts: orderProducts,
     }).then(() => {
-      this.clearCart();
+      // this.clearCart();
+    });
+  }
+
+  updateProductbyquantity(quantity: any, id: string) {
+    const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
+    updateDoc(docRef, {
+      productQuantity: quantity.value,
+    }).then(() => {
+      this.openSnackBar('Quantity Updated', 'Ok');
     });
   }
 
@@ -135,8 +150,17 @@ export class OrderFormPage implements OnInit {
     });
   }
 
+  getTotal(): number {
+    return this.products.reduce(
+      (i: number, j: any) => i + j.productPrice * j.productQuantity,
+      0
+    );
+  }
   deleteProduct(id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     deleteDoc(docRef).then(() => {});
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, { duration: 2500 });
   }
 }

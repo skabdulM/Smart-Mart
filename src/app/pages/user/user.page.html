@@ -8,52 +8,85 @@
 </ion-header>
 <ion-content>
   <form [formGroup]="userPage">
-    <ion-item>
-      <ion-label position="floating">Name:</ion-label>
-      <ion-input
-        inputmode="text"
-        placeholder="Enter Name"
-        minlength="5"
-        maxlength="25"
-        clearInput
-        spellcheck="true"
-        required="true"
-        formControlName="userName"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Phone Number:</ion-label>
-      <ion-input
-        type="number"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        placeholder="Enter Phone Number"
-        clearInput
-        formControlName="userPhoneNo"
-        required="true"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Address:</ion-label>
-      <ion-textarea
-        inputmode="text"
-        placeholder="Enter Address"
-        wrap="hard"
-        minlength="10"
-        maxlength="200"
-        spellcheck="true"
-        required="true"
-        formControlName="userAddress"
-      ></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">E-mail:</ion-label>
-      <ion-input readonly="true" formControlName="userEmail"> </ion-input>
-    </ion-item>
-    <ion-button
-      [disabled]="!(userPage.valid && userPage.dirty)"
-      (click)="setuserInfo()"
-      >Save</ion-button
-    >
+    <ion-grid>
+      <ion-list>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">Name:</ion-label>
+              <ion-input
+                type="text"
+                inputmode="text"
+                placeholder="Enter Name"
+                formControlName="userName"
+                minlength="5"
+                maxlength="25"
+                spellcheck="true"
+                required="true"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">Phone Number:</ion-label>
+              <ion-input
+                type="tel"
+                inputMode="numeric"
+                min="1"
+                placeholder="Enter Phone Number"
+                formControlName="userPhoneNo"
+                required="true"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">Address:</ion-label>
+              <ion-textarea
+                type="text"
+                inputmode="text"
+                placeholder="Enter Address"
+                formControlName="userAddress"
+                wrap="hard"
+                minlength="10"
+                maxlength="200"
+                spellcheck="true"
+                required="true"
+              ></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">E-mail:</ion-label>
+              <ion-input
+                type="email"
+                readonly="true"
+                formControlName="userEmail"
+              >
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <div class="end">
+              <ion-button
+                [disabled]="!(userPage.valid && userPage.dirty)"
+                (click)="setuserInfo()"
+                >Save</ion-button
+              >
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-grid>
   </form>
 </ion-content>

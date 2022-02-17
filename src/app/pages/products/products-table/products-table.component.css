@@ -2,17 +2,19 @@ table.mat-table {
   display: table;
   margin-left: 3%;
   margin-right: 3%;
+  margin-top: 3%;
+  background-color: #FAFAFA;
 }
 th {
-  background-color: rgb(139, 199, 255);
+  /* background-color: rgb(139, 199, 255); */
   text-align: center;
-  color: white;
+  /* color: white; */
 }
 
 td {
   padding-left: 10px;
   text-align: left;
-  background-color: aqua;
+  /* background-color: aqua; */
   max-width: 0px;
   text-overflow: ellipsis;
   overflow: hidden;

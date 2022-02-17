@@ -21,9 +21,10 @@ export class EditProductdailogComponent implements OnInit {
   updatedImage!: ImageSnippet;
   product: any;
   editProduct: FormGroup = new FormGroup({
-    productName: new FormControl('', [Validators.required]),
+    productName: new FormControl('', [Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
     productDescription: new FormControl('', [Validators.required]),
-    productAmount: new FormControl('', [Validators.required]),
+    productAmount: new FormControl('', [Validators.pattern('[0-9]{2,4}')]),
+    productImage:new FormControl('')
   });
   ngOnInit() {
     this.product = this.productInfo;

@@ -3,41 +3,42 @@
     <ion-item>
       <ion-label position="floating">Product Name</ion-label>
       <ion-input
+        type="text"
         inputmode="text"
         placeholder="Product Name"
-        minlength="5"
-        maxlength="25"
-        clearInput
-        spellcheck="true"
-        required="true"
         formControlName="productName"
+        minlength="4"
+        maxlength="25"
+        required="true"
+        spellcheck="true"
+        clearInput
       ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Product Description:</ion-label>
       <ion-textarea
+        type="text"
+        inputmode="text"
         placeholder="Enter Product Description here..."
         required="true"
-        inputmode="text"
-        rows="5"
+        formControlName="productDescription"
         spellcheck="true"
         wrap="hard"
-        formControlName="productDescription"
+        rows="5"
       >
       </ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Product Price:</ion-label>
       <ion-input
-        class="input"
-        placeholder="Product Price in rupees"
         type="number"
-        onKeyPress="if(this.value.length==4) return false;"
-        onkeyup="if(this.value<0){this.value= this.value * -1}"
-        max="4"
+        inputmode="numeric"
         required="true"
         formControlName="productAmount"
-      ></ion-input>
+        placeholder="Product Price in rupees"
+        min="1"
+        >₹</ion-input
+      >
     </ion-item>
     <ion-item>
       <label>
@@ -58,10 +59,12 @@
     </ion-item>
   </ion-list>
 </form>
-<ion-button (click)="dailogClose()">Close</ion-button>
-<ion-button
-  [disabled]="addProductForm.invalid"
-  type="submit"
-  (click)="addProduct()"
-  >Add Product
-</ion-button>
+<div class="end">
+  <ion-button (click)="dailogClose()">Close</ion-button>
+  <ion-button
+    [disabled]="addProductForm.invalid"
+    type="submit"
+    (click)="addProduct()"
+    >Add Product
+  </ion-button>
+</div>

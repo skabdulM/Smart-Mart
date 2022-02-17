@@ -43,9 +43,11 @@
       <strong> {{ getTotal() | currency:"INR":'symbol':'2.0' }} </strong>
     </ion-label>
   </ion-item>
-  <ion-button *ngIf="products.length!==0" routerLink="order-form"
-    >Order Now
-  </ion-button>
+  <div class="end">
+    <ion-button *ngIf="products.length!==0" routerLink="order-form"
+      >Order Now
+    </ion-button>
+  </div>
   <ion-item *ngIf="products.length==0">
     <ion-title>Add something in your cart</ion-title>
   </ion-item>

@@ -1,7 +1,9 @@
-.lable{
-    font-size: large;
+ion-item{
+    padding-bottom: 5px;
 }
-
-.userform{
- background-color: aqua;
+/* --ion-grid-width{
+    width: 10px;
+} */
+.end{
+    float:right
 }

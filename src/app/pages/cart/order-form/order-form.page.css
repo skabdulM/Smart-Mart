@@ -1,7 +1,26 @@
 .example-stepper {
-    margin-top: 8px;
-  }
-  
-  .mat-form-field {
-    margin-top: 16px;
-  }
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+.end {
+  float: right;
+}
+.select{
+  width: 10%;
+}
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.headers-align .mat-expansion-panel-header-title{
+  flex-basis: 0;
+}
+
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}

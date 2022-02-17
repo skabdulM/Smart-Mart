@@ -1,39 +1,38 @@
 ::ng-deep mat-dialog-container {
-    border-radius: 15px !important;
-    background-color: #d7aefb !important;
-  }
-  /* ng-container {
+  border-radius: 15px !important;
+  background-color: #d7aefb !important;
+}
+/* ng-container {
     --ion-background-color: transparent !important;
   } */
-  ion-list {
-    --ion-background-color: transparent !important;
-    /* --ion-border-color: transparent !important; */
-  }
+ion-list {
+  --ion-background-color: transparent !important;
+  /* --ion-border-color: transparent !important; */
+}
 
-  /* ion-item {
+/* ion-item {
     padding-bottom: 5px;
   } */
-  ion-text {
-    background-color: skyblue;
-    border-color: palegoldenrod;
-    color: rgb(0, 0, 0);
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  .imageInput {
-    display: none;
-  }
-  .image-upload-container{
-    cursor: pointer;
-  
-  }
-  ion-img{
-    height: 200px;;
-    width: 100%;
-  }
-  /* .imgc {
+ion-text {
+  background-color: skyblue;
+  border-color: palegoldenrod;
+  color: rgb(0, 0, 0);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.imageInput {
+  display: none;
+}
+.image-upload-container {
+  cursor: pointer;
+}
+ion-img {
+  height: 200px;
+  width: 100%;
+}
+/* .imgc {
     background-color: transparent;
     position: relative;
   }
@@ -44,3 +43,6 @@
     width: 100%;
   }
    */
+.end{
+  float: right;
+}
