@@ -1,7 +1,7 @@
 <form [formGroup]="editProduct">
   <ion-list>
     <ion-item>
-      <ion-label position="stacked">Product Name</ion-label>
+      <ion-label position="floating">Product Name:</ion-label>
       <ion-input
         inputmode="text"
         placeholder="Product Name"
@@ -14,12 +14,11 @@
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked">Description</ion-label>
+      <ion-label position="floating">Product Description:</ion-label>
       <ion-textarea
         required="true"
         inputmode="text"
-        rows="6"
-        cols="20"
+        rows="5"
         placeholder="Enter Product Description here..."
         spellcheck="true"
         wrap="hard"
@@ -28,7 +27,7 @@
       </ion-textarea>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked">Product Price</ion-label>
+      <ion-label position="floating">Product Price:</ion-label>
       <ion-input
         placeholder="Product Price in rupees"
         type="number"
@@ -37,20 +36,11 @@
         max="4"
         required="true"
         formControlName="productAmount"
-      ></ion-input>
+        >₹
+      </ion-input>
     </ion-item>
-    <!-- <ion-item>
-      <ion-button>
-        <ion-input
-          #imageInput
-          type="file"
-          accept="image/*"
-          (change)="processFile(imageInput)"
-          >dwaaaaa</ion-input
-        >
-      </ion-button>
-    </ion-item> -->
-    <ng-container>
+    <ion-item>
+      <!-- <ng-container> -->
       <label>
         <ion-text class="lable">Select Image</ion-text>
         <input
@@ -61,12 +51,14 @@
           (change)="processFile(imageInput)"
         />
       </label>
-    </ng-container>
+      <!-- </ng-container> -->
+    </ion-item>
     <ion-item>
       <ion-img [src]="this.selectedFile"></ion-img>
     </ion-item>
   </ion-list>
 </form>
+<ion-button (click)="dailogClose()">Close</ion-button>
 <ion-button
   [disabled]="!(editProduct.valid && editProduct.dirty)"
   type="submit"
@@ -74,4 +66,3 @@
 >
   Update Product
 </ion-button>
-<ion-button (click)="dailogClose()">Close</ion-button>

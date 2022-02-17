@@ -1,30 +1,18 @@
-
 ::ng-deep mat-dialog-container {
   border-radius: 15px !important;
-  /* background-color: #d7aefb !important; */
+  background-color: #d7aefb !important;
 }
-
-ng-container {
+/* ng-container {
   --ion-background-color: transparent !important;
-}
-/* 
+} */
 ion-list {
   --ion-background-color: transparent !important;
-  --ion-border-color: transparent !important;
-} */
+  /* --ion-border-color: transparent !important; */
+}
 
-/* .btn-bwm {
-  background-color: skyblue;
-  border-color: palegoldenrod;
-  color: aliceblue;
-  padding: 5px 10px;
-  border-radius: 5px;
-  /* font-size: 20px; 
-  &:hover,&:focus,&:active{
-  border-color: blue;
-  } 
+/* ion-item {
+  padding-bottom: 5px;
 } */
-
 ion-text {
   background-color: skyblue;
   border-color: palegoldenrod;
@@ -34,15 +22,18 @@ ion-text {
   font-size: 20px;
   cursor: pointer;
 }
-
 .imageInput {
   display: none;
 }
-/* .image-upload-container{
+.image-upload-container{
   cursor: pointer;
 
-} */
-.imgc {
+}
+ion-img{
+  height: 200px;;
+  width: 100%;
+}
+/* .imgc {
   background-color: transparent;
   position: relative;
 }
@@ -52,4 +43,4 @@ ion-text {
   height: 150px;
   width: 100%;
 }
-
+ */

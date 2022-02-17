@@ -1,6 +1,6 @@
-<form [formGroup]="myForm">
+<form [formGroup]="addProductForm">
   <ion-list>
-    <ion-item fill="solid">
+    <ion-item>
       <ion-label position="floating">Product Name</ion-label>
       <ion-input
         inputmode="text"
@@ -13,8 +13,8 @@
         formControlName="productName"
       ></ion-input>
     </ion-item>
-    <ion-item fill="solid">
-      <ion-label position="floating">Description</ion-label>
+    <ion-item>
+      <ion-label position="floating">Product Description:</ion-label>
       <ion-textarea
         placeholder="Enter Product Description here..."
         required="true"
@@ -26,8 +26,8 @@
       >
       </ion-textarea>
     </ion-item>
-    <ion-item fill="solid" class="ion-padding-bottom">
-      <ion-label position="floating">Product Price</ion-label>
+    <ion-item>
+      <ion-label position="floating">Product Price:</ion-label>
       <ion-input
         class="input"
         placeholder="Product Price in rupees"
@@ -39,10 +39,9 @@
         formControlName="productAmount"
       ></ion-input>
     </ion-item>
-
-    <ng-container>
+    <ion-item>
       <label>
-        <ion-text>Select Image</ion-text>
+        <ion-text class="lable">Select Image</ion-text>
         <input
           class="imageInput"
           #imageInput
@@ -53,22 +52,16 @@
           formControlName="productImage"
         />
       </label>
-    </ng-container>
-
-    <div *ngIf="selectedFile" class="imgc">
-      <div
-        class="img"
-        [ngStyle]="{ 'background-image': 'url(' + selectedFile.src + ')' }"
-      ></div>
-    </div>
+    </ion-item>
+    <ion-item *ngIf="selectedFile">
+      <ion-img [src]="this.selectedFile"></ion-img>
+    </ion-item>
   </ion-list>
 </form>
+<ion-button (click)="dailogClose()">Close</ion-button>
 <ion-button
-  class="ion-margin-top"
-  [disabled]="myForm.invalid"
+  [disabled]="addProductForm.invalid"
   type="submit"
   (click)="addProduct()"
->
-  Add Product
+  >Add Product
 </ion-button>
-<ion-button class="ion-margin-top" (click)="dailogClose()">Close</ion-button>
