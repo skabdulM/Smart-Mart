@@ -6,7 +6,7 @@
     </ion-button>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content *ngIf="this.userInfo.admin==true">
   <app-products-table></app-products-table>
   <ion-button
     class="Btndailog"
@@ -16,4 +16,8 @@
     style="margin-right: 10%; margin-left: 10%"
     >Generate Product
   </ion-button>
+</ion-content>
+<ion-content *ngIf="this.userInfo.admin==null">
+  <h1>This page is only for admin</h1>
+  <ion-button routerLink="/home">Go to Home</ion-button>
 </ion-content>

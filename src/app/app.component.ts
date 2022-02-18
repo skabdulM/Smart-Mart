@@ -30,7 +30,6 @@ export class AppComponent {
       if (user !== null) {
         this.userId = user.uid;
         this.addUser();
-        console.log('user added');
       } else {
         this.loginGmail();
       }
@@ -38,8 +37,10 @@ export class AppComponent {
   }
 
   addUser() {
-    const docRef = doc(this.db, 'users', this.userId);
-    setDoc(docRef, {}).catch(() => {
+    const docRef = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
+    setDoc(docRef, {
+      isAdmin: false,
+    }).catch(() => {
       console.log("Can't acess db");
     });
   }

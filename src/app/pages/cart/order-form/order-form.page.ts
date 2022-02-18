@@ -46,8 +46,10 @@ export class OrderFormPage implements OnInit {
   userId: string = '';
   userEmail: any = '';
   userDetails: FormGroup = new FormGroup({
-    userName: new FormControl('', [Validators.required]),
-    userPhoneNo: new FormControl('', [Validators.required]),
+    userName: new FormControl('', [Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
+    userPhoneNo: new FormControl('', [
+      Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+    ]),
     userEmail: new FormControl(''),
     userAddress: new FormControl('', [Validators.required]),
   });

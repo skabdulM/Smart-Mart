@@ -23,7 +23,7 @@
           <ion-icon name="file-tray-full-sharp"></ion-icon>
           <ion-label>Orders</ion-label>
         </ion-item>
-        <ion-item routerLink="products">
+        <ion-item *ngIf="this.userInfo.admin == true" routerLink="products">
           <ion-icon name="exit-sharp"></ion-icon>
           <ion-label>Products</ion-label>
         </ion-item>
