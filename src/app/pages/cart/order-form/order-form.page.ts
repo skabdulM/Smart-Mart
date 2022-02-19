@@ -18,6 +18,7 @@ import {
   query,
   setDoc,
   updateDoc,
+  serverTimestamp,
 } from 'firebase/firestore';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -128,7 +129,10 @@ export class OrderFormPage implements OnInit {
     const docRef = collection(this.db, 'users', this.userId, 'Orders');
     addDoc(docRef, {
       orderedProducts: orderProducts,
+      totalAmount: this.getTotal(),
+      createdAt: serverTimestamp(),
     }).then(() => {
+      console.log(this.getTotal());
       // this.clearCart();
     });
   }

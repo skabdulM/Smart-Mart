@@ -19,16 +19,17 @@ import { environment } from 'src/environments/environment';
 })
 export class OrdersPage implements OnInit {
   constructor() {}
+
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
   panelOpenState = false;
-  productId: any;
+  productId: any = [];
   userId: string = '';
-  orders: any = [];
+  product: any = [];
+
   ngOnInit() {
     this.retriveUser();
-    // this.fetchProducts();
   }
 
   retriveUser() {
@@ -43,25 +44,23 @@ export class OrdersPage implements OnInit {
       }
     });
   }
-  product: any = [];
+
   fetchProducts() {
     const docRef = collection(this.db, 'users', this.userId, 'Orders');
-    this.orders = [];
     onSnapshot(docRef, (snapshot) => {
+      this.productId = [];
       snapshot.docs.forEach((doc) => {
-        this.orders.push(doc.id);
+        this.productId.push(doc.id);
         // doc.data()
       });
-      console.log(this.orders);
     });
   }
-  products: any = [];
+
   fetchProduct(id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'Orders', id);
     onSnapshot(docRef, (doc) => {
-      this.products = doc.data();
-      // doc.data()
-      console.log(this.products);
+      this.product = doc.data();
+      console.log(this.product);
     });
   }
 }
