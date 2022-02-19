@@ -67,7 +67,7 @@ export class OrderFormPage implements OnInit {
         this.getUserValues();
         this.fetchProducts();
       } else {
-        console.log('something is fishy');
+        // console.log('something is fishy');
       }
     });
   }
@@ -116,7 +116,7 @@ export class OrderFormPage implements OnInit {
   }
 
   orderProducts() {
-    let orderProducts = this.products.map(function (product: any) {
+    let orderProducts: [] = this.products.map(function (product: any) {
       return {
         id: product.id,
         productName: product.productName,

@@ -1,0 +1,18 @@
+.border {
+  font-size: 1.6rem;
+  display: grid;
+  place-items: center;
+  /* min-height: 200px; */
+  /* padding: 8% 8% 8% 8%; */
+  border: 20px solid;
+  /* margin: 5%; */
+}
+
+.full {
+  border-image: linear-gradient(45deg, turquoise, greenyellow) 1;
+  border-radius: 50px;
+}
+.end {
+  float: right;
+}
+

@@ -6,14 +6,16 @@
     </ion-button>
   </ion-toolbar>
 </ion-header>
-<ion-content
-  ><p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae nihil
-    distinctio fugiat aliquam assumenda odio? Atque nesciunt quaerat quo
-    expedita, autem aliquam, repudiandae id amet, omnis ducimus harum quia eum
-    fugit tempora! Culpa quia placeat, magnam repellat rem sequi neque, eaque
-    error sunt vel eveniet fugit magni porro facilis dolore unde. Saepe ab sit
-    cupiditate odit distinctio, doloribus facilis suscipit sed neque excepturi
-    delectus! Atque, nemo porro?
-  </p>
+<ion-content>
+  <!-- <div *ngFor="let orderProduct of orders">
+   <div *ngFor="let pro of orderProduct">
+     <div *ngFor="let p of pro">{{p}}</div>
+   </div>
+  </div> -->
+  <div *ngFor="let ids of orders">
+    <ion-button (click)="fetchProduct(ids)">{{ids}}</ion-button>
+  </div>
+
+  <div *ngFor="let o of products.orderedProducts">{{o.productName}}</div>
+  <ion-button>kk</ion-button>
 </ion-content>

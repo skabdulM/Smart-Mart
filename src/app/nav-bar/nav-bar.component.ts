@@ -27,7 +27,7 @@ export class NavBarComponent implements OnInit {
         this.userId = user.uid;
         this.getUserValues();
       } else {
-        console.log('fishy');
+        // console.log('fishy');
       }
     });
   }
