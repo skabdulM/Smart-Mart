@@ -22,6 +22,7 @@ export class OrdersPage implements OnInit {
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
+  panelOpenState = false;
   productId: any;
   userId: string = '';
   orders: any = [];

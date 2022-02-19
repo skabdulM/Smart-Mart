@@ -7,15 +7,31 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <!-- <div *ngFor="let orderProduct of orders">
-   <div *ngFor="let pro of orderProduct">
-     <div *ngFor="let p of pro">{{p}}</div>
-   </div>
-  </div> -->
-  <div *ngFor="let ids of orders">
-    <ion-button (click)="fetchProduct(ids)">{{ids}}</ion-button>
-  </div>
-
-  <div *ngFor="let o of products.orderedProducts">{{o.productName}}</div>
-  <ion-button>kk</ion-button>
+  <mat-accordion class="headers-align" multi="false">
+    <mat-expansion-panel *ngFor="let ids of orders">
+      <mat-expansion-panel-header multi (click)="fetchProduct(ids)">
+        <mat-panel-title>{{ids}} </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description *ngFor="let product of products.orderedProducts">
+        <ion-item lines="full">
+          <ion-label>
+            <h2>{{product.productName}}</h2>
+            <p>
+              {{product.productPrice*product.productQuantity |
+              currency:"INR":'symbol':'2.0' }}
+            </p>
+          </ion-label>
+          {{product.productQuantity}}
+        </ion-item>
+        <!-- <ion-item *ngIf="products.length!==0"> -->
+        <strong> Total Amount:</strong>
+        <ion-label slot="end">
+          <strong>
+            <!-- {{ getTotal() | currency:"INR":'symbol':'2.0' }} -->
+          </strong>
+        </ion-label>
+        <!-- </ion-item> -->
+      </mat-panel-description>
+    </mat-expansion-panel>
+  </mat-accordion>
 </ion-content>

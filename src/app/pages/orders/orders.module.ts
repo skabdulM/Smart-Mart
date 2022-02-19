@@ -3,18 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
-import { OrdersPageRoutingModule } from './orders-routing.module';
-
 import { OrdersPage } from './orders.page';
 
+import { OrdersPageRoutingModule } from './orders-routing.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OrdersPageRoutingModule
+    OrdersPageRoutingModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatExpansionModule,
   ],
-  declarations: [OrdersPage]
+  declarations: [OrdersPage],
 })
 export class OrdersPageModule {}
