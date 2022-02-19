@@ -47,7 +47,8 @@ export class OrdersPage implements OnInit {
 
   fetchProducts() {
     const docRef = collection(this.db, 'users', this.userId, 'Orders');
-    onSnapshot(docRef, (snapshot) => {
+    const OrderBy = query(docRef, orderBy('createdAt','desc'));
+    onSnapshot(OrderBy, (snapshot) => {
       this.productId = [];
       snapshot.docs.forEach((doc) => {
         this.productId.push(doc.id);

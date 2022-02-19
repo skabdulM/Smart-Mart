@@ -46,6 +46,7 @@ export class OrderFormPage implements OnInit {
   userInfo: any = {};
   userId: string = '';
   userEmail: any = '';
+  orderId: string = '';
   userDetails: FormGroup = new FormGroup({
     userName: new FormControl('', [Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
     userPhoneNo: new FormControl('', [
@@ -131,9 +132,16 @@ export class OrderFormPage implements OnInit {
       orderedProducts: orderProducts,
       totalAmount: this.getTotal(),
       createdAt: serverTimestamp(),
-    }).then(() => {
-      console.log(this.getTotal());
-      // this.clearCart();
+      status: 'red',
+    }).then((docRef) => {
+      this.orderId = docRef.id;
+      const ref = doc(this.db, 'totalorders', this.orderId);
+      setDoc(ref, {
+        orderedProducts: orderProducts,
+        totalAmount: this.getTotal(),
+        createdAt: serverTimestamp(),
+        status: 'red',
+      });
     });
   }
 

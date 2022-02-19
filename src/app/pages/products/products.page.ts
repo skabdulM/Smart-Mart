@@ -50,15 +50,15 @@ export class ProductsPage implements OnInit {
     });
   }
 
-  signout() {
-    signOut(this.auth)
-      .then(() => {
-        console.log('logged out');
-      })
-      .catch((error) => {
-        console.log('error');
-      });
-  }
+  // signout() {
+  //   signOut(this.auth)
+  //     .then(() => {
+  //       console.log('logged out');
+  //     })
+  //     .catch((error) => {
+  //       console.log('error');
+  //     });
+  // }
 
   openDialog() {
     const dialogRef = this.dialog.open(AddProductDailogComponent, {
