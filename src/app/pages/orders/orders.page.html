@@ -10,27 +10,34 @@
       <mat-expansion-panel-header multi (click)="fetchProduct(id)">
         <mat-panel-title>Order Id #{{id}} </mat-panel-title>
       </mat-expansion-panel-header>
-      <strong> {{ product.createdAt }} </strong>
-      <mat-panel-description *ngFor="let order of product.orderedProducts">
-        <ion-list>
-          <ion-item lines="full">
-            <ion-label>
-              <h2>{{order.productName}}</h2>
-              <p>
-                {{order.productPrice*order.productQuantity
-                |currency:"INR":'symbol':'2.0' }}
-              </p>
-            </ion-label>
-            <!-- {{order.productQuantity}} -->
-          </ion-item>
-        </ion-list>
-      </mat-panel-description>
-      <strong> Total Amount:</strong>
-      <ion-label slot="end">
-        <strong>
-          {{ product.totalAmount | currency:"INR":'symbol':'2.0' }}
-        </strong>
-      </ion-label>
+      <ion-list>
+        <ion-item>
+          <strong> {{ product.createdAt }} </strong>
+        </ion-item>
+        <!-- <mat-panel-description *ngFor="let order of product.orderedProducts"> -->
+        <ion-item *ngFor="let order of product.orderedProducts" lines="full">
+          <ion-label>
+            <h2>{{order.productName}}</h2>
+            <p>
+              {{order.productPrice*order.productQuantity
+              |currency:"INR":'symbol':'2.0' }}
+            </p>
+          </ion-label>
+          <ion-label slot="end">
+            <h2>Quantity:{{order.productQuantity }}</h2>
+            <!-- <p>{{order.productQuantity }}</p> -->
+          </ion-label>
+        </ion-item>
+        <!-- </mat-panel-description> -->
+        <ion-item>
+          <strong> Total Amount:</strong>
+          <ion-label slot="end">
+            <strong>
+              {{ product.totalAmount | currency:"INR":'symbol':'2.0' }}
+            </strong>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </mat-expansion-panel>
   </mat-accordion>
 </ion-content>

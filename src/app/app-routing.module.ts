@@ -26,7 +26,13 @@ const routes: Routes = [
   },
 
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
-
+  {
+    path: 'total-orders',
+    loadChildren: () =>
+      import('./total-orders/total-orders.module').then(
+        (m) => m.TotalOrdersPageModule
+      ),
+  },
   {
     path: 'home',
     loadChildren: () =>
