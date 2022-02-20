@@ -1,0 +1,39 @@
+table.mat-table {
+  display: table;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 3%;
+  background-color: #fafafa;
+  width: 90%;
+}
+th {
+  /* background-color: rgb(139, 199, 255); */
+  text-align: center;
+  /* color: white; */
+}
+
+td {
+  padding-left: 10px;
+  text-align: left;
+  /* background-color: aqua; */
+  max-width: 0px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.mat-column-srNo {
+  width: 10%;
+}
+
+.mat-column-ordersId {
+  width: 40%;
+  padding-left: 10px;
+}
+.mat-column-userId {
+  width: 40%;
+  padding-left: 5px;
+}
+.mat-column-status {
+  width: 10%;
+  padding-left: 5px;
+}

@@ -4,6 +4,6 @@
     <ion-menu-button slot="start" menu="main-menu"> </ion-menu-button>
   </ion-toolbar>
 </ion-header>
-<ion-content>
- 
+<ion-content *ngIf="this.userInfo.admin == true">
+ <app-totalorders></app-totalorders>
 </ion-content>

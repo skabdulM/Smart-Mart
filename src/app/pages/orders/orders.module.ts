@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ReactiveFormsModule,
     MatSelectModule,
     MatExpansionModule,
+    MatIconModule,
   ],
   declarations: [OrdersPage],
 })

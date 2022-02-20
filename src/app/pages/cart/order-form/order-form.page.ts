@@ -137,10 +137,11 @@ export class OrderFormPage implements OnInit {
       this.orderId = docRef.id;
       const ref = doc(this.db, 'totalorders', this.orderId);
       setDoc(ref, {
-        orderedProducts: orderProducts,
+        user: this.userId,
         totalAmount: this.getTotal(),
         createdAt: serverTimestamp(),
         status: 'red',
+        orderedProducts: orderProducts,
       });
     });
   }
