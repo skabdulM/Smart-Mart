@@ -24,7 +24,6 @@ const routes: Routes = [
         (m) => m.ProductsPageModule
       ),
   },
-
   {
     path: 'total-orders',
     loadChildren: () =>

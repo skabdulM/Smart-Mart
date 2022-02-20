@@ -64,4 +64,65 @@ export class OrdersPage implements OnInit {
       console.log(this.product);
     });
   }
+  // createPDF() {
+  //  const data = this.getDocumentDefinition();
+  //   pdfMake.createPdf(this.documentDefinition).open();
+  // }
+  // getDocumentDefinition() {
+  //   return {
+  //     content: [
+  //       {
+  //         // text: 'My Journey',
+  //         text: 'Travel Bookers',
+  //         bold: true,
+  //         fontSize: 20,
+  //         alignment: 'center',
+  //         margin: [0, 0, 0, 20],
+  //       },
+  //       {
+  //         columns: [
+  //           [
+  //             // {
+  //             //   text: 'Purchase ID : ' + this.purchase_id,
+  //             // },
+  //             // {
+  //             //   text: 'Customer name : ' + this.authService.userData.name,
+  //             // },
+  //             // {
+  //             //   text: 'Customer phone : ' + this.authService.userData.phone,
+  //             // },
+  //             // {
+  //             //   text: 'Customer email : ' + this.authService.userData.email,
+  //             // },
+  //             // {
+  //             //   text: 'Package name : ' + this.invoice.package_title,
+  //             // },
+  //             // {
+  //             //   text: 'Package category : ' + this.invoice.package_category,
+  //             // },
+  //             // {
+  //             //   text: 'Destination : ' + this.invoice.package_place,
+  //             // },
+  //             // {
+  //             //   text: 'Package amount : ' + this.invoice.package_amount,
+  //             // },
+  //             // {
+  //             //   text:
+  //             //     'Package description : ' + this.invoice.package_description,
+  //             // },
+  //             // {
+  //             //   text: 'Number of persons : ' + this.invoice.persons,
+  //             // },
+  //           ],
+  //         ],
+  //       },
+  //     ],
+  //     styles: {
+  //       name: {
+  //         fontSize: 16,
+  //         bold: true,
+  //       },
+  //     },
+  //   };
+  // }
 }

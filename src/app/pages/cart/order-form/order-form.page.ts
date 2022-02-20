@@ -143,6 +143,7 @@ export class OrderFormPage implements OnInit {
         status: 'red',
         orderedProducts: orderProducts,
       });
+      //snackbar for order success
     });
   }
 

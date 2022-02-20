@@ -37,7 +37,7 @@ export class AppComponent {
   }
 
   addUser() {
-    const docRef = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
+    const docRef = doc(this.db, 'users', this.userId);
     setDoc(docRef, {}).catch(() => {
       console.log("Can't acess db");
     });

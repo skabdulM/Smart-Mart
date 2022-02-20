@@ -26,9 +26,11 @@ export class ProductsPage implements OnInit {
   db = getFirestore();
   userInfo: any = {};
   userId: string = '';
+
   ngOnInit() {
     this.retriveUser();
   }
+  
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
