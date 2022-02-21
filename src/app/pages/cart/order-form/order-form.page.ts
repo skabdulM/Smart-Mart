@@ -133,6 +133,7 @@ export class OrderFormPage implements OnInit {
   onPaymentSuccess(event: any): void {
     this.paymentId = event.detail.razorpay_payment_id;
     this.orderProducts();
+    this.myFunction();
   }
   getUserValues() {
     const docRef = collection(this.db, 'users', this.userId, 'User');
@@ -199,6 +200,7 @@ export class OrderFormPage implements OnInit {
     })
       .then((docRef) => {
         this.orderId = docRef.id;
+        this.enable = true;
         const ref = doc(this.db, 'totalorders', this.orderId);
         setDoc(ref, {
           user: this.userId,
@@ -213,7 +215,7 @@ export class OrderFormPage implements OnInit {
           orderedProducts: orderProducts,
         })
           .then(() => {
-            this.clearCart();
+            // this.clearCart();
           })
           .catch((error) => {
             console.log(error);
@@ -223,7 +225,10 @@ export class OrderFormPage implements OnInit {
         console.log(error);
       });
   }
-
+  myFunction() {
+    this.enable = true;
+    document.getElementById('next')?.click();
+  }
   updateProductbyquantity(quantity: any, id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     updateDoc(docRef, {

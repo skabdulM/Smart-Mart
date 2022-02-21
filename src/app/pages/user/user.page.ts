@@ -36,7 +36,9 @@ export class UserPage implements OnInit {
   userEmail: any = '';
   userPage: FormGroup = new FormGroup({
     userName: new FormControl('', [Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
-    userPhoneNo: new FormControl('', [Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]),
+    userPhoneNo: new FormControl('', [
+      Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+    ]),
     userAddress: new FormControl('', [Validators.required]),
     userEmail: new FormControl(''),
   });
@@ -87,8 +89,8 @@ export class UserPage implements OnInit {
       .then(() => {
         this.openSnackBar('User Details Updates ', 'Ok');
       })
-      .catch(() => {
-        console.log('retry');
+      .catch((error) => {
+        console.log(error);
       });
     // this.getUserValues();
   }

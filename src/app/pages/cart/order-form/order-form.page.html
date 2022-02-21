@@ -150,11 +150,16 @@
             <mat-expansion-panel-header>
               <mat-panel-title> Razor Pay </mat-panel-title>
             </mat-expansion-panel-header>
-            <ion-button
+            <button
+              style="margin-top: 10px"
+              mat-raised-button
+              color="primary"
               [disabled]="!(userDetails.valid &&  paymentDetails.valid)"
-              (click)="pay()"
-              >Pay</ion-button
-            >
+              (click)="myFunction()"
+              >
+              <!-- (click)="orderProducts()" -->
+              Pay
+            </button>
           </mat-expansion-panel>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -180,6 +185,7 @@
           Back
         </button>
         <button
+          #next
           style="margin-top: 10px"
           mat-raised-button
           color="primary"

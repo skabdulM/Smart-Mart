@@ -30,7 +30,7 @@ export class ProductsPage implements OnInit {
   ngOnInit() {
     this.retriveUser();
   }
-  
+
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
@@ -75,9 +75,13 @@ export class ProductsPage implements OnInit {
           productDescription: addProduct.productDescription,
           productPrice: addProduct.productAmount,
           productImage: addProduct.productImage,
-        }).then(() => {
-          this.openSnackBar('Product Added!! 👏👏 ', 'Ok');
-        });
+        })
+          .then(() => {
+            this.openSnackBar('Product Added!! 👏👏 ', 'Ok');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.openSnackBar('Product not added!!', 'Ok');
       }

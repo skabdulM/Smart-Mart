@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
     this.qrResultString = resultString;
     this.getProduct();
   }
- 
+
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
@@ -82,10 +82,14 @@ export class HomePage implements OnInit {
           productPrice: addProduct.productAmount,
           productImage: addProduct.productImage,
           productQuantity: addProduct.productQuantity,
-        }).then(() => {
-          this.openSnackBar('Added to Cart', '🛒');
-          this.qrResultString = '';
-        });
+        })
+          .then(() => {
+            this.openSnackBar('Added to Cart', '🛒');
+            this.qrResultString = '';
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.qrResultString = '';
       }

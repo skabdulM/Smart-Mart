@@ -63,9 +63,13 @@ export class ProductsTableComponent implements OnInit {
           productDescription: addProduct.productDescription,
           productImage: addProduct.productImage,
           productPrice: addProduct.productAmount,
-        }).then(() => {
-          this.openSnackBar('Updated!! 👏👏 ', 'Ok');
-        });
+        })
+          .then(() => {
+            this.openSnackBar('Updated!! 👏👏 ', 'Ok');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.openSnackBar('Nothing changed', '🆗');
       }

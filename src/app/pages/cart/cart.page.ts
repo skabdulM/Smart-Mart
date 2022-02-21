@@ -43,9 +43,13 @@ export class CartPage implements OnInit {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     updateDoc(docRef, {
       productQuantity: quantity.value,
-    }).then(() => {
-      this.openSnackBar('Quantity Updated', 'Ok');
-    });
+    })
+      .then(() => {
+        this.openSnackBar('Quantity Updated', 'Ok');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   retriveUser() {
