@@ -11,6 +11,10 @@ import {
   query,
 } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-orders',
@@ -27,6 +31,7 @@ export class OrdersPage implements OnInit {
   productId: any = [];
   userId: string = '';
   product: any = [];
+  OrderedProducts: any = [];
 
   ngOnInit() {
     this.retriveUser();
@@ -56,73 +61,85 @@ export class OrdersPage implements OnInit {
       });
     });
   }
-
+  productNames: any = [];
+  productPrice: any = [];
+  productQuantity: any = [];
   fetchProduct(id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'Orders', id);
+    this.productNames = [];
+    this.productPrice = [];
+    this.productQuantity = [];
     onSnapshot(docRef, (doc) => {
       this.product = doc.data();
-      console.log(this.product);
+      this.OrderedProducts = this.product.orderedProducts;
+      this.OrderedProducts.forEach((element: any) => {
+        this.productNames.push(element.productName); //every elemt of order name
+        this.productPrice.push(element.productPrice * element.productQuantity);
+        this.productQuantity.push(element.productQuantity);
+      });
+      console.log(this.productNames, this.productPrice, this.productQuantity);
     });
   }
-  // createPDF() {
-  //  const data = this.getDocumentDefinition();
-  //   pdfMake.createPdf(this.documentDefinition).open();
-  // }
-  // getDocumentDefinition() {
-  //   return {
-  //     content: [
-  //       {
-  //         // text: 'My Journey',
-  //         text: 'Travel Bookers',
-  //         bold: true,
-  //         fontSize: 20,
-  //         alignment: 'center',
-  //         margin: [0, 0, 0, 20],
-  //       },
-  //       {
-  //         columns: [
-  //           [
-  //             // {
-  //             //   text: 'Purchase ID : ' + this.purchase_id,
-  //             // },
-  //             // {
-  //             //   text: 'Customer name : ' + this.authService.userData.name,
-  //             // },
-  //             // {
-  //             //   text: 'Customer phone : ' + this.authService.userData.phone,
-  //             // },
-  //             // {
-  //             //   text: 'Customer email : ' + this.authService.userData.email,
-  //             // },
-  //             // {
-  //             //   text: 'Package name : ' + this.invoice.package_title,
-  //             // },
-  //             // {
-  //             //   text: 'Package category : ' + this.invoice.package_category,
-  //             // },
-  //             // {
-  //             //   text: 'Destination : ' + this.invoice.package_place,
-  //             // },
-  //             // {
-  //             //   text: 'Package amount : ' + this.invoice.package_amount,
-  //             // },
-  //             // {
-  //             //   text:
-  //             //     'Package description : ' + this.invoice.package_description,
-  //             // },
-  //             // {
-  //             //   text: 'Number of persons : ' + this.invoice.persons,
-  //             // },
-  //           ],
-  //         ],
-  //       },
-  //     ],
-  //     styles: {
-  //       name: {
-  //         fontSize: 16,
-  //         bold: true,
-  //       },
-  //     },
-  //   };
-  // }
+  createPDF(id: any) {
+    const data: any = this.getDocumentDefinition(
+      id.id,
+      this.productNames,
+      this.productPrice,
+      this.productQuantity
+    );
+    pdfMake.createPdf(data).open();
+  }
+  getDocumentDefinition(
+    id: string,
+    productNames: any,
+    productPrice: number,
+    productQuantity: number
+  ) {
+    return {
+      content: [
+        {
+          // text: 'My Journey',
+          text: 'Order Details',
+          bold: true,
+          fontSize: 20,
+          alignment: 'center',
+          margin: [0, 0, 0, 20],
+        },
+        {
+          text: 'Order ID',
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        { '#': id },
+        {
+          text: 'Product Details',
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          style: 'tableExample',
+          table: {
+            headerRows: 1,
+            body: [
+              [
+                { text: 'Product Name', style: 'tableHeader' },
+                { text: 'Product Quantity', style: 'tableHeader' },
+                { text: 'Product Price ', style: 'tableHeader' },
+              ],
+              [productNames, productQuantity, productPrice],
+            ],
+          },
+          layout: 'lightHorizontalLines',
+        },
+      ],
+      styles: {
+        name: {
+          fontSize: 16,
+          bold: true,
+        },
+      },
+    };
+  }
 }

@@ -18,19 +18,9 @@
       <ion-list>
         <ion-item>
           <strong> {{ product.createdAt }} </strong>
-          <!-- <ion-icon
-            slot="end"
-            *ngIf="product.status=='red'"
-            name="alert-circle-sharp"
-          ></ion-icon>
-          <ion-icon
-            slot="end"
-            *ngIf="product.status=='green'"
-            name="checkmark-done-circle-sharp"
-          ></ion-icon> -->
         </ion-item>
         <!-- <mat-panel-description *ngFor="let order of product.orderedProducts"> -->
-        <ion-item *ngFor="let order of product.orderedProducts" lines="full">
+        <ion-item *ngFor="let order of OrderedProducts" lines="full">
           <ion-label>
             <h2>{{order.productName}}</h2>
             <p>
@@ -42,6 +32,7 @@
             <h2>Quantity:{{order.productQuantity }}</h2>
           </ion-label>
         </ion-item>
+        <ion-button (click)="createPDF(id)">download</ion-button>
         <!-- </mat-panel-description> -->
         <ion-item>
           <strong> Total Amount:</strong>
