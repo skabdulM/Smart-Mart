@@ -8,7 +8,10 @@
     <div *ngSwitchCase="'horizontal'"></div>
     <div *ngSwitchCase="'vertical'"></div>
   </ng-container>
+
   <mat-stepper
+    linear
+    #stepper
     class="example-stepper"
     [orientation]="(stepperOrientation | async)!"
   >
@@ -143,6 +146,30 @@
               </ion-item>
             </ion-list>
           </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Razor Pay </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ion-button
+              [disabled]="!(userDetails.valid &&  paymentDetails.valid)"
+              (click)="pay()"
+              >Pay</ion-button
+            >
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Cash On Delivery </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button
+              style="margin-top: 10px"
+              mat-raised-button
+              color="primary"
+              matStepperNext
+              (click)="enable=true"
+            >
+              Cash On Delivery
+            </button>
+          </mat-expansion-panel>
         </mat-accordion>
         <button
           style="margin-top: 10px; margin-right: 10px"
@@ -157,9 +184,8 @@
           mat-raised-button
           color="primary"
           matStepperNext
-          [disabled]="!(userDetails.valid &&  paymentDetails.valid)"
+          [disabled]="!(enable)"
         >
-          <!-- (click)="setuserInfo()" -->
           Next
         </button>
       </form>
@@ -175,8 +201,8 @@
           style="margin-top: 10px"
           color="primary"
           routerLink="orders"
-          (click)="orderProducts()"
         >
+          <!-- (click)="orderProducts()" -->
           Order
         </button>
       </div>

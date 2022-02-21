@@ -32,7 +32,10 @@ export class OrdersPage implements OnInit {
   userId: string = '';
   product: any = [];
   OrderedProducts: any = [];
-
+  productNames: any = [];
+  productPrice: any = [];
+  productQuantity: any = [];
+  
   ngOnInit() {
     this.retriveUser();
   }
@@ -61,9 +64,7 @@ export class OrdersPage implements OnInit {
       });
     });
   }
-  productNames: any = [];
-  productPrice: any = [];
-  productQuantity: any = [];
+
   fetchProduct(id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'Orders', id);
     this.productNames = [];
@@ -111,7 +112,7 @@ export class OrdersPage implements OnInit {
           bold: true,
           margin: [0, 20, 0, 8],
         },
-        { '#': id },
+        // { '#': id },
         {
           text: 'Product Details',
           fontSize: 14,

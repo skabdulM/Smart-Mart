@@ -19,7 +19,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./home.page.css'],
 })
 export class HomePage implements OnInit {
-  
   constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   app = initializeApp(environment.firebaseConfig);
@@ -36,8 +35,9 @@ export class HomePage implements OnInit {
 
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
+    this.getProduct();
   }
-
+ 
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {

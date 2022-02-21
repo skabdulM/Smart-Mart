@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
@@ -22,6 +22,7 @@ import {
 } from 'firebase/firestore';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-order-form',
@@ -32,7 +33,8 @@ export class OrderFormPage implements OnInit {
   @ViewChild(MatAccordion) accordion!: MatAccordion;
   constructor(
     breakpointObserver: BreakpointObserver,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private auths: AuthService
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -47,6 +49,41 @@ export class OrderFormPage implements OnInit {
   userId: string = '';
   userEmail: any = '';
   orderId: string = '';
+  rzp1: any;
+  totalAmount: any = '';
+  error: string = '';
+  paymentId: string = '';
+  enable = false;
+  options = {
+    key: 'rzp_test_hdC1SdrqAi6m86',
+    amount: '1',
+    currency: 'INR',
+    name: 'Smart Mart',
+    description: 'Test Transaction',
+    image: '',
+    order_id: '',
+    handler: function (response: any) {
+      // this.paymentId=response.razorpay_payment_id);
+      var event = new CustomEvent('payment.success', {
+        detail: response,
+        bubbles: true,
+        cancelable: true,
+      });
+      window.dispatchEvent(event);
+    },
+    prefill: {
+      name: 'Shaikh Abdul Mannan',
+      email: 'smart.mart@example.com',
+      contact: '9525565826',
+    },
+    notes: {
+      address: 'Razorpay Corporate Office',
+    },
+    theme: {
+      color: '#528FF0',
+    },
+  };
+
   userDetails: FormGroup = new FormGroup({
     userName: new FormControl('', [Validators.pattern('[a-zA-Z][a-zA-Z ]+')]),
     userPhoneNo: new FormControl('', [
@@ -74,6 +111,29 @@ export class OrderFormPage implements OnInit {
     });
   }
 
+  pay() {
+    this.totalAmount = this.getTotal() * 100;
+    this.options.amount = this.totalAmount;
+    this.options.prefill.name = this.userInfo.name;
+    this.options.prefill.email = this.userEmail;
+    this.options.prefill.contact = this.userInfo.phoneNo;
+    this.rzp1 = new this.auths.nativeWindow.Razorpay(this.options);
+    this.rzp1.open();
+    this.rzp1.on('payment.failed', (response: any) => {
+      this.openSnackBar('Payment Failed', response.error.code);
+      alert('Payment Failed');
+      this.error = response.error.reason;
+    });
+    (err: any) => {
+      this.error = err.error.message;
+    };
+  }
+
+  @HostListener('window:payment.success', ['$event'])
+  onPaymentSuccess(event: any): void {
+    this.paymentId = event.detail.razorpay_payment_id;
+    this.orderProducts();
+  }
   getUserValues() {
     const docRef = collection(this.db, 'users', this.userId, 'User');
     onSnapshot(docRef, (snapshot) => {
@@ -100,9 +160,11 @@ export class OrderFormPage implements OnInit {
       email: this.userEmail,
       phoneNo: this.userDetails.controls['userPhoneNo'].value,
       address: this.userDetails.controls['userAddress'].value,
-    }).catch(() => {
-      console.log('retry');
-    });
+    })
+      .then(() => {})
+      .catch(() => {
+        console.log('retry');
+      });
     this.getUserValues();
   }
 
@@ -132,28 +194,47 @@ export class OrderFormPage implements OnInit {
       orderedProducts: orderProducts,
       totalAmount: this.getTotal(),
       createdAt: serverTimestamp(),
+      paymentID: this.paymentId,
       status: 'red',
-    }).then((docRef) => {
-      this.orderId = docRef.id;
-      const ref = doc(this.db, 'totalorders', this.orderId);
-      setDoc(ref, {
-        user: this.userId,
-        totalAmount: this.getTotal(),
-        createdAt: serverTimestamp(),
-        status: 'red',
-        orderedProducts: orderProducts,
+    })
+      .then((docRef) => {
+        this.orderId = docRef.id;
+        const ref = doc(this.db, 'totalorders', this.orderId);
+        setDoc(ref, {
+          user: this.userId,
+          userName: this.userInfo.name,
+          phoneNo: this.userInfo.phoneNo,
+          address: this.userInfo.address,
+          email: this.userEmail,
+          totalAmount: this.getTotal(),
+          createdAt: serverTimestamp(),
+          paymentID: this.paymentId,
+          status: 'red',
+          orderedProducts: orderProducts,
+        })
+          .then(() => {
+            this.clearCart();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      //snackbar for order success
-    });
   }
 
   updateProductbyquantity(quantity: any, id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     updateDoc(docRef, {
       productQuantity: quantity.value,
-    }).then(() => {
-      this.openSnackBar('Quantity Updated', 'Ok');
-    });
+    })
+      .then(() => {
+        this.openSnackBar('Quantity Updated', 'Ok');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   clearCart() {
@@ -177,6 +258,6 @@ export class OrderFormPage implements OnInit {
     deleteDoc(docRef).then(() => {});
   }
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2500 });
+    this.snackBar.open(message, action, { duration: 3000 });
   }
 }
