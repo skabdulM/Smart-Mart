@@ -25,11 +25,19 @@ export class TotalordersComponent implements OnInit {
   // userId: string = '';
   ordersId: any = [];
   product: any = [];
-  displayedColumns = ['srNo', 'ordersId', 'userId', 'status'];
+  displayedColumns = [
+    'srNo',
+    'ordersId',
+    'userId',
+    'totalAmount',
+    'paymentId',
+    'status',
+    'invoice',
+  ];
 
   ngOnInit() {
     // this.retriveUser();
-    this.fetchProducts()
+    this.fetchProducts();
   }
   // retriveUser() {
   //   onAuthStateChanged(this.auth, (user) => {
@@ -53,6 +61,8 @@ export class TotalordersComponent implements OnInit {
           id: doc.id,
           userId: doc.get('user'),
           status: doc.get('status'),
+          amount: doc.get('totalAmount'),
+          paymentId: doc.get('paymentID'),
         });
       });
       console.log(this.ordersId);
@@ -67,8 +77,7 @@ export class TotalordersComponent implements OnInit {
     });
   }
 
-  kk(id:string){
+  kk(id: string) {
     console.log(id);
-    
   }
 }
