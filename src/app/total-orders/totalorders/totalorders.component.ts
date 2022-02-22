@@ -58,24 +58,42 @@ export class TotalordersComponent implements OnInit {
   //     }
   //   });
   // }
-  
-  updateStatus(orderId: any, userId: any) {
+
+  updateStatus(orderId: string, userId: string, status: string) {
     // const productId = orderId;
-    const docRef = doc(this.db, 'totalorders', orderId);
-    updateDoc(docRef, {
-      status: 'delivered',
-    })
-      .then(() => {
-        const ref = doc(this.db, 'users', userId, 'Orders', orderId);
-        updateDoc(ref, {
-          status: 'delivered',
-        }).catch((error) => {
+    if (status == 'undelivered') {
+      const docRef = doc(this.db, 'totalorders', orderId);
+      updateDoc(docRef, {
+        status: 'delivered',
+      })
+        .then(() => {
+          const ref = doc(this.db, 'users', userId, 'Orders', orderId);
+          updateDoc(ref, {
+            status: 'delivered',
+          }).catch((error) => {
+            console.log(error);
+          });
+        })
+        .catch((error) => {
           console.log(error);
         });
+    } else {
+      const docRef = doc(this.db, 'totalorders', orderId);
+      updateDoc(docRef, {
+        status: 'undelivered',
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then(() => {
+          const ref = doc(this.db, 'users', userId, 'Orders', orderId);
+          updateDoc(ref, {
+            status: 'undelivered',
+          }).catch((error) => {
+            console.log(error);
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   fetchProducts() {
