@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>orderForm</ion-title>
+    <ion-title
+      >Order Form
+      <ion-icon routerLink=".." id="close" name="close-sharp"></ion-icon
+    ></ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -99,8 +102,8 @@
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="paymentDetails" label="Payment Details">
-      <form [formGroup]="paymentDetails">
+    <mat-step label="Payment Details">
+      <form>
         <mat-accordion class="headers-align" multi>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -151,13 +154,13 @@
               <mat-panel-title> Razor Pay </mat-panel-title>
             </mat-expansion-panel-header>
             <button
+              class="end"
               style="margin-top: 10px"
               mat-raised-button
               color="primary"
-              [disabled]="!(userDetails.valid &&  paymentDetails.valid)"
-              (click)="myFunction()"
-              >
-              <!-- (click)="orderProducts()" -->
+              [disabled]="!(userDetails.valid)"
+              (click)="pay()"
+            >
               Pay
             </button>
           </mat-expansion-panel>
@@ -166,11 +169,12 @@
               <mat-panel-title> Cash On Delivery </mat-panel-title>
             </mat-expansion-panel-header>
             <button
+              class="end"
               style="margin-top: 10px"
               mat-raised-button
               color="primary"
-              matStepperNext
-              (click)="enable=true"
+              [disabled]="!(userDetails.valid)"
+              (click)="orderProductCOD()"
             >
               Cash On Delivery
             </button>
@@ -209,7 +213,7 @@
           routerLink="orders"
         >
           <!-- (click)="orderProducts()" -->
-          Order
+          Check Orders
         </button>
       </div>
     </mat-step>

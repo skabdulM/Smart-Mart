@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { StepperOrientation } from '@angular/material/stepper';
+import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -31,6 +31,7 @@ import { AuthService } from 'src/app/auth.service';
 })
 export class OrderFormPage implements OnInit {
   @ViewChild(MatAccordion) accordion!: MatAccordion;
+  @ViewChild('stepper') stepper!: MatStepper;
   constructor(
     breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
@@ -92,7 +93,6 @@ export class OrderFormPage implements OnInit {
     userEmail: new FormControl(''),
     userAddress: new FormControl('', [Validators.required]),
   });
-  paymentDetails: FormGroup = new FormGroup({});
 
   ngOnInit() {
     this.retriveUser();
@@ -128,13 +128,12 @@ export class OrderFormPage implements OnInit {
       this.error = err.error.message;
     };
   }
-
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any): void {
     this.paymentId = event.detail.razorpay_payment_id;
     this.orderProducts();
-    this.myFunction();
   }
+
   getUserValues() {
     const docRef = collection(this.db, 'users', this.userId, 'User');
     onSnapshot(docRef, (snapshot) => {
@@ -192,6 +191,11 @@ export class OrderFormPage implements OnInit {
     });
     const docRef = collection(this.db, 'users', this.userId, 'Orders');
     addDoc(docRef, {
+      user: this.userId,
+      userName: this.userInfo.name,
+      phoneNo: this.userInfo.phoneNo,
+      address: this.userInfo.address,
+      email: this.userEmail,
       orderedProducts: orderProducts,
       totalAmount: this.getTotal(),
       createdAt: serverTimestamp(),
@@ -215,6 +219,8 @@ export class OrderFormPage implements OnInit {
           orderedProducts: orderProducts,
         })
           .then(() => {
+            // this.enable = true;
+            this.stepper.next();
             // this.clearCart();
           })
           .catch((error) => {
@@ -225,10 +231,60 @@ export class OrderFormPage implements OnInit {
         console.log(error);
       });
   }
-  myFunction() {
-    this.enable = true;
-    document.getElementById('next')?.click();
+
+  orderProductCOD() {
+    let orderProducts: [] = this.products.map(function (product: any) {
+      return {
+        id: product.id,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        productPrice: product.productPrice,
+        productQuantity: product.productQuantity,
+      };
+    });
+    const docRef = collection(this.db, 'users', this.userId, 'Orders');
+    addDoc(docRef, {
+      user: this.userId,
+      userName: this.userInfo.name,
+      phoneNo: this.userInfo.phoneNo,
+      address: this.userInfo.address,
+      email: this.userEmail,
+      orderedProducts: orderProducts,
+      totalAmount: this.getTotal(),
+      createdAt: serverTimestamp(),
+      paymentID: 'Cash On Delivery',
+      status: 'red',
+    })
+      .then((docRef) => {
+        this.orderId = docRef.id;
+        this.enable = true;
+        const ref = doc(this.db, 'totalorders', this.orderId);
+        setDoc(ref, {
+          user: this.userId,
+          userName: this.userInfo.name,
+          phoneNo: this.userInfo.phoneNo,
+          address: this.userInfo.address,
+          email: this.userEmail,
+          totalAmount: this.getTotal(),
+          createdAt: serverTimestamp(),
+          paymentID: 'Cash On Delivery',
+          status: 'red',
+          orderedProducts: orderProducts,
+        })
+          .then(() => {
+            // this.enable = true;
+            this.stepper.next();
+            // this.clearCart();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
+
   updateProductbyquantity(quantity: any, id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     updateDoc(docRef, {
@@ -258,10 +314,12 @@ export class OrderFormPage implements OnInit {
       0
     );
   }
+
   deleteProduct(id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     deleteDoc(docRef).then(() => {});
   }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, { duration: 3000 });
   }
