@@ -8,8 +8,12 @@ import {
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
 } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-totalorders',
@@ -34,6 +38,10 @@ export class TotalordersComponent implements OnInit {
     'status',
     'invoice',
   ];
+  OrderedProducts: any = [];
+  productNames: any = [];
+  productPrice: any = [];
+  productQuantity: any = [];
 
   ngOnInit() {
     // this.retriveUser();
@@ -50,6 +58,25 @@ export class TotalordersComponent implements OnInit {
   //     }
   //   });
   // }
+  
+  updateStatus(orderId: any, userId: any) {
+    // const productId = orderId;
+    const docRef = doc(this.db, 'totalorders', orderId);
+    updateDoc(docRef, {
+      status: 'delivered',
+    })
+      .then(() => {
+        const ref = doc(this.db, 'users', userId, 'Orders', orderId);
+        updateDoc(ref, {
+          status: 'delivered',
+        }).catch((error) => {
+          console.log(error);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   fetchProducts() {
     const docRef = collection(this.db, 'totalorders');
@@ -58,8 +85,9 @@ export class TotalordersComponent implements OnInit {
       this.ordersId = [];
       snapshot.docs.forEach((doc) => {
         this.ordersId.push({
-          id: doc.id,
+          orderId: doc.id,
           userId: doc.get('user'),
+          useremailId: doc.get('email'),
           status: doc.get('status'),
           amount: doc.get('totalAmount'),
           paymentId: doc.get('paymentID'),
@@ -69,15 +97,131 @@ export class TotalordersComponent implements OnInit {
     });
   }
 
-  fetchProduct(id: string) {
-    const docRef = doc(this.db, 'totalorders', id);
+  fetchProduct(user: string, orderId: string) {
+    const docRef = doc(this.db, 'users', user, 'Orders', orderId);
+    this.productNames = [];
+    this.productPrice = [];
+    this.productQuantity = [];
     onSnapshot(docRef, (doc) => {
       this.product = doc.data();
-      console.log(this.product);
+      this.OrderedProducts = this.product.orderedProducts;
+      this.OrderedProducts.forEach((element: any) => {
+        this.productNames.push(element.productName); //every elemt of order name
+        this.productPrice.push(
+          '₹' + element.productPrice * element.productQuantity
+        );
+        this.productQuantity.push(element.productQuantity);
+      });
+      console.log(
+        this.product,
+        this.productNames,
+        this.productPrice,
+        this.productQuantity
+      );
+      this.createPDF(orderId, this.product);
     });
   }
 
-  kk(id: string) {
-    console.log(id);
+  createPDF(orderId: any, info: any) {
+    const data: any = this.getDocumentDefinition(
+      info,
+      orderId,
+      this.productNames,
+      this.productPrice,
+      this.productQuantity
+    );
+    pdfMake.createPdf(data).open();
+  }
+  getDocumentDefinition(
+    info: any,
+    orderId: string,
+    productNames: any,
+    productPrice: number,
+    productQuantity: number
+  ) {
+    return {
+      content: [
+        {
+          text: 'Invoice',
+          bold: true,
+          fontSize: 20,
+          alignment: 'center',
+          margin: [0, 0, 0, 20],
+        },
+        {
+          text: 'Order ID: #' + orderId,
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Name: ' + info.userName,
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Address: ' + info.address,
+          fontSize: 14,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Contact Details: ' + info.phoneNo,
+          fontSize: 14,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Email Id: ' + info.email,
+          fontSize: 14,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Payment Methode: ' + info.paymentID,
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Delivery Status: ' + info.status,
+          fontSize: 14,
+          margin: [0, 20, 0, 8],
+        },
+
+        // { '#': id },
+        {
+          text: 'Product Details',
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          style: 'tableExample',
+          table: {
+            headerRows: 1,
+            body: [
+              [
+                { text: 'Product Name', style: 'tableHeader' },
+                { text: 'Quantity', style: 'tableHeader' },
+                { text: 'Total Price ', style: 'tableHeader' },
+              ],
+              [productNames, productQuantity, productPrice],
+            ],
+          },
+          layout: 'lightHorizontalLines',
+        },
+        {
+          text: 'Total Amount : ₹' + info.totalAmount,
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+      ],
+      styles: {
+        name: {
+          fontSize: 16,
+          bold: true,
+        },
+      },
+    };
   }
 }

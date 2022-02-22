@@ -200,7 +200,7 @@ export class OrderFormPage implements OnInit {
       totalAmount: this.getTotal(),
       createdAt: serverTimestamp(),
       paymentID: this.paymentId,
-      status: 'red',
+      status: 'undelivered',
     })
       .then((docRef) => {
         this.orderId = docRef.id;
@@ -215,7 +215,7 @@ export class OrderFormPage implements OnInit {
           totalAmount: this.getTotal(),
           createdAt: serverTimestamp(),
           paymentID: this.paymentId,
-          status: 'red',
+          status: 'undelivered',
           orderedProducts: orderProducts,
         })
           .then(() => {
@@ -253,7 +253,7 @@ export class OrderFormPage implements OnInit {
       totalAmount: this.getTotal(),
       createdAt: serverTimestamp(),
       paymentID: 'Cash On Delivery',
-      status: 'red',
+      status: 'undelivered',
     })
       .then((docRef) => {
         this.orderId = docRef.id;
@@ -268,7 +268,7 @@ export class OrderFormPage implements OnInit {
           totalAmount: this.getTotal(),
           createdAt: serverTimestamp(),
           paymentID: 'Cash On Delivery',
-          status: 'red',
+          status: 'undelivered',
           orderedProducts: orderProducts,
         })
           .then(() => {

@@ -6,14 +6,16 @@
 </ion-header>
 <ion-content>
   <mat-accordion class="headers-align" multi="false">
-    <mat-expansion-panel *ngFor="let id of productId" hideToggle="true">
-      <mat-expansion-panel-header (click)="fetchProduct(id.id)">
-        <mat-icon slot="end" *ngIf="id.status=='red'">error_outline</mat-icon>
-        <mat-icon slot="end" *ngIf="id.status=='green'"
+    <mat-expansion-panel *ngFor="let id of ordersId" hideToggle="true">
+      <mat-expansion-panel-header (click)="fetchProduct(id.userId, id.orderId)">
+        <mat-icon slot="end" *ngIf="id.status=='undelivered'"
+          >error_outline</mat-icon
+        >
+        <mat-icon slot="end" *ngIf="id.status=='delivered'"
           >checkmark-done-circle-sharp</mat-icon
         >
         <!-- multi -->
-        <mat-panel-title> Order Id # {{id.id}} </mat-panel-title>
+        <mat-panel-title> Order Id # {{id.orderId}} </mat-panel-title>
       </mat-expansion-panel-header>
       <ion-list>
         <ion-item>
@@ -32,7 +34,7 @@
             <h2>Quantity:{{order.productQuantity }}</h2>
           </ion-label>
         </ion-item>
-        <ion-button (click)="createPDF(id)">download</ion-button>
+        <ion-label>{{id.paymentId}}</ion-label>
         <!-- </mat-panel-description> -->
         <ion-item>
           <strong> Total Amount:</strong>
@@ -41,6 +43,11 @@
               {{ product.totalAmount | currency:"INR":'symbol':'2.0' }}
             </strong>
           </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-button slot="end" (click)="createPDF(id.orderId)">
+            Get Invoice
+          </ion-button>
         </ion-item>
       </ion-list>
     </mat-expansion-panel>
