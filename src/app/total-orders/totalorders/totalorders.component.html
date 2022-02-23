@@ -19,7 +19,7 @@
     </ng-container>
     <ng-container matColumnDef="totalAmount">
       <th mat-header-cell *matHeaderCellDef>Amount</th>
-      <td mat-cell *matCellDef="let id">{{ id.amount }}</td>
+      <td mat-cell *matCellDef="let id">{{ id.amount | currency: "INR":"symbol":"2.0"}}</td>
     </ng-container>
     <ng-container matColumnDef="paymentId">
       <th mat-header-cell *matHeaderCellDef>Payment Method</th>
@@ -42,9 +42,8 @@
       <ng-container matColumnDef="invoice">
         <th mat-header-cell *matHeaderCellDef>Invoice</th>
         <td mat-cell *matCellDef="let id">
-          <button (click)="fetchProduct(id.userId, id.orderId)">
-            download
-          </button>
+          <ion-text (click)="fetchProduct(id.userId, id.orderId)">download
+          </ion-text>
         </td>
       </ng-container>
     </ng-container>

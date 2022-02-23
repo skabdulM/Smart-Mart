@@ -6,14 +6,14 @@ table.mat-table {
   background-color: #fafafa;
   width: 90%;
 }
-th {
-  /* background-color: rgb(139, 199, 255); */
+/* th {
+  background-color: rgb(139, 199, 255);
   text-align: center;
-  /* color: white; */
-}
+  color: white;
+} */
 
 td {
-  padding-left: 10px;
+  /* padding-left: 10px; */
   text-align: left;
   /* background-color: aqua; */
   max-width: 0px;
@@ -48,4 +48,7 @@ td {
 .mat-column-paymentId {
   width: 15%;
   padding-left: 20px;
+}
+ion-text{
+  cursor: pointer;
 }
