@@ -35,7 +35,7 @@
       ></ion-icon>
     </ion-item>
   </ion-list>
-  <ion-item *ngIf="products.length!==0">
+  <ion-item lines="full" *ngIf="products.length!==0">
     <strong> Total Amount:</strong>
     <ion-label slot="end">
       <strong> {{ getTotal() | currency:"INR":'symbol':'2.0' }} </strong>
@@ -46,7 +46,7 @@
       >Order Now
     </ion-button>
   </div>
-  <ion-item *ngIf="products.length==0">
+  <ion-item lines="full" *ngIf="products.length==0">
     <ion-title>Add something in your cart</ion-title>
   </ion-item>
 </ion-content>

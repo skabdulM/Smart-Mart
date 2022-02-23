@@ -33,9 +33,9 @@ export class TotalordersComponent implements OnInit {
     'srNo',
     'ordersId',
     'userId',
-    'totalAmount',
     'paymentId',
     'status',
+    'totalAmount',
     'invoice',
   ];
   OrderedProducts: any = [];
@@ -168,6 +168,12 @@ export class TotalordersComponent implements OnInit {
         },
         {
           text: 'Order ID: #' + orderId,
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Ordered At: ' + info.createdAt.toDate(),
           fontSize: 14,
           bold: true,
           margin: [0, 20, 0, 8],

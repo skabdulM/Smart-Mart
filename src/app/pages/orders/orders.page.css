@@ -1,3 +1,8 @@
-.end{
-    float: right;
+.end {
+  float: right;
 }
+.invoice:hover {
+  cursor: pointer;
+  color: #0000d0;
+}
+

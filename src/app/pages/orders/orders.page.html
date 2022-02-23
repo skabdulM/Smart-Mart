@@ -8,18 +8,15 @@
   <mat-accordion class="headers-align" multi="false">
     <mat-expansion-panel *ngFor="let id of ordersId" hideToggle="true">
       <mat-expansion-panel-header (click)="fetchProduct(id.userId, id.orderId)">
-        <mat-icon slot="end" *ngIf="id.status=='undelivered'"
-          >error_outline</mat-icon
+        <ion-text slot="end" *ngIf="id.status=='undelivered'"
+          >Undelivered</ion-text
         >
-        <mat-icon slot="end" *ngIf="id.status=='delivered'"
-          >checkmark-done-circle-sharp</mat-icon
-        >
-        <!-- multi -->
-        <mat-panel-title> Order Id # {{id.orderId}} </mat-panel-title>
+        <ion-text slot="end" *ngIf="id.status=='delivered'">Delivered</ion-text>
+        <mat-panel-title> Order Id #{{id.orderId}} </mat-panel-title>
       </mat-expansion-panel-header>
       <ion-list>
-        <ion-item>
-          <strong> {{ product.createdAt }} </strong>
+        <ion-item lines="full" color="primary">
+          Order Date: {{ createdAt }}
         </ion-item>
         <!-- <mat-panel-description *ngFor="let order of product.orderedProducts"> -->
         <ion-item *ngFor="let order of OrderedProducts" lines="full">
@@ -31,12 +28,11 @@
             </p>
           </ion-label>
           <ion-label slot="end">
-            <h2>Quantity:{{order.productQuantity }}</h2>
+            <h2>Quantity: {{order.productQuantity }}</h2>
           </ion-label>
         </ion-item>
-        <ion-label>{{id.paymentId}}</ion-label>
         <!-- </mat-panel-description> -->
-        <ion-item>
+        <ion-item lines="full">
           <strong> Total Amount:</strong>
           <ion-label slot="end">
             <strong>
@@ -44,10 +40,12 @@
             </strong>
           </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-button slot="end" (click)="createPDF(id.orderId)">
-            Get Invoice
-          </ion-button>
+        <ion-item lines="full">
+          <strong><ion-label>Payment Method:</ion-label></strong>
+          <ion-label slot="end"
+            >{{id.paymentId}}
+            <p class="invoice" (click)="createPDF(id.orderId)">Invoice</p>
+          </ion-label>
         </ion-item>
       </ion-list>
     </mat-expansion-panel>

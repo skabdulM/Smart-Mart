@@ -36,7 +36,7 @@ export class OrdersPage implements OnInit {
   productNames: any = [];
   productPrice: any = [];
   productQuantity: any = [];
-
+  createdAt: string = '';
   ngOnInit() {
     this.retriveUser();
   }
@@ -79,6 +79,7 @@ export class OrdersPage implements OnInit {
     this.productQuantity = [];
     onSnapshot(docRef, (doc) => {
       this.product = doc.data();
+      this.createdAt = doc.get('createdAt').toDate();
       this.OrderedProducts = this.product.orderedProducts;
       this.OrderedProducts.forEach((element: any) => {
         this.productNames.push(element.productName); //every elemt of order name
@@ -125,6 +126,12 @@ export class OrdersPage implements OnInit {
         },
         {
           text: 'Order ID: #' + orderId,
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 8],
+        },
+        {
+          text: 'Ordered At: ' + info.createdAt.toDate(),
           fontSize: 14,
           bold: true,
           margin: [0, 20, 0, 8],
