@@ -60,14 +60,14 @@ export class UserPage implements OnInit {
   }
 
   getUserValues() {
-    const docRef = collection(this.db, 'users', this.userId, 'User');
-    onSnapshot(docRef, (snapshot) => {
+    const docRef = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
+    onSnapshot(docRef, (doc) => {
       this.userInfo = {};
-      snapshot.docs.forEach((doc) => {
-        this.userInfo = { ...doc.data() };
-        this.userPage.reset();
-        this.setValues();
-      });
+      // snapshot.docs.forEach((doc) => {
+      this.userInfo = doc.data();
+      this.userPage.reset();
+      this.setValues();
+      // });
     });
   }
 

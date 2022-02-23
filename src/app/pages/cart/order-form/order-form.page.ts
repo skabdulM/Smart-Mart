@@ -134,15 +134,16 @@ export class OrderFormPage implements OnInit {
     this.orderProducts();
   }
 
+
   getUserValues() {
-    const docRef = collection(this.db, 'users', this.userId, 'User');
-    onSnapshot(docRef, (snapshot) => {
+    const docRef = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
+    onSnapshot(docRef, (doc) => {
       this.userInfo = {};
-      snapshot.docs.forEach((doc) => {
-        this.userInfo = { ...doc.data() };
-        this.userDetails.reset();
-        this.setValues();
-      });
+      // snapshot.docs.forEach((doc) => {
+      this.userInfo = doc.data();
+      this.userDetails.reset();
+      this.setValues();
+      // });
     });
   }
 

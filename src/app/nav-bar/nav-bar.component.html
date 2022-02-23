@@ -1,6 +1,6 @@
 <ion-menu menuId="main-menu" content-id="main" side="start">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary" class="ion-padding-start">
       <ion-title> Menu </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -8,32 +8,32 @@
     <ion-list>
       <ion-menu-toggle autoHide="true">
         <ion-item routerLink="/home">
-          <ion-icon name="home-sharp"></ion-icon>
-          <ion-label>Home</ion-label>
+          <ion-icon id="scan" name="scan-sharp"></ion-icon>
+          <ion-label class="ion-padding-start">Scanner</ion-label>
         </ion-item>
         <ion-item routerLink="user">
-          <ion-icon name="person-circle-sharp"></ion-icon>
-          <ion-label>My Account</ion-label>
+          <ion-icon id="profile" name="person-circle-sharp"></ion-icon>
+          <ion-label class="ion-padding-start">My Account</ion-label>
         </ion-item>
         <ion-item routerLink="cart">
-          <ion-icon name="cart-sharp"></ion-icon>
-          <ion-label>Cart Items</ion-label>
+          <ion-icon id="cart" name="cart"></ion-icon>
+          <ion-label class="ion-padding-start">Cart Items</ion-label>
         </ion-item>
         <ion-item routerLink="orders">
-          <ion-icon name="file-tray-full-sharp"></ion-icon>
-          <ion-label>Orders</ion-label>
+          <ion-icon id="order" name="file-tray-full"></ion-icon>
+          <ion-label class="ion-padding-start">Orders</ion-label>
         </ion-item>
         <ion-item *ngIf="this.userInfo.admin == true" routerLink="products">
-          <!-- <ion-icon name="exit-sharp"></ion-icon> -->
-          <ion-label>Products</ion-label>
+          <ion-icon id="products" name="bag-check"></ion-icon>
+          <ion-label class="ion-padding-start">Products</ion-label>
         </ion-item>
         <ion-item *ngIf="this.userInfo.admin == true" routerLink="total-orders">
-          <!-- <ion-icon></ion-icon> -->
-          <ion-label>Total Orders</ion-label>
+          <ion-icon id="total" name="layers-sharp"></ion-icon>
+          <ion-label class="ion-padding-start">Total Orders</ion-label>
         </ion-item>
         <ion-item class="pointer" (click)="signout()">
-          <ion-icon name="exit-sharp"></ion-icon>
-          <ion-label>Sign Out</ion-label>
+          <ion-icon id="logout" name="log-out"></ion-icon>
+          <ion-label class="ion-padding-start">Sign Out</ion-label>
         </ion-item>
       </ion-menu-toggle>
     </ion-list>
