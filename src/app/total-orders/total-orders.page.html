@@ -7,3 +7,6 @@
 <ion-content *ngIf="this.userInfo.admin == true">
  <app-totalorders></app-totalorders>
 </ion-content>
+<ion-content *ngIf="this.userInfo.admin==null">
+  <h1>This page is only for admin</h1>
+</ion-content>

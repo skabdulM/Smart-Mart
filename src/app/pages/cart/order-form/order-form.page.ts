@@ -23,6 +23,7 @@ import {
 import { MatAccordion } from '@angular/material/expansion';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-form',
@@ -35,7 +36,8 @@ export class OrderFormPage implements OnInit {
   constructor(
     breakpointObserver: BreakpointObserver,
     private snackBar: MatSnackBar,
-    private auths: AuthService
+    private auths: AuthService,
+    private router: Router
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -134,7 +136,6 @@ export class OrderFormPage implements OnInit {
     this.orderProducts();
   }
 
-
   getUserValues() {
     const docRef = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
     onSnapshot(docRef, (doc) => {
@@ -177,6 +178,10 @@ export class OrderFormPage implements OnInit {
       snapshot.docs.forEach((doc) => {
         this.products.push({ ...doc.data(), id: doc.id });
       });
+      if (this.products == 0) {
+        this.router.navigate(['/cart']);
+      } else {
+      }
     });
   }
 

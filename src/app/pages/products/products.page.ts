@@ -12,6 +12,7 @@ import { AddProductDailogComponent } from './add-product-dailog/add-product-dail
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Products } from 'src/app/products';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +20,11 @@ import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
   styleUrls: ['./products.page.css'],
 })
 export class ProductsPage implements OnInit {
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
   products: Products[] = [];
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
@@ -49,18 +54,13 @@ export class ProductsPage implements OnInit {
       snapshot.docs.forEach((doc) => {
         this.userInfo = { ...doc.data() };
       });
+      if (this.userInfo.admin == true) {
+        console.log('admin');
+      } else {
+        this.router.navigate(['/user']);
+      }
     });
   }
-
-  // signout() {
-  //   signOut(this.auth)
-  //     .then(() => {
-  //       console.log('logged out');
-  //     })
-  //     .catch((error) => {
-  //       console.log('error');
-  //     });
-  // }
 
   openDialog() {
     const dialogRef = this.dialog.open(AddProductDailogComponent, {

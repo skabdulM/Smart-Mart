@@ -1,24 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import {
-  collection,
-  doc,
-  getFirestore,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-} from 'firebase/firestore';
+import { collection, getFirestore, onSnapshot } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
-
 @Component({
   selector: 'app-total-orders',
   templateUrl: './total-orders.page.html',
   styleUrls: ['./total-orders.page.css'],
 })
 export class TotalOrdersPage implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
@@ -50,6 +42,11 @@ export class TotalOrdersPage implements OnInit {
       snapshot.docs.forEach((doc) => {
         this.userInfo = { ...doc.data() };
       });
+      if (this.userInfo.admin == true) {
+        console.log('admin');
+      } else {
+       this.router.navigate(['/user']);
+      }
     });
   }
   // fetchProducts() {
