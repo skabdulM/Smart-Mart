@@ -83,6 +83,7 @@ export class UserPage implements OnInit {
 
   async presentToast(message: string) {
     const toast = await this.toastController.create({
+      color:"primary",
       message,
       duration: 1500,
     });

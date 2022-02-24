@@ -33,7 +33,7 @@ export class HomePage implements OnInit {
   userId: string = '';
   qrResultString: string = '';
   opened = false;
-
+  hasPermission!: boolean;
   ngOnInit() {
     this.retriveUser();
   }
@@ -41,6 +41,9 @@ export class HomePage implements OnInit {
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
     this.getProduct();
+  }
+  onHasPermission(has: boolean) {
+    this.hasPermission = has;
   }
 
   retriveUser() {
@@ -114,6 +117,7 @@ export class HomePage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message,
+      color: 'primary',
       duration: 2500,
       buttons: [
         {

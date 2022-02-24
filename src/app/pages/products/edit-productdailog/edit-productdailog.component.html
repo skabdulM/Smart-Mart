@@ -10,7 +10,6 @@
         maxlength="25"
         clearInput
         spellcheck="true"
-        required="true"
         formControlName="productName"
       ></ion-input>
     </ion-item>
@@ -19,8 +18,9 @@
       <ion-textarea
         type="text"
         inputmode="text"
-        required="true"
         rows="5"
+        minlength="10"
+        maxlength="100"
         placeholder="Enter Product Description here..."
         spellcheck="true"
         wrap="hard"
@@ -35,12 +35,11 @@
         inputmode="numeric"
         placeholder="Product Price in rupees"
         min="1"
-        required="true"
         formControlName="productAmount"
         >₹
       </ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item lines="none">
       <!-- <ng-container> -->
       <label>
         <ion-text class="lable">Select Image</ion-text>
@@ -49,14 +48,13 @@
           #imageInput
           type="file"
           accept="image/*"
-          required="true"
           formControlName="productImage"
           (change)="processFile(imageInput)"
         />
       </label>
       <!-- </ng-container> -->
     </ion-item>
-    <ion-item>
+    <ion-item lines="none">
       <ion-img [src]="this.selectedFile"></ion-img>
     </ion-item>
   </ion-list>

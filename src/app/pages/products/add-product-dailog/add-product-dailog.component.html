@@ -40,7 +40,7 @@
         >₹</ion-input
       >
     </ion-item>
-    <ion-item>
+    <ion-item lines="none">
       <label>
         <ion-text class="lable">Select Image</ion-text>
         <input
@@ -54,7 +54,7 @@
         />
       </label>
     </ion-item>
-    <ion-item *ngIf="selectedFile">
+    <ion-item lines="none" *ngIf="selectedFile">
       <ion-img [src]="this.selectedFile"></ion-img>
     </ion-item>
   </ion-list>

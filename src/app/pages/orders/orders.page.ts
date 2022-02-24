@@ -179,6 +179,7 @@ export class OrdersPage implements OnInit {
         {
           style: 'tableExample',
           table: {
+            widths: ['*', '*',  '*'],
             headerRows: 1,
             body: [
               [

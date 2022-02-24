@@ -9,7 +9,20 @@
   <zxing-scanner
     [enable]="true"
     (scanSuccess)="onCodeResult($event)"
+    (permissionResponse)="onHasPermission($event)"
   ></zxing-scanner>
+  <ng-container *ngIf="hasPermission === undefined">
+    <h2>Waiting for permissions.</h2>
+    <blockquote>
+      If your device does not has cameras, no permissions will be asked.
+    </blockquote>
+  </ng-container>
+  <ng-container *ngIf="hasPermission === false">
+    <h2>
+      You denied the camera permission, we can't scan anything without it. 😪
+    </h2>
+  </ng-container>
+
   <!-- <qrcode
     *ngFor="let qrData"
     [qrdata]="qrData"
@@ -24,5 +37,5 @@
       <strong>{{ qrResultString }}</strong>
     </div>
   </section>
-  <ion-button class="end" (click)="getProduct()" type="submit">Get Product</ion-button>
+  <!-- <ion-button class="end" (click)="getProduct()" type="submit">Get Product</ion-button> -->
 </ion-content>

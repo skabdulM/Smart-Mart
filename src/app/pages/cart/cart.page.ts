@@ -93,6 +93,7 @@ export class CartPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message,
+      color: 'primary',
       duration: 1500,
     });
     toast.present();
