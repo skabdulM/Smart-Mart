@@ -28,6 +28,7 @@ export class HomePage implements OnInit {
   product: any = {};
   userId: string = '';
   qrResultString: string = '';
+  opened = false;
 
   ngOnInit() {
     this.retriveUser();
@@ -57,7 +58,14 @@ export class HomePage implements OnInit {
     onSnapshot(docRef, (doc) => {
       this.product = {};
       (this.product = doc.data()), doc.id;
-      this.addToCart();
+      if (this.product == null) {
+        alert('Please Scan the provided QR code');
+      } else {
+        if (this.opened == false) {
+          this.addToCart();
+        } else {
+        }
+      }
     });
   }
 
@@ -66,6 +74,7 @@ export class HomePage implements OnInit {
       width: '650px',
       data: this.product,
     });
+    this.opened = true;
     dialogRef.afterClosed().subscribe((addProduct) => {
       if (addProduct.redirect === 'addtocart') {
         const db = getFirestore();
@@ -86,12 +95,14 @@ export class HomePage implements OnInit {
           .then(() => {
             this.openSnackBar('Added to Cart', '🛒');
             this.qrResultString = '';
+            this.opened = false;
           })
           .catch((error) => {
             console.log(error);
           });
       } else {
         this.qrResultString = '';
+        this.opened = false;
       }
     });
   }

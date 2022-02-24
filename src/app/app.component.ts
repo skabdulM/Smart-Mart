@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -15,6 +16,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  constructor(private router: Router) {}
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
@@ -47,5 +49,6 @@ export class AppComponent {
 
   loginGmail() {
     signInWithRedirect(this.auth, this.provider);
+    this.router.navigate(['/user']);
   }
 }
