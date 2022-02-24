@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import {
@@ -12,6 +11,7 @@ import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./home.page.css'],
 })
 export class HomePage implements OnInit {
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar,private router:Router) {}
 
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
@@ -107,7 +107,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: any) {
     this.snackBar.open(message, action, { duration: 2500 });
   }
 }
