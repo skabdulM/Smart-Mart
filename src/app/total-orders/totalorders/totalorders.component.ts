@@ -25,8 +25,6 @@ export class TotalordersComponent implements OnInit {
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
-  // userInfo: any = {};
-  // userId: string = '';
   ordersId: any = [];
   product: any = [];
   displayedColumns = [
@@ -44,23 +42,10 @@ export class TotalordersComponent implements OnInit {
   productQuantity: any = [];
 
   ngOnInit() {
-    // this.retriveUser();
     this.fetchProducts();
   }
-  // retriveUser() {
-  //   onAuthStateChanged(this.auth, (user) => {
-  //     if (user !== null) {
-  //       this.userId = user.uid;
-  //       // this.getUserValues();
-  //       this.fetchProducts();
-  //     } else {
-  //       console.log('okkk');
-  //     }
-  //   });
-  // }
 
   updateStatus(orderId: string, userId: string, status: string) {
-    // const productId = orderId;
     if (status == 'undelivered') {
       const docRef = doc(this.db, 'totalorders', orderId);
       updateDoc(docRef, {

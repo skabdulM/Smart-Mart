@@ -7,7 +7,6 @@ import {
   signInWithRedirect,
 } from 'firebase/auth';
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -15,18 +14,17 @@ import {
   onSnapshot,
   orderBy,
   query,
-  setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
   styleUrls: ['./cart.page.css'],
 })
 export class CartPage implements OnInit {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(public toastController: ToastController) {}
 
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
@@ -45,7 +43,7 @@ export class CartPage implements OnInit {
       productQuantity: quantity.value,
     })
       .then(() => {
-        this.openSnackBar('Quantity Updated', 'Ok');
+        this.presentToast('Quantity Updated');
       })
       .catch((error) => {
         console.log(error);
@@ -88,11 +86,15 @@ export class CartPage implements OnInit {
   deleteProduct(id: string) {
     const docRef = doc(this.db, 'users', this.userId, 'cartItems', id);
     deleteDoc(docRef).then(() => {
-      this.openSnackBar('Product Deleted 😞😞 !!', '🙆‍♀️');
+      this.presentToast('Product Deleted');
     });
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2500 });
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+    toast.present();
   }
 }

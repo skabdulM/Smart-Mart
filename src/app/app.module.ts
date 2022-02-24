@@ -5,9 +5,6 @@ import { AppComponent } from './app.component';
 import { IonicModule } from '@ionic/angular';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [AppComponent, NavBarComponent],
   imports: [
@@ -15,9 +12,6 @@ import { MatSortModule } from '@angular/material/sort';
     IonicModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
   ],
 
   providers: [],

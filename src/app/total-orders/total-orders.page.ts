@@ -16,8 +16,7 @@ export class TotalOrdersPage implements OnInit {
   db = getFirestore();
   userInfo: any = {};
   userId: string = '';
-  // ordersId: any = [];
-  // product: any = [];
+ 
 
   ngOnInit() {
     this.retriveUser();
@@ -49,27 +48,4 @@ export class TotalOrdersPage implements OnInit {
       }
     });
   }
-  // fetchProducts() {
-  //   const docRef = collection(this.db, 'totalorders');
-  //   const OrderBy = query(docRef, orderBy('createdAt', 'desc'));
-  //   onSnapshot(OrderBy, (snapshot) => {
-  //     this.ordersId = [];
-  //     snapshot.docs.forEach((doc) => {
-  //       this.ordersId.push({
-  //         id: doc.id,
-  //         user: doc.get('user'),
-  //         status: doc.get('status'),
-  //       });
-  //     });
-  //     console.log(this.ordersId);
-  //   });
-  // }
-
-  // fetchProduct(id: string) {
-  //   const docRef = doc(this.db, 'totalorders', id);
-  //   onSnapshot(docRef, (doc) => {
-  //     this.product = doc.data();
-  //     console.log(this.product);
-  //   });
-  // }
 }

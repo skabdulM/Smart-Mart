@@ -21,9 +21,9 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 import { MatAccordion } from '@angular/material/expansion';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/auth.service';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-form',
@@ -35,9 +35,9 @@ export class OrderFormPage implements OnInit {
   @ViewChild('stepper') stepper!: MatStepper;
   constructor(
     breakpointObserver: BreakpointObserver,
-    private snackBar: MatSnackBar,
     private auths: AuthService,
-    private router: Router
+    private router: Router,
+    public toastController: ToastController
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -66,7 +66,6 @@ export class OrderFormPage implements OnInit {
     image: '',
     order_id: '',
     handler: function (response: any) {
-      // this.paymentId=response.razorpay_payment_id);
       var event = new CustomEvent('payment.success', {
         detail: response,
         bubbles: true,
@@ -122,8 +121,7 @@ export class OrderFormPage implements OnInit {
     this.rzp1 = new this.auths.nativeWindow.Razorpay(this.options);
     this.rzp1.open();
     this.rzp1.on('payment.failed', (response: any) => {
-      this.openSnackBar('Payment Failed', response.error.code);
-      alert('Payment Failed');
+      this.presentToast('Payment Failed ' + response.error.code);
       this.error = response.error.reason;
     });
     (err: any) => {
@@ -140,11 +138,9 @@ export class OrderFormPage implements OnInit {
     const docRef = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
     onSnapshot(docRef, (doc) => {
       this.userInfo = {};
-      // snapshot.docs.forEach((doc) => {
       this.userInfo = doc.data();
       this.userDetails.reset();
       this.setValues();
-      // });
     });
   }
 
@@ -225,7 +221,6 @@ export class OrderFormPage implements OnInit {
           orderedProducts: orderProducts,
         })
           .then(() => {
-            // this.enable = true;
             this.stepper.next();
             // this.clearCart();
           })
@@ -278,7 +273,6 @@ export class OrderFormPage implements OnInit {
           orderedProducts: orderProducts,
         })
           .then(() => {
-            // this.enable = true;
             this.stepper.next();
             // this.clearCart();
           })
@@ -297,7 +291,7 @@ export class OrderFormPage implements OnInit {
       productQuantity: quantity.value,
     })
       .then(() => {
-        this.openSnackBar('Quantity Updated', 'Ok');
+        this.presentToast('Quantity Updated');
       })
       .catch((error) => {
         console.log(error);
@@ -326,7 +320,11 @@ export class OrderFormPage implements OnInit {
     deleteDoc(docRef).then(() => {});
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 3000 });
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+    toast.present();
   }
 }

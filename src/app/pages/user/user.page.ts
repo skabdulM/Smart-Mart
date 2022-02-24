@@ -1,24 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-  signInWithRedirect,
-  signOut,
-} from 'firebase/auth';
-import {
-  addDoc,
-  collection,
-  doc,
-  getFirestore,
-  onSnapshot,
-  setDoc,
-} from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-user',
@@ -26,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./user.page.css'],
 })
 export class UserPage implements OnInit {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(public toastController: ToastController) {}
 
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
@@ -87,7 +73,7 @@ export class UserPage implements OnInit {
       address: this.userPage.controls['userAddress'].value,
     })
       .then(() => {
-        this.openSnackBar('User Details Updates ', 'Ok');
+        this.presentToast('User Details Updated');
       })
       .catch((error) => {
         console.log(error);
@@ -95,7 +81,11 @@ export class UserPage implements OnInit {
     // this.getUserValues();
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2500 });
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+    toast.present();
   }
 }

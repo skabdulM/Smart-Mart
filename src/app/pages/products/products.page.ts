@@ -9,10 +9,10 @@ import {
 } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { AddProductDailogComponent } from './add-product-dailog/add-product-dailog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Products } from 'src/app/products';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-products',
@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 export class ProductsPage implements OnInit {
   constructor(
     public dialog: MatDialog,
-    private snackBar: MatSnackBar,
+    public toastController: ToastController,
     private router: Router
   ) {}
   products: Products[] = [];
@@ -77,18 +77,22 @@ export class ProductsPage implements OnInit {
           productImage: addProduct.productImage,
         })
           .then(() => {
-            this.openSnackBar('Product Added!! 👏👏 ', 'Ok');
+            this.presentToast('Product Added!!👏👏 ');
           })
           .catch((error) => {
             console.log(error);
           });
       } else {
-        this.openSnackBar('Product not added!!', 'Ok');
+        this.presentToast('Product not added!!');
       }
     });
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2500 });
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+    toast.present();
   }
 }

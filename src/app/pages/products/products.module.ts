@@ -14,7 +14,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { EditProductdailogComponent } from './edit-productdailog/edit-productdailog.component';
 
@@ -33,7 +32,6 @@ import { EditProductdailogComponent } from './edit-productdailog/edit-productdai
     MatFormFieldModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSnackBarModule,
   ],
   declarations: [
     ProductsPage,

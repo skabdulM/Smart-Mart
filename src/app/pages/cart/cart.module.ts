@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CartPageRoutingModule } from './cart-routing.module';
 import { MatSelectModule } from '@angular/material/select';
 import { CartPage } from './cart.page';
@@ -18,7 +17,6 @@ import { CartPage } from './cart.page';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatSnackBarModule,
   ],
   declarations: [CartPage],
 })

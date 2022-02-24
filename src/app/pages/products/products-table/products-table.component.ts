@@ -12,9 +12,9 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditProductdailogComponent } from '../edit-productdailog/edit-productdailog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-products-table',
@@ -22,7 +22,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./products-table.component.css'],
 })
 export class ProductsTableComponent implements OnInit {
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    public dialog: MatDialog,
+    public toastController: ToastController
+  ) {}
   products: Products[] = [];
   app = initializeApp(environment.firebaseConfig);
   db = getFirestore();
@@ -65,13 +68,13 @@ export class ProductsTableComponent implements OnInit {
           productPrice: addProduct.productAmount,
         })
           .then(() => {
-            this.openSnackBar('Updated!! 👏👏 ', 'Ok');
+            this.presentToast('Product Updated!!');
           })
           .catch((error) => {
             console.log(error);
           });
       } else {
-        this.openSnackBar('Nothing changed', '🆗');
+        this.presentToast('Nothing changed');
       }
     });
   }
@@ -79,11 +82,15 @@ export class ProductsTableComponent implements OnInit {
   deleteProduct(id: string) {
     const docRef = doc(this.db, 'products', id);
     deleteDoc(docRef).then(() => {
-      this.openSnackBar('Product Deleted 😞😞 !!', 'Ok');
+      this.presentToast('Product Deleted 😞😞 !!');
     });
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, { duration: 2500 });
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+    toast.present();
   }
 }

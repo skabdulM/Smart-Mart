@@ -10,8 +10,8 @@ import {
 import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.css'],
 })
 export class HomePage implements OnInit {
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar,private router:Router) {}
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    public toastController: ToastController
+  ) {}
 
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
@@ -93,7 +97,7 @@ export class HomePage implements OnInit {
           productQuantity: addProduct.productQuantity,
         })
           .then(() => {
-            this.openSnackBar('Added to Cart', '🛒');
+            this.presentToast('Added to Cart');
             this.qrResultString = '';
             this.opened = false;
           })
@@ -107,7 +111,21 @@ export class HomePage implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: any) {
-    this.snackBar.open(message, action, { duration: 2500 });
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2500,
+      buttons: [
+        {
+          side: 'end',
+          text: ' Go to Cart',
+          icon: 'cart',
+          handler: () => {
+            this.router.navigate(['/cart']);
+          },
+        },
+      ],
+    });
+    toast.present();
   }
 }

@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { UserPageRoutingModule } from './user-routing.module';
 import { UserPage } from './user.page';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -16,7 +15,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     UserPageRoutingModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
   ],
   declarations: [UserPage],
 })
