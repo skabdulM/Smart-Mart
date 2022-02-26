@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 import { EditProductdailogComponent } from '../edit-productdailog/edit-productdailog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastController } from '@ionic/angular';
-
+import { ActionSheetController } from '@ionic/angular';
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
@@ -24,7 +24,8 @@ import { ToastController } from '@ionic/angular';
 export class ProductsTableComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public actionSheetController: ActionSheetController
   ) {}
   products: Products[] = [];
   app = initializeApp(environment.firebaseConfig);
@@ -77,6 +78,38 @@ export class ProductsTableComponent implements OnInit {
         this.presentToast('Nothing changed');
       }
     });
+  }
+
+  async presentActionSheet(id: string) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Delete Product',
+      cssClass: 'my-custom-class',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          icon: 'trash',
+          id: 'delete-button',
+          data: {
+            type: 'delete',
+          },
+          handler: () => {
+            this.deleteProduct(id);
+          },
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+    const { role, data } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role and data', role, data);
   }
 
   deleteProduct(id: string) {

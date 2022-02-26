@@ -5,20 +5,27 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <mat-accordion class="headers-align" multi="false">
-    <mat-expansion-panel *ngFor="let id of ordersId" hideToggle="true">
-      <mat-expansion-panel-header (click)="fetchProduct(id.userId, id.orderId)">
-        <ion-text slot="end" *ngIf="id.status=='undelivered'"
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let id of ordersId">
+      <ion-item slot="header" (click)="fetchProduct(id.userId, id.orderId)">
+        <ion-label> Order Id #{{id.orderId}}</ion-label>
+        <!-- <ion-text
+          slot="end"
+          style="font-size: small"
+          *ngIf="id.status=='undelivered'"
           >Undelivered</ion-text
         >
-        <ion-text slot="end" *ngIf="id.status=='delivered'">Delivered</ion-text>
-        <mat-panel-title> Order Id #{{id.orderId}} </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ion-list>
-        <ion-item lines="full" color="primary">
-          Order Date: {{ createdAt }}
+        <ion-text
+          slot="end"
+          style="font-size: small"
+          *ngIf="id.status=='delivered'"
+          >Delivered</ion-text
+        > -->
+      </ion-item>
+      <ion-list slot="content">
+        <ion-item lines="full">
+          <ion-label> Order Date: {{ createdAt }}</ion-label>
         </ion-item>
-        <!-- <mat-panel-description *ngFor="let order of product.orderedProducts"> -->
         <ion-item *ngFor="let order of OrderedProducts" lines="full">
           <ion-label>
             <h2>{{order.productName}}</h2>
@@ -31,7 +38,6 @@
             <h2>Quantity: {{order.productQuantity }}</h2>
           </ion-label>
         </ion-item>
-        <!-- </mat-panel-description> -->
         <ion-item lines="full">
           <strong> Total Amount:</strong>
           <ion-label slot="end">
@@ -41,6 +47,15 @@
           </ion-label>
         </ion-item>
         <ion-item lines="full">
+          <strong><ion-label>Status:</ion-label></strong>
+          <ion-text slot="end" *ngIf="id.status=='undelivered'"
+            >Undelivered</ion-text
+          >
+          <ion-text slot="end" *ngIf="id.status=='delivered'"
+            >Delivered</ion-text
+          >
+        </ion-item>
+        <ion-item lines="full">
           <strong><ion-label>Payment Method:</ion-label></strong>
           <ion-label slot="end"
             >{{id.paymentId}}
@@ -48,6 +63,6 @@
           </ion-label>
         </ion-item>
       </ion-list>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>

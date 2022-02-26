@@ -4,7 +4,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   collection,
   doc,
-  getDoc,
   getFirestore,
   onSnapshot,
   orderBy,
