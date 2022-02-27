@@ -18,7 +18,7 @@
         </ion-item>
         <ion-item routerLink="cart">
           <ion-icon id="cart" name="cart"></ion-icon>
-          <ion-label class="ion-padding-start">Cart Items</ion-label>
+          <ion-label class="ion-padding-start">Cart</ion-label>
         </ion-item>
         <ion-item routerLink="orders">
           <ion-icon id="order" name="file-tray-full"></ion-icon>
@@ -26,7 +26,7 @@
         </ion-item>
         <ion-item routerLink="help">
           <ion-icon id="help" name="help-circle"></ion-icon>
-          <ion-label class="ion-padding-start">Help Center</ion-label>
+          <ion-label class="ion-padding-start">Help</ion-label>
         </ion-item>
         <ion-item *ngIf="this.userInfo.admin == true" routerLink="products">
           <ion-icon id="products" name="bag-check"></ion-icon>
@@ -38,7 +38,7 @@
         </ion-item>
         <ion-item class="pointer" (click)="signout()">
           <ion-icon id="logout" name="log-out"></ion-icon>
-          <ion-label class="ion-padding-start">Sign Out</ion-label>
+          <ion-label class="ion-padding-start">Log Out</ion-label>
         </ion-item>
       </ion-menu-toggle>
     </ion-list>

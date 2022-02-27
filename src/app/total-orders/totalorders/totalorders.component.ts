@@ -96,7 +96,7 @@ export class TotalordersComponent implements OnInit {
           paymentId: doc.get('paymentID'),
         });
       });
-      console.log(this.ordersId);
+      // console.log(this.ordersId);
     });
   }
 
@@ -115,12 +115,12 @@ export class TotalordersComponent implements OnInit {
         );
         this.productQuantity.push(element.productQuantity);
       });
-      console.log(
-        this.product,
-        this.productNames,
-        this.productPrice,
-        this.productQuantity
-      );
+      // console.log(
+      //   this.product,
+      //   this.productNames,
+      //   this.productPrice,
+      //   this.productQuantity
+      // );
       this.createPDF(orderId, this.product);
     });
   }

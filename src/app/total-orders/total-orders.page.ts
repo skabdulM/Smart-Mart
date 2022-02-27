@@ -29,7 +29,7 @@ export class TotalOrdersPage implements OnInit {
         this.getUserValues();
         // this.fetchProducts();
       } else {
-        console.log('okkk');
+        console.log('fishy');
       }
     });
   }

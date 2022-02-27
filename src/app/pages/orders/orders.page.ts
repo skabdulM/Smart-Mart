@@ -26,7 +26,6 @@ export class OrdersPage implements OnInit {
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
-  // panelOpenState = false;
   // productId: any = [];
   ordersId: any = [];
   userId: string = '';
@@ -87,12 +86,12 @@ export class OrdersPage implements OnInit {
         );
         this.productQuantity.push(element.productQuantity);
       });
-      console.log(
-        this.product,
-        this.productNames,
-        this.productPrice,
-        this.productQuantity
-      );
+      // console.log(
+      //   this.product,
+      //   this.productNames,
+      //   this.productPrice,
+      //   this.productQuantity
+      // );
     });
   }
 
@@ -116,7 +115,6 @@ export class OrdersPage implements OnInit {
     return {
       content: [
         {
-          // text: 'My Journey',
           text: 'Invoice',
           bold: true,
           fontSize: 20,
@@ -178,7 +176,7 @@ export class OrdersPage implements OnInit {
         {
           style: 'tableExample',
           table: {
-            widths: ['*', '*',  '*'],
+            widths: ['*', '*', '*'],
             headerRows: 1,
             body: [
               [

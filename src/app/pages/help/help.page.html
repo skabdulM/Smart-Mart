@@ -84,18 +84,101 @@
           <ion-text><li>We use Razor Pay as our payment merchent</li></ion-text>
         </ion-item>
         <ion-item>
-          <ion-text
-            ><li>
-              Sometimes due to technical failure payment failure occurs
-            </li></ion-text
-          >
+          <ion-text>
+            <li>Sometimes due to technical failure payment failure occurs</li>
+          </ion-text>
         </ion-item>
         <ion-item>
           <ion-text>
             <li>
-              If Your money got deducted from your bank and payment failure
-              occured,We assure that you will get your chashback within 5-6
-              working days
+              If payment failure has occurred, your money will be returned
+              within 5-6 working days
+            </li>
+          </ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion>
+      <ion-item slot="header">
+        <ion-icon name="caret-forward" class="ion-padding-end"></ion-icon>
+        <ion-text>
+          Unable to scan the product/website gives error after scanning
+        </ion-text>
+      </ion-item>
+      <ion-list class="list" slot="content">
+        <ion-item>
+          <ion-text>
+            <li>You will have to scan the provided QR code only</li>
+          </ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-text>
+            <li>
+              If you scan any other QR code website will pop an alert message
+            </li>
+          </ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion>
+      <ion-item slot="header">
+        <ion-icon name="caret-forward" class="ion-padding-end"></ion-icon>
+        <ion-text>Type your help query</ion-text>
+      </ion-item>
+      <ion-list class="list" slot="content">
+        <ion-item>
+          <ion-label position="floating">Title</ion-label>
+          <ion-input
+            type="text"
+            inputmode="text"
+            placeholder="Enter Title of the problem"
+            minlength="4"
+            maxlength="25"
+            required="true"
+            spellcheck="true"
+            clearInput
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Enter Description:</ion-label>
+          <ion-textarea
+            type="text"
+            inputmode="text"
+            placeholder="Enter Description here..."
+            required="true"
+            spellcheck="true"
+            wrap="hard"
+            rows="4"
+          >
+          </ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email address:</ion-label>
+          <ion-input
+            type="text"
+            inputmode="text"
+            placeholder="Enter your Email address"
+            minlength="4"
+            maxlength="25"
+            required="true"
+            spellcheck="true"
+            clearInput
+          ></ion-input>
+        </ion-item>
+        <ion-button submit style="float: right;">Submit</ion-button>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion>
+      <ion-item slot="header">
+        <ion-icon name="caret-forward" class="ion-padding-end"></ion-icon>
+        <ion-text> Can't find the problem you were looking for </ion-text>
+      </ion-item>
+      <ion-list class="list" slot="content">
+        <ion-item>
+          <ion-text>
+            <li>
+              You can contact our customer service at 7513200000 from Monday to
+              Saturday 10am to 10pm
             </li>
           </ion-text>
         </ion-item>
