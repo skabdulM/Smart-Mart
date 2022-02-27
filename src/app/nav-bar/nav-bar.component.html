@@ -24,6 +24,10 @@
           <ion-icon id="order" name="file-tray-full"></ion-icon>
           <ion-label class="ion-padding-start">Orders</ion-label>
         </ion-item>
+        <ion-item routerLink="help">
+          <ion-icon id="help" name="help-circle"></ion-icon>
+          <ion-label class="ion-padding-start">Help Center</ion-label>
+        </ion-item>
         <ion-item *ngIf="this.userInfo.admin == true" routerLink="products">
           <ion-icon id="products" name="bag-check"></ion-icon>
           <ion-label class="ion-padding-start">Products</ion-label>
