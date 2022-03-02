@@ -5,24 +5,37 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <!-- class="full border" -->
-  <zxing-scanner
-    [enable]="true"
-    (scanSuccess)="onCodeResult($event)"
-    (permissionResponse)="onHasPermission($event)"
-  ></zxing-scanner>
-  <ng-container *ngIf="hasPermission === undefined">
-    <h2>Waiting for permissions.</h2>
-    <blockquote>
-      If your device does not has cameras, no permissions will be asked.
-    </blockquote>
-  </ng-container>
-  <ng-container *ngIf="hasPermission === false">
-    <h2>
-      You denied the camera permission, we can't scan anything without it. 😪
-    </h2>
-  </ng-container>
+  <ion-card id="trigger-button">
+    <ion-card-header>
+      <ion-card-subtitle>Scan A QR code</ion-card-subtitle>
+      <ion-card-title>
+        Scanner
+        <ion-icon style="padding-left: 3px" name="scan"></ion-icon>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content> Click here to open Scanner </ion-card-content>
+  </ion-card>
 
+  <ion-card style="height: 60px" routerLink="/cart">
+    <ion-item lines="none">
+      <ion-icon id="cart" name="cart" slot="start"></ion-icon>
+      <ion-label> Cart Item </ion-label>
+      <ion-note color="dark" style="font-size: medium" slot="end">
+        {{this.products.length}}
+      </ion-note>
+    </ion-item>
+  </ion-card>
+
+  <ion-card style="height: 60px" routerLink="/orders">
+    <ion-item lines="none" href="#">
+      <ion-icon id="order" name="file-tray-full" slot="start"></ion-icon>
+      <ion-label>Total Orders </ion-label>
+      <ion-note color="dark" style="font-size: medium" slot="end">
+        {{this.Orders.length}}
+      </ion-note>
+    </ion-item>
+  </ion-card>
+  <!-- <ion-button (click)="presentModal()"></ion-button> -->
   <!-- <qrcode
     *ngFor="let qrData"
     [qrdata]="qrData"
@@ -33,9 +46,34 @@
   ></qrcode> -->
   <section class="results" *ngIf="qrResultString">
     <div>
-      <small>Result: </small>
+      <small>Qr Code: </small>
       <strong>{{ qrResultString }}</strong>
     </div>
   </section>
-  <!-- <ion-button class="end" (click)="getProduct()" type="submit">Get Product</ion-button> -->
+  <div>
+    <ion-modal trigger="trigger-button">
+      <ng-template>
+        <ion-content>
+          <zxing-scanner
+            [enable]="true"
+            (scanSuccess)="onCodeResult($event)"
+            (permissionResponse)="onHasPermission($event)"
+          ></zxing-scanner>
+          <ng-container *ngIf="hasPermission === undefined">
+            <h2>Waiting for permissions.</h2>
+            <blockquote>
+              If your device does not has cameras, no permissions will be asked.
+            </blockquote>
+          </ng-container>
+          <ng-container *ngIf="hasPermission === false">
+            <h2>
+              You denied the camera permission, we can't scan anything without
+              it. 😪
+            </h2>
+          </ng-container>
+          <ion-button style="float: right;" (click)="dismiss()">dissmiss</ion-button>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
 </ion-content>

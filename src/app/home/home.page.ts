@@ -7,12 +7,19 @@ import {
   onAuthStateChanged,
   signInWithRedirect,
 } from 'firebase/auth';
-import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from 'firebase/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-
+import { ModalController, ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -22,7 +29,8 @@ export class HomePage implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public modalController: ModalController
   ) {}
 
   app = initializeApp(environment.firebaseConfig);
@@ -34,8 +42,17 @@ export class HomePage implements OnInit {
   qrResultString: string = '';
   opened = false;
   hasPermission!: boolean;
+  products: any = [];
+  Orders: any = [];
+  
   ngOnInit() {
     this.retriveUser();
+  }
+
+  dismiss() {
+    this.modalController.dismiss({
+      dismissed: true,
+    });
   }
 
   onCodeResult(resultString: string) {
@@ -50,6 +67,8 @@ export class HomePage implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
+        this.fetchProducts();
+        this.fetchOrders();
       } else {
         this.loginGmail();
       }
@@ -76,6 +95,30 @@ export class HomePage implements OnInit {
     });
   }
 
+  fetchProducts() {
+    const docRef = collection(this.db, 'users', this.userId, 'cartItems');
+    const OrderBy = query(docRef, orderBy('productName', 'asc'));
+    onSnapshot(OrderBy, (snapshot) => {
+      this.products = [];
+      snapshot.docs.forEach((doc) => {
+        this.products.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(this.products.length);
+    });
+  }
+
+  fetchOrders() {
+    const docRef = collection(this.db, 'users', this.userId, 'Orders');
+    const OrderBy = query(docRef, orderBy('createdAt', 'desc'));
+    onSnapshot(OrderBy, (snapshot) => {
+      this.Orders = [];
+      snapshot.docs.forEach((doc) => {
+        this.Orders.push({
+          orderId: doc.id,
+        });
+      });
+    });
+  }
   addToCart() {
     const dialogRef = this.dialog.open(AddtoCartdailogComponent, {
       width: '650px',
@@ -103,6 +146,7 @@ export class HomePage implements OnInit {
             this.presentToast('Added to Cart');
             this.qrResultString = '';
             this.opened = false;
+            this.dismiss();
           })
           .catch((error) => {
             console.log(error);
@@ -110,6 +154,7 @@ export class HomePage implements OnInit {
       } else {
         this.qrResultString = '';
         this.opened = false;
+        // this.dismiss();
       }
     });
   }

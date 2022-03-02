@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-
+import { ThankingPageComponent } from './thanking-page/thanking-page.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,6 +25,6 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatSelectModule,
   ],
-  declarations: [OrderFormPage],
+  declarations: [OrderFormPage, ThankingPageComponent],
 })
 export class OrderFormPageModule {}

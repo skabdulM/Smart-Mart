@@ -188,34 +188,8 @@
         >
           Back
         </button>
-        <button
-          #next
-          style="margin-top: 10px"
-          mat-raised-button
-          color="primary"
-          matStepperNext
-          [disabled]="!(enable)"
-        >
-          Next
-        </button>
       </form>
-    </mat-step>
-
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <!-- matStepperPrevious -->
-        <button
-          mat-raised-button
-          style="margin-top: 10px"
-          color="primary"
-          routerLink="/orders"
-        >
-          <!-- (click)="orderProducts()" -->
-          Check Orders
-        </button>
-      </div>
     </mat-step>
   </mat-stepper>
 </ion-content>
+

@@ -12,7 +12,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { HomePage } from './home.page';
 import { AddtoCartdailogComponent } from './addto-cartdailog/addto-cartdailog.component';
-
 @NgModule({
   imports: [
     CommonModule,

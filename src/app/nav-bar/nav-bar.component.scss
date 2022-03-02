@@ -1,28 +1,32 @@
 .pointer {
   cursor: pointer;
 }
-#scan {
-  color: #6acaf5;
+#home {
+  color: #039ebd;
 }
 #profile {
-  color: #039EBD;
+  color: #1aa075;
 }
-#cart{
-    color: #1AA075;
+#cart {
+  color: #f2a900;
 }
-#order{
-    color: #ED2744;
+#order {
+  color: #ed2744;
 }
-#products{
-    color: #FFA500;
+#products {
+  color: #ffa500;
 }
-#total{
-    color: #E64739;
+#total {
+  color: #e64739;
 }
-#logout{
-    color: #209AED;
+#logout {
+  color: #209aed;
 }
-#help{
-  // color: #005973;
+#help {
   color: #007499;
+}
+#image-center {
+  width: 80px !important;
+  height: 96px !important;
+  margin: auto;
 }

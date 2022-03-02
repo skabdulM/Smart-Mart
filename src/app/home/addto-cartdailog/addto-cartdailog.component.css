@@ -1,8 +1,6 @@
 ::ng-deep mat-dialog-container {
   border-radius: 15px !important;
-  background-color: #dbc4f0 !important;
 }
-
 ng-container {
   --ion-background-color: transparent !important;
 }
@@ -21,6 +19,13 @@ ion-list {
   height: 150px;
   width: 100%;
 } */
-.select{
+.select {
   width: 40%;
+}
+.end {
+  float: right;
+}
+ion-img{
+  height: 200px;;
+  width: 100%;
 }

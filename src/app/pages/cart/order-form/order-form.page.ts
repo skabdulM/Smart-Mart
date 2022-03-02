@@ -23,7 +23,8 @@ import {
 import { MatAccordion } from '@angular/material/expansion';
 import { AuthService } from 'src/app/auth.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { ThankingPageComponent } from './thanking-page/thanking-page.component';
 
 @Component({
   selector: 'app-order-form',
@@ -37,7 +38,8 @@ export class OrderFormPage implements OnInit {
     breakpointObserver: BreakpointObserver,
     private auths: AuthService,
     private router: Router,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public modalController: ModalController
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -99,6 +101,21 @@ export class OrderFormPage implements OnInit {
     this.retriveUser();
   }
 
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ThankingPageComponent,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        name: this.userInfo.name,
+        phone: this.userInfo.phoneNo,
+        address: this.userInfo.address,
+        email: this.userEmail,
+        orderId: this.orderId,
+      },
+    });
+    return await modal.present();
+  }
+
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
@@ -107,7 +124,7 @@ export class OrderFormPage implements OnInit {
         this.getUserValues();
         this.fetchProducts();
       } else {
-        // console.log('something is fishy');
+        console.log('something is fishy');
       }
     });
   }
@@ -174,8 +191,8 @@ export class OrderFormPage implements OnInit {
       snapshot.docs.forEach((doc) => {
         this.products.push({ ...doc.data(), id: doc.id });
       });
-      if (this.products == 0) {
-        this.router.navigate(['/cart']);
+      if (this.products.length == 0) {
+        this.router.navigate(['/home']);
       } else {
       }
     });
@@ -221,8 +238,8 @@ export class OrderFormPage implements OnInit {
           orderedProducts: orderProducts,
         })
           .then(() => {
-            this.stepper.next();
-            // this.clearCart();
+            this.presentModal();
+            this.clearCart();
           })
           .catch((error) => {
             console.log(error);
@@ -273,8 +290,8 @@ export class OrderFormPage implements OnInit {
           orderedProducts: orderProducts,
         })
           .then(() => {
-            this.stepper.next();
-            // this.clearCart();
+            this.presentModal();
+            this.clearCart();
           })
           .catch((error) => {
             console.log(error);

@@ -11,6 +11,16 @@
     ></ion-input>
   </ion-item>
   <ion-item>
+    <ion-label position="stacked">Product Description</ion-label>
+    <ion-textarea
+      [readonly]="true"
+      spellcheck="true"
+      wrap="hard"
+      rows="4"
+      [value]="this.productInfo.productDescription"
+    ></ion-textarea>
+  </ion-item>
+  <ion-item>
     <ion-label>
       Product Price:
       <p>
@@ -19,10 +29,6 @@
         </strong>
       </p>
     </ion-label>
-    <!-- <ion-input
-      [readonly]="true"
-      [value]="this.productInfo.productPrice"
-    ></ion-input> -->
     <mat-form-field class="select" slot="end" appearance="standard">
       <mat-label>Select Quantity</mat-label>
       <mat-select [(value)]="productQuantity">
@@ -35,5 +41,5 @@
     </mat-form-field>
   </ion-item>
 </ion-list>
-<ion-button (click)="dailogClose()">Close</ion-button>
-<ion-button (click)="addtocart()">Add to Cart</ion-button>
+<ion-button class="end" (click)="addtocart()">Add to Cart</ion-button>
+<ion-button class="end" (click)="dailogClose()">Close</ion-button>

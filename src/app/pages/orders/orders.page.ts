@@ -3,7 +3,9 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   collection,
+  deleteDoc,
   doc,
+  getDoc,
   getFirestore,
   onSnapshot,
   orderBy,
@@ -12,6 +14,7 @@ import {
 import { environment } from 'src/environments/environment';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { ToastController } from '@ionic/angular';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -21,12 +24,10 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./orders.page.css'],
 })
 export class OrdersPage implements OnInit {
-  constructor() {}
-
+  constructor(public toastController: ToastController) {}
   app = initializeApp(environment.firebaseConfig);
   auth = getAuth(this.app);
   db = getFirestore();
-  // productId: any = [];
   ordersId: any = [];
   userId: string = '';
   product: any = [];
@@ -35,6 +36,7 @@ export class OrdersPage implements OnInit {
   productPrice: any = [];
   productQuantity: any = [];
   createdAt: string = '';
+
   ngOnInit() {
     this.retriveUser();
   }
@@ -47,7 +49,7 @@ export class OrdersPage implements OnInit {
         // this.getUserValues();
         this.fetchProducts();
       } else {
-        // console.log('something is fishy');
+        console.log('something is fishy');
       }
     });
   }
@@ -75,7 +77,7 @@ export class OrdersPage implements OnInit {
     this.productNames = [];
     this.productPrice = [];
     this.productQuantity = [];
-    onSnapshot(docRef, (doc) => {
+    getDoc(docRef).then((doc) => {
       this.product = doc.data();
       this.createdAt = doc.get('createdAt').toDate();
       this.OrderedProducts = this.product.orderedProducts;
@@ -86,13 +88,34 @@ export class OrdersPage implements OnInit {
         );
         this.productQuantity.push(element.productQuantity);
       });
-      // console.log(
-      //   this.product,
-      //   this.productNames,
-      //   this.productPrice,
-      //   this.productQuantity
-      // );
     });
+  }
+
+  cancelOrder(id: string) {
+    const docRef = doc(this.db, 'users', this.userId, 'Orders', id);
+    const ref = doc(this.db, 'totalorders', id);
+    deleteDoc(docRef)
+      .then(() => {
+        this.presentToast('Order Cancelled!!');
+      })
+      .then(() => {
+        deleteDoc(ref);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      color: 'danger',
+      duration: 1500,
+    });
+    toast.present();
   }
 
   createPDF(orderId: any) {
@@ -105,6 +128,7 @@ export class OrdersPage implements OnInit {
     );
     pdfMake.createPdf(data).open();
   }
+
   getDocumentDefinition(
     info: any,
     orderId: string,

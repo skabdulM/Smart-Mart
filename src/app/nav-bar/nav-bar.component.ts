@@ -16,7 +16,7 @@ export class NavBarComponent implements OnInit {
   userInfo: any = {};
   userId: string = '';
   db = getFirestore();
-
+  userImg: any;
   ngOnInit() {
     this.retriveUser();
   }
@@ -25,9 +25,10 @@ export class NavBarComponent implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
+        this.userImg = user.photoURL;
         this.getUserValues();
       } else {
-        // console.log('fishy');
+        console.log('fishy');
       }
     });
   }

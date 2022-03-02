@@ -1,0 +1,26 @@
+.swiper-slide {
+  display: block;
+}
+
+.swiper-slide h2 {
+  margin-top: 2.8rem;
+}
+
+.swiper-slide img {
+  max-height: 40%;
+  max-width: 80%;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  pointer-events: none;
+}
+/* .swiper-pagination {
+    position: fixed;
+    bottom: 0px;
+    padding-bottom: 2px;
+  } */
+
+.swiper-pagination {
+  position: fixed;
+  padding-top: 10px;
+}

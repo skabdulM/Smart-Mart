@@ -1,0 +1,21 @@
+<ion-content>
+  <ion-item>
+    <h1>Thanks for shopping with Us</h1>
+  </ion-item>
+  <ion-item>
+    <h1>Order Id #{{ orderId }}</h1>
+  </ion-item>
+  <ion-item>
+    <h1>Full Name: {{ name }}</h1>
+  </ion-item>
+  <ion-item>
+    <h1>Contact Details: {{ phone }}</h1>
+  </ion-item>
+  <ion-item>
+    <h1>Shipping Address: {{ address }}</h1>
+  </ion-item>
+  <ion-item>
+    <h1>E-mail: {{ email }}</h1>
+  </ion-item>
+  <ion-button (click)="dismiss()" routerLink="/orders">Go to Orders</ion-button>
+</ion-content>
