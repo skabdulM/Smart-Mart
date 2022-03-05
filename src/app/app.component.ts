@@ -65,7 +65,7 @@ export class AppComponent {
   async redirectResult() {
     const result = await getRedirectResult(this.auth);
     if (result !== null) {
-      this.router.navigate(['/user']);
+      this.router.navigate(['/home']);
       this.openDialog();
     } else {
       // console.log('ok');

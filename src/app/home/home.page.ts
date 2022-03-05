@@ -146,7 +146,7 @@ export class HomePage implements OnInit {
             this.presentToast('Added to Cart');
             this.qrResultString = '';
             this.opened = false;
-            this.dismiss();
+            // this.dismiss();
           })
           .catch((error) => {
             console.log(error);
@@ -171,6 +171,7 @@ export class HomePage implements OnInit {
           icon: 'cart',
           handler: () => {
             this.router.navigate(['/cart']);
+            this.dismiss()
           },
         },
       ],

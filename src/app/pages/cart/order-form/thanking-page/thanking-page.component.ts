@@ -13,6 +13,7 @@ export class ThankingPageComponent implements OnInit {
   @Input() address!: string;
   @Input() email!: string;
   @Input() orderId!: string;
+  img:any="/scr/assests/thumb.png"
   ngOnInit() {}
   dismiss() {
     this.modalController.dismiss({

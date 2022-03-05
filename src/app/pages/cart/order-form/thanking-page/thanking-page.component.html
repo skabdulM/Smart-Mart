@@ -1,21 +1,49 @@
+<ion-header
+  ><ion-toolbar color="primary">
+    <ion-title>Order Details</ion-title></ion-toolbar
+  ></ion-header
+>
 <ion-content>
-  <ion-item>
-    <h1>Thanks for shopping with Us</h1>
-  </ion-item>
-  <ion-item>
-    <h1>Order Id #{{ orderId }}</h1>
-  </ion-item>
-  <ion-item>
-    <h1>Full Name: {{ name }}</h1>
-  </ion-item>
-  <ion-item>
-    <h1>Contact Details: {{ phone }}</h1>
-  </ion-item>
-  <ion-item>
-    <h1>Shipping Address: {{ address }}</h1>
-  </ion-item>
-  <ion-item>
-    <h1>E-mail: {{ email }}</h1>
-  </ion-item>
-  <ion-button (click)="dismiss()" routerLink="/orders">Go to Orders</ion-button>
+  <ion-img src="./assets/fav.png"></ion-img>
+  <ion-list>
+    <ion-item lines="none" class="fontstyle">
+      <h2>Thanks for shopping with us !!</h2>
+    </ion-item>
+    <ion-item class="fontstyle">
+      <h6>Order Id #{{ orderId }}</h6>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item  class="fontstyle"lines="none">
+            <ion-label><strong>Sold By:</strong></ion-label>
+          </ion-item>
+          <ion-item class="fontstyle" lines="none" text-wrap>
+            <ion-text
+              >SMT traders <br />36, Green Downtown,<br />
+              Ostwal , Bandra</ion-text
+            >
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item class="fontstyle"text-wrap lines="none"> 
+            <ion-label><strong>Shipping Details:</strong> </ion-label>
+          </ion-item>
+          <ion-item class="fontstyle" lines="none">
+            <ion-text>{{ address }} </ion-text>
+          </ion-item></ion-col
+        >
+      </ion-row>
+    </ion-grid>
+    <ion-item class="fontstyle"lines="none">
+      <h6>Ordered By: {{  name }}</h6>
+    </ion-item>
+    <ion-item class="fontstyle" lines="none">
+      <h6>Contact Details: {{ phone }}</h6>
+    </ion-item>
+    <ion-item class="fontstyle" lines="none">
+      <h6>E-mail: {{ email }}</h6>
+    </ion-item>
+  </ion-list>
+  <ion-button style="float: right; margin-right: 0.8em;" (click)="dismiss()" routerLink="/orders">Go to Orders</ion-button>
 </ion-content>
