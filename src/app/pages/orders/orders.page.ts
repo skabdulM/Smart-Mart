@@ -454,11 +454,11 @@ export class OrdersPage implements OnInit {
         },
         '\n\n',
         {
-          text: 'NOTES',
+          text:  info.userName,
           style: 'notesTitle',
         },
         {
-          text: 'Some notes goes here \n Notes second line',
+          text: 'Thank you for your purchase ',
           style: 'notesText',
         },
       ],
