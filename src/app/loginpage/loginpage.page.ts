@@ -50,7 +50,7 @@ export class LoginpagePage implements OnInit {
         setDoc(docRef, {})
           .then(() => {})
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
         this.router.navigate(['/home']);
         getDoc(docRef).then((result) => {
@@ -69,7 +69,7 @@ export class LoginpagePage implements OnInit {
             })
               .then(() => {})
               .catch((error) => {
-                console.log(error);
+                alert(error);
               });
           } else {
           }

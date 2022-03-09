@@ -45,7 +45,7 @@ export class CartPage implements OnInit {
         this.presentToast('Quantity Updated');
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }
 

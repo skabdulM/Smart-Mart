@@ -98,7 +98,6 @@ export class HomePage implements OnInit {
       snapshot.docs.forEach((doc) => {
         this.products.push({ ...doc.data(), id: doc.id });
       });
-      console.log(this.products.length);
     });
   }
 
@@ -141,15 +140,13 @@ export class HomePage implements OnInit {
             this.presentToast('Added to Cart');
             this.qrResultString = '';
             this.opened = false;
-            // this.dismiss();
           })
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
       } else {
         this.qrResultString = '';
         this.opened = false;
-        // this.dismiss();
       }
     });
   }

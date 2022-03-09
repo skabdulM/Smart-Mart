@@ -124,7 +124,7 @@ export class OrderFormPage implements OnInit {
         this.getUserValues();
         this.fetchProducts();
       } else {
-       this.router.navigate(['/loginpage'])
+        this.router.navigate(['/loginpage']);
       }
     });
   }
@@ -177,8 +177,8 @@ export class OrderFormPage implements OnInit {
       address: this.userDetails.controls['userAddress'].value,
     })
       .then(() => {})
-      .catch(() => {
-        console.log('retry');
+      .catch((error) => {
+        alert(error);
       });
     this.getUserValues();
   }
@@ -242,11 +242,11 @@ export class OrderFormPage implements OnInit {
             this.clearCart();
           })
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }
 
@@ -294,11 +294,11 @@ export class OrderFormPage implements OnInit {
             this.clearCart();
           })
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }
 
@@ -311,7 +311,7 @@ export class OrderFormPage implements OnInit {
         this.presentToast('Quantity Updated');
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }
 

@@ -45,10 +45,10 @@ export class NavBarComponent implements OnInit {
   signout() {
     signOut(this.auth)
       .then(() => {
-        console.log('logged out');
+        alert('Logged Out');
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }
 }

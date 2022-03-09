@@ -56,11 +56,11 @@ export class TotalordersComponent implements OnInit {
           updateDoc(ref, {
             status: 'delivered',
           }).catch((error) => {
-            console.log(error);
+            alert(error);
           });
         })
         .catch((error) => {
-          console.log(error);
+          alert(error);
         });
     } else {
       const docRef = doc(this.db, 'totalorders', orderId);
@@ -72,11 +72,11 @@ export class TotalordersComponent implements OnInit {
           updateDoc(ref, {
             status: 'undelivered',
           }).catch((error) => {
-            console.log(error);
+            alert(error);
           });
         })
         .catch((error) => {
-          console.log(error);
+          alert(error);
         });
     }
   }
@@ -96,7 +96,6 @@ export class TotalordersComponent implements OnInit {
           paymentId: doc.get('paymentID'),
         });
       });
-      // console.log(this.ordersId);
     });
   }
 
@@ -115,12 +114,6 @@ export class TotalordersComponent implements OnInit {
         );
         this.productQuantity.push(element.productQuantity);
       });
-      // console.log(
-      //   this.product,
-      //   this.productNames,
-      //   this.productPrice,
-      //   this.productQuantity
-      // );
       this.createPDF(orderId, this.product);
     });
   }

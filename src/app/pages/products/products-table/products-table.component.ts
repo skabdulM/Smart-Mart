@@ -72,7 +72,7 @@ export class ProductsTableComponent implements OnInit {
             this.presentToast('Product Updated!!');
           })
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
       } else {
         this.presentToast('Nothing changed');

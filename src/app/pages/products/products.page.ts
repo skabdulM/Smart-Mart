@@ -80,7 +80,7 @@ export class ProductsPage implements OnInit {
             this.presentToast('Product Added!!👏👏 ');
           })
           .catch((error) => {
-            console.log(error);
+            alert(error);
           });
       } else {
         this.presentToast('Product not added!!');

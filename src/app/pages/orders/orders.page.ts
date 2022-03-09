@@ -47,7 +47,7 @@ export class OrdersPage implements OnInit {
         this.userId = user.uid;
         this.fetchProducts();
       } else {
-        console.log('something is fishy');
+        alert('Breach Detected');
       }
     });
   }
@@ -101,10 +101,10 @@ export class OrdersPage implements OnInit {
         deleteDoc(ref);
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   }
 
@@ -318,7 +318,7 @@ export class OrdersPage implements OnInit {
           },
           table: {
             headerRows: 1,
-            widths: ['*', 80,80,80],
+            widths: ['*', 80, 80, 80],
             body: [
               [
                 {
@@ -353,7 +353,7 @@ export class OrdersPage implements OnInit {
                   textTransform: 'uppercase',
                 },
               ],
-             
+
               [
                 {
                   text: productNames,
@@ -452,7 +452,7 @@ export class OrdersPage implements OnInit {
         },
         '\n\n',
         {
-          text:  info.userName,
+          text: info.userName,
           style: 'notesTitle',
         },
         {

@@ -73,7 +73,7 @@ export class UserPage implements OnInit {
         this.presentToast('User Details Updated');
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
     // this.getUserValues();
   }
