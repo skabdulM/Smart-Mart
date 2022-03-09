@@ -46,6 +46,7 @@ export class NavBarComponent implements OnInit {
     signOut(this.auth)
       .then(() => {
         alert('Logged Out');
+        location.reload()
       })
       .catch((error) => {
         alert(error);

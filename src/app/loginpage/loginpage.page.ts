@@ -48,32 +48,35 @@ export class LoginpagePage implements OnInit {
         this.userPhoneNo = result.user.phoneNumber;
         const docRef = doc(this.db, 'users', result.user.uid);
         setDoc(docRef, {})
-          .then(() => {})
+          .then(() => {
+            const Ref = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
+            getDoc(Ref).then((info) => {
+              if (info.data() == undefined) {
+                console.log('New User');
+                const docRef = doc(
+                  this.db,
+                  'users',
+                  this.userId,
+                  'User',
+                  'UserInfo'
+                );
+                setDoc(docRef, {
+                  name: this.userName,
+                  email: this.userEmail,
+                  phoneNo: this.userPhoneNo,
+                })
+                  .then(() => {})
+                  .catch((error) => {
+                    alert(error);
+                  });
+              } else {
+                console.log('already');
+              }
+            });
+          })
           .catch((error) => {
             alert(error);
           });
-        this.router.navigate(['/home']);
-        getDoc(docRef).then((result) => {
-          if (result.data() == undefined) {
-            const docRef = doc(
-              this.db,
-              'users',
-              this.userId,
-              'User',
-              'UserInfo'
-            );
-            setDoc(docRef, {
-              name: this.userName,
-              email: this.userEmail,
-              phoneNo: this.userPhoneNo,
-            })
-              .then(() => {})
-              .catch((error) => {
-                alert(error);
-              });
-          } else {
-          }
-        });
       })
       .catch((error) => {
         alert(error);

@@ -1,4 +1,4 @@
 <ion-app>
-  <app-nav-bar></app-nav-bar>
+  <app-nav-bar *ngIf="loginCheck==true"></app-nav-bar>
  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

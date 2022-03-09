@@ -2,14 +2,9 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
-import { SlidesComponent } from './slides/slides.component';
 
 @Component({
   selector: 'app-root',
@@ -23,22 +18,15 @@ export class AppComponent {
   db = getFirestore();
   provider = new GoogleAuthProvider();
   userId: string = '';
-
+  loginCheck: boolean = false;
   ngOnInit() {
     this.retriveUser();
   }
-
-  openDialog() {
-    this.dialog.open(SlidesComponent, {
-      width: '650px',
-      height: '500px',
-    });
-  }
-
   retriveUser() {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
+        this.loginCheck = true;
       } else {
         this.router.navigate(['/loginpage']);
       }

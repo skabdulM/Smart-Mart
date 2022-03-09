@@ -51,6 +51,8 @@ export class UserPage implements OnInit {
       this.userInfo = doc.data();
       this.userPage.reset();
       this.setValues();
+      console.log(doc.data());
+      
     });
   }
 
