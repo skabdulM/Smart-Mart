@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 
 @Component({
