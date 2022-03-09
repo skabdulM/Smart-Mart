@@ -28,7 +28,6 @@ export class NavBarComponent implements OnInit {
         this.userImg = user.photoURL;
         this.getUserValues();
       } else {
-        console.log('fishy');
       }
     });
   }

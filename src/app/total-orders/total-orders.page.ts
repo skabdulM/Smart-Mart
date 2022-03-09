@@ -16,7 +16,6 @@ export class TotalOrdersPage implements OnInit {
   db = getFirestore();
   userInfo: any = {};
   userId: string = '';
- 
 
   ngOnInit() {
     this.retriveUser();
@@ -27,9 +26,7 @@ export class TotalOrdersPage implements OnInit {
       if (user !== null) {
         this.userId = user.uid;
         this.getUserValues();
-        // this.fetchProducts();
       } else {
-        console.log('fishy');
       }
     });
   }
@@ -44,7 +41,7 @@ export class TotalOrdersPage implements OnInit {
       if (this.userInfo.admin == true) {
         console.log('admin');
       } else {
-       this.router.navigate(['/user']);
+        this.router.navigate(['/user']);
       }
     });
   }

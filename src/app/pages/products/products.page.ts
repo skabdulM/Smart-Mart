@@ -42,7 +42,7 @@ export class ProductsPage implements OnInit {
         this.userId = user.uid;
         this.getUserValues();
       } else {
-        console.log('Fishy');
+      this.router.navigate(['loginpage'])
       }
     });
   }

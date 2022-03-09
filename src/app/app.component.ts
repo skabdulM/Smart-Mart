@@ -4,10 +4,8 @@ import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signInWithRedirect,
 } from 'firebase/auth';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
@@ -41,34 +39,9 @@ export class AppComponent {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
-        this.addUser();
-        this.redirectResult();
       } else {
-        this.loginGmail();
+        this.router.navigate(['/loginpage']);
       }
     });
-  }
-
-  addUser() {
-    const docRef = doc(this.db, 'users', this.userId);
-    setDoc(docRef, {})
-      .then(() => {})
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  async loginGmail() {
-    await signInWithRedirect(this.auth, this.provider);
-  }
-
-  async redirectResult() {
-    const result = await getRedirectResult(this.auth);
-    if (result !== null) {
-      this.router.navigate(['/home']);
-      this.openDialog();
-    } else {
-      // console.log('ok');
-    }
   }
 }

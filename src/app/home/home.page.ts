@@ -5,7 +5,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signInWithRedirect,
 } from 'firebase/auth';
 import {
   collection,
@@ -44,7 +43,7 @@ export class HomePage implements OnInit {
   hasPermission!: boolean;
   products: any = [];
   Orders: any = [];
-  
+
   ngOnInit() {
     this.retriveUser();
   }
@@ -70,13 +69,9 @@ export class HomePage implements OnInit {
         this.fetchProducts();
         this.fetchOrders();
       } else {
-        this.loginGmail();
+        this.router.navigate(['/loginpage']);
       }
     });
-  }
-
-  loginGmail() {
-    signInWithRedirect(this.auth, this.provider);
   }
 
   getProduct() {
@@ -171,7 +166,7 @@ export class HomePage implements OnInit {
           icon: 'cart',
           handler: () => {
             this.router.navigate(['/cart']);
-            this.dismiss()
+            this.dismiss();
           },
         },
       ],

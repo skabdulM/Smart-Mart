@@ -4,7 +4,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signInWithRedirect,
 } from 'firebase/auth';
 import {
   collection,
@@ -56,13 +55,8 @@ export class CartPage implements OnInit {
         this.userId = user.uid;
         this.fetchProducts();
       } else {
-        this.loginGmail();
       }
     });
-  }
-
-  loginGmail() {
-    signInWithRedirect(this.auth, this.provider);
   }
 
   fetchProducts() {

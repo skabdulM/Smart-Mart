@@ -45,8 +45,6 @@ export class OrdersPage implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user !== null) {
         this.userId = user.uid;
-        // this.userEmail = user.email;
-        // this.getUserValues();
         this.fetchProducts();
       } else {
         console.log('something is fishy');

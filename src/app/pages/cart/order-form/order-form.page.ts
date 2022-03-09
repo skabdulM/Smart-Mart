@@ -124,7 +124,7 @@ export class OrderFormPage implements OnInit {
         this.getUserValues();
         this.fetchProducts();
       } else {
-        console.log('something is fishy');
+       this.router.navigate(['/loginpage'])
       }
     });
   }

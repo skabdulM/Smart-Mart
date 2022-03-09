@@ -40,7 +40,6 @@ export class UserPage implements OnInit {
         this.userEmail = user.email;
         this.getUserValues();
       } else {
-        console.log('somthing is fishy');
       }
     });
   }
@@ -49,11 +48,9 @@ export class UserPage implements OnInit {
     const docRef = doc(this.db, 'users', this.userId, 'User', 'UserInfo');
     onSnapshot(docRef, (doc) => {
       this.userInfo = {};
-      // snapshot.docs.forEach((doc) => {
       this.userInfo = doc.data();
       this.userPage.reset();
       this.setValues();
-      // });
     });
   }
 
@@ -83,7 +80,7 @@ export class UserPage implements OnInit {
 
   async presentToast(message: string) {
     const toast = await this.toastController.create({
-      color:"primary",
+      color: 'primary',
       message,
       duration: 1500,
     });
