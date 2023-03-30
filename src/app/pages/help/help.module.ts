@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { HelpPageRoutingModule } from './help-routing.module';
 
 import { HelpPage } from './help.page';
-import { SwiperModule } from 'swiper/angular';
+// import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { SwiperModule } from 'swiper/angular';
     FormsModule,
     IonicModule,
     HelpPageRoutingModule,
-    SwiperModule,
+    // SwiperModule,
   ],
   declarations: [HelpPage],
 })
