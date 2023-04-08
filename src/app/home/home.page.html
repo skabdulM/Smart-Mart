@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Smart Mart</ion-title>
+    <ion-title>ScanQBy</ion-title>
     <ion-menu-button slot="start" menu="main-menu"> </ion-menu-button>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +15,6 @@
     </ion-card-header>
     <ion-card-content> Click here to open Scanner </ion-card-content>
   </ion-card>
-
   <ion-card style="height: 60px" routerLink="/cart">
     <ion-item lines="none">
       <ion-icon id="cart" name="cart" slot="start"></ion-icon>
@@ -25,7 +24,6 @@
       </ion-note>
     </ion-item>
   </ion-card>
-
   <ion-card style="height: 60px" routerLink="/orders">
     <ion-item lines="none" href="#">
       <ion-icon id="order" name="file-tray-full" slot="start"></ion-icon>
@@ -35,15 +33,6 @@
       </ion-note>
     </ion-item>
   </ion-card>
-  <!-- <ion-button (click)="presentModal()"></ion-button> -->
-  <!-- <qrcode
-    *ngFor="let qrData"
-    [qrdata]="qrData"
-    [width]="100"
-    [elementType]="'img'"
-    [errorCorrectionLevel]="'Q'"
-    cssClass="center"
-  ></qrcode> -->
   <section class="results" *ngIf="qrResultString">
     <div>
       <small>Qr Code: </small>
@@ -71,7 +60,9 @@
               it. 😪
             </h2>
           </ng-container>
-          <ion-button style="float: right;" (click)="dismiss()">dissmiss</ion-button>
+          <ion-button style="float: right" (click)="dismiss()"
+            >dismiss</ion-button
+          >
         </ion-content>
       </ng-template>
     </ion-modal>

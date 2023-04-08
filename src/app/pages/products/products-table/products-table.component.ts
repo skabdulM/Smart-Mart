@@ -37,6 +37,7 @@ export class ProductsTableComponent implements OnInit {
     'productPrice',
     'editProduct',
     'deleteProduct',
+    'downloadQR',
   ];
 
   ngOnInit() {

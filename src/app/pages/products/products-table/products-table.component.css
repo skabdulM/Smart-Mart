@@ -29,7 +29,7 @@ td {
   padding-left: 5px;
 }
 .mat-column-productDescription {
-  width: 30%;
+  width: 25%;
   padding-left: 5px;
 }
 .mat-column-productImage {
@@ -49,6 +49,12 @@ td {
 
 .mat-column-deleteProduct {
   width: 5%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.mat-column-downloadQR {
+  width: 4%;
   text-align: center;
   cursor: pointer;
 }
